@@ -1,0 +1,503 @@
+/* Root variables for consistent theming */
+:root {
+    --primary-blue: #003087;
+    --accent-orange: #f7982a;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #666666;
+    --red: #f1352b;
+    --background-light: #f5f7fa;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+/* Breadcrumb section */
+.solar-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 1200px;
+    margin: 16px auto;
+}
+
+.solar-breadcrumb-button {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-button:hover {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-item {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-breadcrumb-button:hover .solar-breadcrumb-item,
+.solar-breadcrumb-wrapper:hover .solar-breadcrumb-item {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-divider {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-breadcrumb-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-current {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--accent-orange);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Account section */
+.solar-account {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Sidebar section */
+.solar-account-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 300px;
+}
+
+.solar-account-sidebar-toggle {
+    display: none;
+    background: var(--primary-blue);
+    color: var(--text-light);
+    border: none;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-account-sidebar-toggle:hover {
+    background: var(--accent-orange);
+}
+
+.solar-account-user {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--text-muted);
+}
+
+.solar-account-user-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.solar-account-user-email {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-account-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-account-tab,
+.solar-account-tab-active {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-account-tab-active {
+    background-color: var(--accent-orange);
+}
+
+.solar-account-tab:hover {
+    background-color: var(--background-light);
+}
+
+.solar-account-tab-active:hover {
+    background-color: var(--accent-orange);
+}
+
+.solar-account-tab-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-account-tab-active .solar-account-tab-text,
+.solar-account-tab-active .solar-account-tab-icon {
+    color: var(--text-light);
+}
+
+.solar-account-tab .solar-account-tab-text,
+.solar-account-tab .solar-account-tab-icon {
+    color: var(--primary-blue);
+}
+
+.solar-account-tab:hover .solar-account-tab-text,
+.solar-account-tab:hover .solar-account-tab-icon {
+    color: var(--primary-blue);
+}
+
+.solar-account-tab-icon {
+    font-family: 'Font Awesome 5 Pro', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Account details section */
+.solar-account-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.solar-account-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    transition: opacity 0.2s ease;
+}
+
+.solar-account-details-header {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.solar-account-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.solar-account-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solar-account-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.solar-account-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.solar-account-label-text {
+    color: var(--text-dark);
+}
+
+.solar-account-required {
+    color: var(--red);
+}
+
+.solar-account-optional {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.solar-account-input {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--text-light);
+    border: 1px solid var(--text-muted);
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    transition: var(--transition);
+}
+
+.solar-account-input:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
+}
+
+.solar-account-input:invalid:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(241, 53, 43, 0.1);
+}
+
+.solar-account-input::placeholder {
+    color: var(--text-muted);
+}
+
+.solar-account-textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.solar-account-save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: var(--accent-orange);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    width: fit-content;
+    min-width: 120px;
+}
+
+.solar-account-save-button:hover {
+    background-color: var(--primary-blue);
+    transform: translateY(-2px);
+}
+
+.solar-account-save-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-account-orders {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    .solar-breadcrumb {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 12px;
+    }
+
+    .solar-account {
+        padding: 12px;
+    }
+
+    .solar-account-sidebar {
+        max-width: 100%;
+        position: relative;
+        display: none;
+    }
+
+    .solar-account-sidebar-open {
+        display: flex;
+    }
+
+    .solar-account-sidebar-toggle {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .solar-account-user-name {
+        font-size: 16px;
+    }
+
+    .solar-account-user-email {
+        font-size: 12px;
+    }
+
+    .solar-account-tab-text {
+        font-size: 12px;
+    }
+
+    .solar-account-details-header {
+        font-size: 18px;
+    }
+
+    .solar-account-label-text,
+    .solar-account-input,
+    .solar-account-orders {
+        font-size: 12px;
+    }
+
+    .solar-account-save-button {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* Tablet and Desktop Responsiveness */
+@media (min-width: 768px) {
+    .solar-breadcrumb {
+        padding: 12px 24px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 14px;
+    }
+
+    .solar-account {
+        flex-direction: row;
+        gap: 32px;
+        padding: 24px;
+    }
+
+    .solar-account-sidebar {
+        width: 30%;
+        max-width: 300px;
+        display: flex;
+    }
+
+    .solar-account-sidebar-toggle {
+        display: none;
+    }
+
+    .solar-account-details {
+        width: 70%;
+    }
+
+    .solar-account-form-row {
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .solar-account-form-group {
+        width: 50%;
+    }
+
+    .solar-account-user-name {
+        font-size: 20px;
+    }
+
+    .solar-account-details-header {
+        font-size: 22px;
+    }
+
+    .solar-account-tab-text {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .solar-breadcrumb {
+        padding: 16px 32px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 15px;
+    }
+
+    .solar-account {
+        padding: 32px;
+    }
+
+    .solar-account-user-name {
+        font-size: 22px;
+    }
+
+    .solar-account-user-email {
+        font-size: 15px;
+    }
+
+    .solar-account-details-header {
+        font-size: 24px;
+    }
+
+    .solar-account-tab-text {
+        font-size: 15px;
+    }
+
+    .solar-account-label-text,
+    .solar-account-input,
+    .solar-account-orders {
+        font-size: 15px;
+    }
+
+    .solar-account-save-text {
+        font-size: 15px;
+    }
+}

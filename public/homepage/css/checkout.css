@@ -1,0 +1,659 @@
+/* Root variables for consistent theming */
+:root {
+    --primary-blue: #003087;
+    --accent-orange: #f7982a;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #666666;
+    --green: #1aba1a;
+    --red: #f1352b;
+    --background-light: #f5f7fa;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+/* Breadcrumb section */
+.solar-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 1200px;
+    margin: 16px auto;
+}
+
+.solar-breadcrumb-button {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-button:hover {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-item {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-breadcrumb-button:hover .solar-breadcrumb-item,
+.solar-breadcrumb-wrapper:hover .solar-breadcrumb-item {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-divider {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-breadcrumb-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-current {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--accent-orange);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Checkout section */
+.solar-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.solar-checkout-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Checkout content */
+.solar-checkout-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Billing section */
+.solar-checkout-billing {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.solar-checkout-billing-header,
+.solar-checkout-additional-header,
+.solar-checkout-order-header {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.solar-checkout-billing-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.solar-checkout-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solar-checkout-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.solar-checkout-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.solar-checkout-label-text {
+    color: var(--text-dark);
+}
+
+.solar-checkout-required {
+    color: var(--red);
+}
+
+.solar-checkout-optional {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.solar-checkout-input,
+.solar-checkout-select,
+.solar-checkout-textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--text-light);
+    border: 1px solid var(--text-muted);
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    transition: var(--transition);
+}
+
+.solar-checkout-input:focus,
+.solar-checkout-select:focus,
+.solar-checkout-textarea:focus {
+    border-color: var(--primary-blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 48, 135, 0.1);
+}
+
+.solar-checkout-input:invalid:focus,
+.solar-checkout-select:invalid:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(241, 53, 43, 0.1);
+}
+
+.solar-checkout-input::placeholder,
+.solar-checkout-textarea::placeholder {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.solar-checkout-select {
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path fill="%23666666" d="M0 0h12L6 6z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.solar-checkout-form-address {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solar-checkout-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.solar-checkout-account {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.solar-checkout-account-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-additional {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.solar-checkout-textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Order section */
+.solar-checkout-order {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.solar-checkout-order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.solar-checkout-order-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.solar-checkout-order-heading {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--text-muted);
+}
+
+.solar-checkout-order-product,
+.solar-checkout-order-subtotal {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.solar-checkout-order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px 0;
+}
+
+.solar-checkout-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.solar-checkout-product-img,
+.solar-checkout-product-img-prod,
+.solar-checkout-product-img-2 {
+    width: 60px;
+    height: 60px;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius);
+}
+
+.solar-checkout-product-img {
+    background-image: url(./img/image.png);
+}
+
+.solar-checkout-product-img-prod {
+    background-image: url(./img/prod37-png-2.png);
+}
+
+.solar-checkout-product-img-2 {
+    background-image: url(./img/prod37-png.png);
+}
+
+.solar-checkout-product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-checkout-product-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.solar-checkout-product-quantity {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-product-subtotal {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-order-shipping {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--text-muted);
+}
+
+.solar-checkout-shipping-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-shipping-cost {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--red);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-order-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.solar-checkout-total-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.solar-checkout-total-amount {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--accent-orange);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.solar-checkout-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.solar-checkout-payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-checkout-payment-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.solar-checkout-radio {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.solar-checkout-radio-wrapper {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.solar-checkout-radio-selected {
+    background-color: var(--primary-blue);
+    border-radius: 50%;
+}
+
+.solar-checkout-payment-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-checkout-place-order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: var(--accent-orange);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-checkout-place-order:hover {
+    background-color: var(--primary-blue);
+    transform: translateY(-2px);
+}
+
+.solar-checkout-place-order-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    .solar-breadcrumb {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 12px;
+    }
+
+    .solar-checkout {
+        padding: 12px;
+    }
+
+    .solar-checkout-title {
+        font-size: 18px;
+    }
+
+    .solar-checkout-billing-header,
+    .solar-checkout-additional-header,
+    .solar-checkout-order-header {
+        font-size: 16px;
+    }
+
+    .solar-checkout-label-text,
+    .solar-checkout-input,
+    .solar-checkout-select,
+    .solar-checkout-textarea,
+    .solar-checkout-product-name,
+    .solar-checkout-product-quantity,
+    .solar-checkout-product-subtotal,
+    .solar-checkout-shipping-text,
+    .solar-checkout-shipping-cost {
+        font-size: 12px;
+    }
+
+    .solar-checkout-product-img,
+    .solar-checkout-product-img-prod,
+    .solar-checkout-product-img-2 {
+        width: 50px;
+        height: 50px;
+    }
+
+    .solar-checkout-order-card,
+    .solar-checkout-payment {
+        padding: 16px;
+    }
+
+    .solar-checkout-total-label,
+    .solar-checkout-total-amount {
+        font-size: 14px;
+    }
+
+    .solar-checkout-place-order-text {
+        font-size: 12px;
+    }
+}
+
+/* Tablet and Desktop Responsiveness */
+@media (min-width: 768px) {
+    .solar-breadcrumb {
+        padding: 12px 24px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 14px;
+    }
+
+    .solar-checkout {
+        padding: 24px;
+    }
+
+    .solar-checkout-content {
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .solar-checkout-billing {
+        width: 60%;
+    }
+
+    .solar-checkout-order {
+        width: 40%;
+    }
+
+    .solar-checkout-form-row {
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .solar-checkout-form-group {
+        width: 50%;
+    }
+
+    .solar-checkout-title {
+        font-size: 24px;
+    }
+
+    .solar-checkout-billing-header,
+    .solar-checkout-additional-header,
+    .solar-checkout-order-header {
+        font-size: 18px;
+    }
+
+    .solar-checkout-label-text,
+    .solar-checkout-input,
+    .solar-checkout-select,
+    .solar-checkout-textarea,
+    .solar-checkout-product-name,
+    .solar-checkout-product-quantity,
+    .solar-checkout-product-subtotal,
+    .solar-checkout-shipping-text,
+    .solar-checkout-shipping-cost {
+        font-size: 14px;
+    }
+
+    .solar-checkout-total-label,
+    .solar-checkout-total-amount {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .solar-breadcrumb {
+        padding: 16px 32px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 15px;
+    }
+
+    .solar-checkout {
+        padding: 32px;
+    }
+
+    .solar-checkout-title {
+        font-size: 28px;
+    }
+
+    .solar-checkout-billing-header,
+    .solar-checkout-additional-header,
+    .solar-checkout-order-header {
+        font-size: 20px;
+    }
+
+    .solar-checkout-label-text,
+    .solar-checkout-input,
+    .solar-checkout-select,
+    .solar-checkout-textarea,
+    .solar-checkout-product-name,
+    .solar-checkout-product-quantity,
+    .solar-checkout-product-subtotal,
+    .solar-checkout-shipping-text,
+    .solar-checkout-shipping-cost {
+        font-size: 15px;
+    }
+
+    .solar-checkout-total-label,
+    .solar-checkout-total-amount {
+        font-size: 18px;
+    }
+
+    .solar-checkout-place-order-text {
+        font-size: 15px;
+    }
+}

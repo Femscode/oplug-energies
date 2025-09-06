@@ -1,0 +1,1138 @@
+/* Root variables for consistent theming */
+:root {
+    --primary-blue: #003087;
+    --accent-orange: #f7982a;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #666666;
+    --green: #1aba1a;
+    --background-light: #f5f7fa;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+/* Solar categories section */
+.solar-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Categories and filters container */
+.solar-categories-div {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+/* All categories section */
+.solar-categories-all {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Category items */
+.solar-categories-inverters,
+.solar-categories-panels,
+.solar-categories-batteries,
+.solar-categories-accessories,
+.solar-categories-solutions,
+.solar-categories-appliances {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-categories-item-link {
+    width: 100%;
+}
+
+.solar-categories-item-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--accent-orange);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+.solar-categories-item-text:hover {
+    color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.solar-categories-subitems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-categories-subitem-link {
+    width: 100%;
+}
+
+.solar-categories-subitem-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+.solar-categories-subitem-text:hover {
+    color: var(--accent-orange);
+    cursor: pointer;
+}
+
+/* Filter box */
+.solar-categories-filter-box {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+}
+
+.solar-categories-filter-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--background-light);
+}
+
+.solar-categories-filter-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+/* Mobile filter styles */
+.solar-categories-filter-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-categories-filter-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--background-light);
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--primary-blue);
+    background-color: var(--text-light);
+    transition: var(--transition);
+}
+
+.solar-categories-filter-select:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.solar-categories-filter-price {
+    display: flex;
+    gap: 8px;
+}
+
+.solar-categories-filter-button {
+    all: unset;
+    padding: 10px;
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+    text-align: center;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.solar-categories-filter-button:hover {
+    background-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+/* Desktop filter styles */
+.solar-categories-filter-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.solar-categories-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--background-light);
+}
+
+.solar-categories-filter-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-categories-filter-input {
+    width: 100%;
+    height: 34px;
+    background-color: var(--background-light);
+    border: 1px solid rgba(153, 153, 153, 0.2);
+    border-radius: 5px;
+}
+
+.solar-categories-filter-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-categories-filter-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.solar-categories-filter-check-input,
+.solar-categories-filter-check-input-unchecked {
+    width: 14px;
+    height: 14px;
+    border-radius: 3.5px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    transition: var(--transition);
+}
+
+.solar-categories-filter-check-input {
+    background-color: var(--accent-orange);
+}
+
+.solar-categories-filter-check-input-unchecked {
+    background-color: var(--text-light);
+}
+
+.solar-categories-filter-check-input:hover,
+.solar-categories-filter-check-input-unchecked:hover {
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.solar-categories-filter-check-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 8px;
+}
+
+.solar-categories-filter-check-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-categories-filter-check-count {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-categories-filter-brand-img,
+.solar-categories-filter-brand-img-2,
+.solar-categories-filter-brand-img-3,
+.solar-categories-filter-brand-img-4,
+.solar-categories-filter-brand-img-5,
+.solar-categories-filter-brand-img-6,
+.solar-categories-filter-brand-img-7,
+.solar-categories-filter-brand-img-8,
+.solar-categories-filter-brand-img-9 {
+    width: 61px;
+    height: 32px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Price filter group */
+.solar-categories-filter-group-price {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--background-light);
+}
+
+.solar-categories-price-range {
+    width: 100%;
+}
+
+.solar-categories-price-slider {
+    width: 100%;
+    height: 2px;
+    background-color: #dcdde4;
+    border-radius: 2px;
+    position: relative;
+}
+
+.solar-categories-price-progress {
+    height: 2px;
+    background-color: var(--accent-orange);
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.solar-categories-price-handle-min,
+.solar-categories-price-handle-max {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-orange);
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.solar-categories-price-handle-min {
+    left: 0;
+}
+
+.solar-categories-price-handle-max {
+    right: 0;
+}
+
+.solar-categories-price-handle-min:hover,
+.solar-categories-price-handle-max:hover {
+    transform: scale(1.2);
+    cursor: grab;
+}
+
+.solar-categories-price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.solar-categories-price-field {
+    padding: 8px;
+    background-color: var(--background-light);
+    border-radius: 5px;
+}
+
+.solar-categories-price-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.solar-categories-price-separator {
+    width: 10px;
+    height: 1px;
+    background-color: var(--text-dark);
+}
+
+.solar-categories-price-button {
+    all: unset;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-orange);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.solar-categories-price-button:hover {
+    background-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.solar-categories-price-button-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Banner section */
+.solar-categories-png {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 16px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+    border-radius: var(--border-radius);
+    height: 280px;
+}
+
+.solar-categories-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 0;
+}
+
+.solar-categories-mobok {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    line-height: 1.4;
+    color: var(--text-light);
+}
+
+.solar-categories-text-bold {
+    font-weight: 700;
+}
+
+.solar-categories-text-light {
+    font-weight: 300;
+}
+
+.solar-categories-starting-from {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-categories-text {
+    color: var(--text-light);
+}
+
+.solar-categories-price {
+    color: var(--accent-orange);
+}
+
+/* Best seller section */
+.solar-categories-best-seller {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+}
+
+.solar-categories-best-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.solar-categories-best-products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.solar-categories-best-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    transition: var(--transition);
+}
+
+.solar-categories-best-item:hover {
+    transform: translateY(-4px);
+}
+
+.solar-categories-best-product {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-categories-best-img-wrapper {
+    width: 100%;
+    height: 180px;
+}
+
+.solar-categories-best-img {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.solar-categories-best-img:hover {
+    opacity: 0.9;
+}
+
+.solar-categories-best-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+}
+
+.solar-categories-best-title-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.solar-categories-best-category {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-categories-best-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.solar-categories-best-current-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.solar-categories-best-old-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.solar-categories-best-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.solar-categories-best-status-icon {
+    font-family: 'Font Awesome 5 Pro', sans-serif;
+    font-weight: 400;
+    color: var(--green);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.solar-categories-best-status-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-categories-best-action {
+    display: flex;
+    justify-content: center;
+}
+
+.solar-categories-best-action-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: 2px solid var(--accent-orange);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.solar-categories-best-action-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--accent-orange);
+    font-size: 12px;
+    text-align: center;
+}
+
+.solar-categories-best-action-link:hover {
+    background-color: var(--accent-orange);
+}
+
+.solar-categories-best-action-link:hover .solar-categories-best-action-text {
+    color: var(--text-light);
+}
+
+/* Pagination */
+.solar-categories-pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.solar-categories-page-nav,
+.solar-categories-page-nav-active {
+    width: 40px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.solar-categories-page-nav {
+    background-color: var(--text-light);
+    border: 1px solid var(--background-light);
+}
+
+.solar-categories-page-nav-active {
+    background-color: var(--accent-orange);
+    border: 1px solid var(--accent-orange);
+}
+
+.solar-categories-page-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.solar-categories-page-nav .solar-categories-page-number {
+    color: var(--text-muted);
+}
+
+.solar-categories-page-nav-active .solar-categories-page-number {
+    color: var(--text-light);
+}
+
+.solar-categories-page-nav:hover {
+    background-color: var(--background-light);
+    cursor: pointer;
+}
+
+.solar-categories-page-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    height: 35px;
+    background-color: var(--text-light);
+    border: 1px solid var(--background-light);
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.solar-categories-page-next-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.solar-categories-page-next:hover {
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
+}
+
+.solar-categories-page-next:hover .solar-categories-page-next-text {
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+/* Recently viewed section */
+.solar-recently-viewed {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.solar-recently-viewed-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+}
+
+/* Header section */
+.solar-recently-viewed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.solar-recently-viewed-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-recently-viewed-view-all {
+    width: 65px;
+    height: 20px;
+    transition: var(--transition);
+}
+
+.solar-recently-viewed-view-all:hover {
+    cursor: pointer;
+}
+
+/* Navigation arrows */
+.solar-recently-viewed-arrows {
+    display: flex;
+    gap: 8px;
+    padding: 6px 4px;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius);
+    justify-content: center;
+}
+
+.solar-recently-viewed-vector-wrapper,
+.solar-recently-viewed-img-wrapper {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.solar-recently-viewed-vector,
+.solar-recently-viewed-img {
+    width: 8px;
+    height: 12px;
+}
+
+.solar-recently-viewed-vector-wrapper:hover,
+.solar-recently-viewed-img-wrapper:hover {
+    background-color: var(--accent-orange);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Scrolling products */
+.solar-recently-viewed-scrolling {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+.solar-recently-viewed-scrolling::-webkit-scrollbar {
+    display: none;
+}
+
+.solar-recently-viewed-product {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 220px;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.solar-recently-viewed-product:hover {
+    transform: translateY(-4px);
+}
+
+.solar-recently-viewed-product-img,
+.solar-recently-viewed-product-img-prod,
+.solar-recently-viewed-product-img-2,
+.solar-recently-viewed-product-img-3 {
+    width: 100%;
+    height: 90px;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.solar-recently-viewed-product-img {
+    background-image: url(./img/image.png);
+}
+
+.solar-recently-viewed-product-img-prod {
+    background-image: url(./img/link-prod58-png-3.png);
+}
+
+.solar-recently-viewed-product-img-2 {
+    background-image: url(./img/link-prod58-png-2.png);
+}
+
+.solar-recently-viewed-product-img-3 {
+    background-image: url(./img/link-prod58-png.png);
+}
+
+.solar-recently-viewed-product-img:hover,
+.solar-recently-viewed-product-img-prod:hover,
+.solar-recently-viewed-product-img-2:hover,
+.solar-recently-viewed-product-img-3:hover {
+    opacity: 0.9;
+}
+
+.solar-recently-viewed-product-details,
+.solar-recently-viewed-product-details-alt {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-recently-viewed-product-title,
+.solar-recently-viewed-product-title-wrapper {
+    width: 100%;
+}
+
+.solar-recently-viewed-product-title-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.solar-recently-viewed-product-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 767px) {
+    .solar-categories-all {
+        display: none;
+    }
+
+    .solar-categories-div {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .solar-categories-filter-box {
+        width: 100%;
+        max-width: 100%;
+        order: -1;
+        padding: 12px;
+    }
+
+    .solar-categories-filter-mobile {
+        display: flex;
+    }
+
+    .solar-categories-filter-desktop {
+        display: none;
+    }
+
+    .solar-categories-png {
+        width: 100%;
+        height: 200px;
+    }
+
+    .solar-categories-best-products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .solar-categories-best-item {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .solar-categories-best-img-wrapper {
+        height: 150px;
+    }
+
+    .solar-recently-viewed {
+        padding: 12px;
+    }
+
+    .solar-recently-viewed-product {
+        width: 150px;
+        padding: 12px;
+    }
+
+    .solar-recently-viewed-product-img,
+    .solar-recently-viewed-product-img-prod,
+    .solar-recently-viewed-product-img-2,
+    .solar-recently-viewed-product-img-3 {
+        height: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    .solar-categories {
+        padding: 24px;
+    }
+
+    .solar-categories-div {
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .solar-categories-all {
+        width: 30%;
+        max-width: 300px;
+    }
+
+    .solar-categories-filter-box {
+        width: 30%;
+        max-width: 300px;
+    }
+
+    .solar-categories-filter-mobile {
+        display: none;
+    }
+
+    .solar-categories-filter-desktop {
+        display: flex;
+    }
+
+    .solar-categories-png {
+        width: 40%;
+        height: 300px;
+    }
+
+    .solar-categories-best-products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .solar-categories-best-item {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .solar-categories {
+        padding: 32px;
+    }
+
+    .solar-categories-item-text {
+        font-size: 16px;
+    }
+
+    .solar-categories-subitem-text {
+        font-size: 14px;
+    }
+
+    .solar-categories-filter-title {
+        font-size: 20px;
+    }
+
+    .solar-categories-mobok {
+        font-size: 28px;
+    }
+
+    .solar-categories-best-title {
+        font-size: 18px;
+    }
+
+    .solar-categories-best-products {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .solar-categories-best-img-wrapper {
+        height: 200px;
+    }
+
+    .solar-categories-best-title-text {
+        font-size: 16px;
+    }
+
+    .solar-categories-best-current-price {
+        font-size: 18px;
+    }
+
+    .solar-recently-viewed {
+        padding: 32px;
+    }
+
+    .solar-recently-viewed-product {
+        width: 260px;
+    }
+
+    .solar-recently-viewed-title {
+        font-size: 16px;
+    }
+
+    .solar-recently-viewed-product-title-text {
+        font-size: 16px;
+    }
+
+    .solar-recently-viewed-product-price {
+        font-size: 18px;
+    }
+}
+
+/* Root variables for consistent theming */
+:root {
+    --primary-blue: #003087;
+    --accent-orange: #f7982a;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #666666;
+    --divider-color: #6c757d;
+    --background-light: #f5f7fa;
+    --border-radius: 10px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+}
+
+
+/* Breadcrumb section */
+.solar-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Breadcrumb button */
+.solar-breadcrumb .solar-breadcrumb-button {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb .solar-breadcrumb-button:hover {
+    color: var(--primary-blue);
+}
+
+/* Breadcrumb item */
+.solar-breadcrumb .solar-breadcrumb-item {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb .solar-breadcrumb-button:hover .solar-breadcrumb-item,
+.solar-breadcrumb .solar-breadcrumb-wrapper:hover .solar-breadcrumb-item {
+    color: var(--primary-blue);
+}
+
+/* Breadcrumb divider */
+.solar-breadcrumb .solar-breadcrumb-divider {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--divider-color);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Breadcrumb wrapper */
+.solar-breadcrumb .solar-breadcrumb-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* Current breadcrumb item */
+.solar-breadcrumb .solar-breadcrumb-current {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--accent-orange);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+    .solar-breadcrumb {
+        padding: 16px 24px;
+    }
+
+    .solar-breadcrumb .solar-breadcrumb-item,
+    .solar-breadcrumb .solar-breadcrumb-current {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .solar-breadcrumb {
+        padding: 16px 32px;
+    }
+
+    .solar-breadcrumb .solar-breadcrumb-item,
+    .solar-breadcrumb .solar-breadcrumb-current {
+        font-size: 16px;
+    }
+}

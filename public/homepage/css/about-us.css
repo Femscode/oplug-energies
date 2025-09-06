@@ -1,0 +1,414 @@
+:root {
+  --primary-color: #1a73e8;
+  --text-color: #131523;
+  --text-muted: #5a607f;
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #dee2e6;
+  --accent-color: #f7982a;
+  --required-color: #f1352b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+.main-section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.banner {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./img/about1-png.png);
+  background-size: cover;
+  background-position: center;
+  padding: 4rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: #fff;
+}
+
+.banner h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.banner .subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.banner .tagline {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.banner .tagline span {
+  color: #fff;
+}
+
+.banner .tagline span:nth-child(2) {
+  color: var(--accent-color);
+}
+
+.info-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.info-image {
+  background-image: url(./img/about2-png.png);
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
+  min-height: 300px;
+}
+
+.info-card {
+  background-color: var(--bg-color);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-card p {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.info-card p:first-child {
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.shop-now {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  background-color: var(--accent-color);
+  color: #fff;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.shop-now:hover {
+  background-color: #d67715;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.value-card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.value-card h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.value-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.vision-mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 2rem;
+}
+
+.vision-mission .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.content-block h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.content-block p {
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+.vision-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.media-upload {
+  padding: 1.5rem;
+}
+
+.media-upload h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.upload-area {
+  border: 1px dashed var(--text-muted);
+  border-radius: 0.25rem;
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--card-bg);
+}
+
+.upload-area.dragover {
+  border-color: var(--primary-color);
+  background-color: rgba(26, 115, 232, 0.1);
+}
+
+.upload-area button {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: var(--accent-color);
+  cursor: pointer;
+}
+
+.upload-area button:hover {
+  background-color: var(--border-color);
+}
+
+.upload-area p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.file-preview p {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.team h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.team-members {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.member-image {
+  width: 100%;
+  aspect-ratio: 1.07;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
+}
+
+.member-image:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
+.team-member h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.team-member p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.contact-form {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-form h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.form-group label .required {
+  color: var(--required-color);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.submit-button {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.submit-button:hover {
+  background-color: #d67715;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .main-section {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .banner {
+    padding: 2rem 1rem;
+  }
+
+  .banner h1 {
+    font-size: 1.75rem;
+  }
+
+  .banner .subtitle {
+    font-size: 1.25rem;
+  }
+
+  .banner .tagline {
+    font-size: 1rem;
+  }
+
+  .info-section {
+    grid-template-columns: 1fr;
+  }
+
+  .info-image {
+    min-height: 200px;
+  }
+
+  .vision-mission {
+    grid-template-columns: 1fr;
+  }
+
+  .vision-image {
+    height: 200px;
+  }
+
+  .upload-area {
+    padding: 1rem;
+  }
+
+  .submit-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner h1 {
+    font-size: 1.5rem;
+  }
+
+  .banner .subtitle {
+    font-size: 1rem;
+  }
+
+  .banner .tagline {
+    font-size: 0.875rem;
+  }
+
+  .value-card h2,
+  .content-block h2,
+  .team h2,
+  .contact-form h2,
+  .media-upload h2 {
+    font-size: 1rem;
+  }
+
+  .value-card p,
+  .content-block p,
+  .team-member p,
+  .form-group label {
+    font-size: 0.75rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.875rem;
+  }
+}

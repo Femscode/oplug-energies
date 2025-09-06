@@ -1,0 +1,824 @@
+/* Root variables for consistent theming */
+:root {
+    --primary-blue: #003087;
+    --accent-orange: #f7982a;
+    --text-dark: #1a1a1a;
+    --text-light: #ffffff;
+    --text-muted: #666666;
+    --green: #1aba1a;
+    --background-light: #f5f7fa;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+/* Breadcrumb section */
+.solar-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 1200px;
+    margin: 16px auto;
+}
+
+.solar-breadcrumb-button {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-button:hover {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-item {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-button:hover .solar-breadcrumb-item,
+.solar-breadcrumb-wrapper:hover .solar-breadcrumb-item {
+    color: var(--primary-blue);
+}
+
+.solar-breadcrumb-divider {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-breadcrumb-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-breadcrumb-current {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--accent-orange);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Product details section */
+.solar-product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Deal section */
+.solar-product-details-deal {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Product image and thumbnails */
+.solar-product-details-product {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.solar-product-details-swiper-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 60px;
+}
+
+.solar-product-details-thumb,
+.solar-product-details-thumb-prod {
+    width: 100%;
+    height: 60px;
+    border-radius: 4px;
+    border: 1px solid var(--accent-orange);
+    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    transition: var(--transition);
+}
+
+.solar-product-details-thumb:hover,
+.solar-product-details-thumb-prod:hover {
+    border-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+.solar-product-details-main-img {
+    flex: 1;
+    background-image: url(./img/prod5-png.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius);
+    min-height: 200px;
+    position: relative;
+}
+
+.solar-product-details-discount-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+    background-color: var(--accent-orange);
+    border-radius: 8px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.solar-product-details-save {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--text-light);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-save-amount {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Product information */
+.solar-product-details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.solar-product-details-title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.solar-product-details-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 20px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.solar-product-details-category {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-product-details-price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.solar-product-details-current-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--accent-orange);
+    font-size: 22px;
+    line-height: 1.4;
+}
+
+.solar-product-details-old-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.solar-product-details-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-product-details-spec-item {
+    width: 100%;
+}
+
+.solar-product-details-spec-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.solar-product-details-benefits {
+    display: flex;
+    gap: 12px;
+}
+
+.solar-product-details-benefit,
+.solar-product-details-benefit-alt {
+    padding: 6px 16px;
+    border-radius: 8px;
+}
+
+.solar-product-details-benefit {
+    background-color: rgba(26, 186, 26, 0.1);
+}
+
+.solar-product-details-benefit-alt {
+    background-color: rgba(247, 152, 42, 0.1);
+}
+
+.solar-product-details-benefit-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--green);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-benefit-text-alt {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    color: var(--accent-orange);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-product-details-contact-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--accent-orange);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-contact-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+/* Checkout section */
+.solar-product-details-checkout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 343px;
+}
+
+.solar-product-details-checkout-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solar-product-details-price-total {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-product-details-total-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-total-amount {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 24px;
+    line-height: 1.4;
+}
+
+.solar-product-details-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.solar-product-details-status-icon {
+    font-family: 'Font Awesome 5 Pro', sans-serif;
+    font-weight: 400;
+    color: var(--green);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.solar-product-details-status-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.solar-product-details-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 8px 16px;
+    border: 1px solid var(--background-light);
+    border-radius: var(--border-radius);
+    background-color: var(--text-light);
+}
+
+.solar-product-details-quantity-decrement,
+.solar-product-details-quantity-increment {
+    font-family: 'Font Awesome 5 Pro', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-product-details-quantity-decrement:hover,
+.solar-product-details-quantity-increment:hover {
+    color: var(--accent-orange);
+}
+
+.solar-product-details-quantity-input {
+    width: 60px;
+    text-align: center;
+}
+
+.solar-product-details-quantity-value {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.solar-product-details-checkout-button,
+.solar-product-details-cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.solar-product-details-checkout-button {
+    background-color: var(--accent-orange);
+}
+
+.solar-product-details-cart-button {
+    background-color: var(--background-light);
+    border: 1px solid var(--accent-orange);
+}
+
+.solar-product-details-checkout-button:hover {
+    background-color: var(--primary-blue);
+}
+
+.solar-product-details-cart-button:hover {
+    background-color: var(--accent-orange);
+}
+
+.solar-product-details-checkout-text,
+.solar-product-details-cart-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.solar-product-details-checkout-text {
+    color: var(--text-light);
+}
+
+.solar-product-details-cart-text {
+    color: var(--primary-blue);
+}
+
+.solar-product-details-checkout-button:hover .solar-product-details-checkout-text,
+.solar-product-details-cart-button:hover .solar-product-details-cart-text {
+    color: var(--text-light);
+}
+
+.solar-product-details-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.solar-product-details-payment-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.solar-product-details-payment-methods {
+    display: flex;
+    gap: 12px;
+}
+
+.solar-product-details-payment-img,
+.solar-product-details-mastercard {
+    width: 50px;
+    height: auto;
+}
+
+/* Product description section */
+.solar-product-description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 16px;
+    max-width: 1200px;
+    margin: 16px auto;
+    background-color: var(--text-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.solar-product-description-tabs {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    border-bottom: 1px solid var(--background-light);
+}
+
+.solar-product-description-tab,
+.solar-product-description-tab-active {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-product-description-tab-active {
+    font-weight: 700;
+    color: var(--primary-blue);
+    border-bottom: 2px solid var(--accent-orange);
+}
+
+.solar-product-description-tab {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.solar-product-description-tab:hover {
+    color: var(--primary-blue);
+}
+
+.solar-product-description-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.solar-product-description-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    color: var(--primary-blue);
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+    transition: opacity 0.2s ease;
+}
+
+.solar-product-description-image {
+    width: 100%;
+    height: 200px;
+    background-image: url(./img/det1-jpeg.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.solar-product-description-image:hover {
+    opacity: 0.9;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    .solar-breadcrumb {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 12px;
+    }
+
+    .solar-product-details {
+        padding: 12px;
+    }
+
+    .solar-product-details-deal {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .solar-product-details-product {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .solar-product-details-swiper-wrapper {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .solar-product-details-swiper-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    .solar-product-details-thumb,
+    .solar-product-details-thumb-prod {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
+    .solar-product-details-main-img {
+        min-height: 150px;
+    }
+
+    .solar-product-details-title {
+        font-size: 16px;
+    }
+
+    .solar-product-details-current-price {
+        font-size: 18px;
+    }
+
+    .solar-product-details-old-price {
+        font-size: 12px;
+    }
+
+    .solar-product-details-spec-text {
+        font-size: 11px;
+    }
+
+    .solar-product-details-contact-number {
+        font-size: 16px;
+    }
+
+    .solar-product-details-checkout {
+        padding: 16px;
+        max-width: 100%;
+    }
+
+    .solar-product-details-total-amount {
+        font-size: 20px;
+    }
+
+    .solar-product-description {
+        padding: 16px 12px;
+    }
+
+    .solar-product-description-tab,
+    .solar-product-description-tab-active {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    .solar-product-description-text {
+        font-size: 12px;
+    }
+
+    .solar-product-description-image {
+        height: 150px;
+    }
+}
+
+/* Tablet and Desktop Responsiveness */
+@media (min-width: 768px) {
+    .solar-breadcrumb {
+        padding: 12px 24px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 14px;
+    }
+
+    .solar-product-details {
+        padding: 24px;
+    }
+
+    .solar-product-details-deal {
+        flex-direction: row;
+        gap: 32px;
+    }
+
+    .solar-product-details-product {
+        width: 50%;
+    }
+
+    .solar-product-details-info {
+        width: 50%;
+    }
+
+    .solar-product-details-main-img {
+        min-height: 300px;
+    }
+
+    .solar-product-details-title {
+        font-size: 22px;
+    }
+
+    .solar-product-details-current-price {
+        font-size: 24px;
+    }
+
+    .solar-product-details-old-price {
+        font-size: 14px;
+    }
+
+    .solar-product-details-spec-text {
+        font-size: 12px;
+    }
+
+    .solar-product-details-contact-number {
+        font-size: 18px;
+    }
+
+    .solar-product-details-total-amount {
+        font-size: 26px;
+    }
+
+    .solar-product-description {
+        padding: 24px;
+    }
+
+    .solar-product-description-tab,
+    .solar-product-description-tab-active {
+        font-size: 16px;
+    }
+
+    .solar-product-description-text {
+        font-size: 14px;
+    }
+
+    .solar-product-description-image {
+        height: 300px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .solar-breadcrumb {
+        padding: 16px 32px;
+    }
+
+    .solar-breadcrumb-item,
+    .solar-breadcrumb-current {
+        font-size: 15px;
+    }
+
+    .solar-product-details {
+        flex-direction: row;
+        gap: 32px;
+        padding: 32px;
+    }
+
+    .solar-product-details-deal {
+        width: 65%;
+    }
+
+    .solar-product-details-checkout {
+        width: 35%;
+        max-width: 400px;
+    }
+
+    .solar-product-details-main-img {
+        min-height: 400px;
+    }
+
+    .solar-product-details-title {
+        font-size: 26px;
+    }
+
+    .solar-product-details-current-price {
+        font-size: 28px;
+    }
+
+    .solar-product-details-old-price {
+        font-size: 16px;
+    }
+
+    .solar-product-details-spec-text {
+        font-size: 14px;
+    }
+
+    .solar-product-details-contact-number {
+        font-size: 20px;
+    }
+
+    .solar-product-details-total-amount {
+        font-size: 30px;
+    }
+
+    .solar-product-details-checkout-text,
+    .solar-product-details-cart-text {
+        font-size: 14px;
+    }
+
+    .solar-product-description {
+        padding: 32px;
+    }
+
+    .solar-product-description-tab,
+    .solar-product-description-tab-active {
+        font-size: 18px;
+    }
+
+    .solar-product-description-text {
+        font-size: 15px;
+    }
+
+    .solar-product-description-image {
+        height: 350px;
+    }
+}
