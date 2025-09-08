@@ -22,18 +22,18 @@
                 <div class="solar-cart-product-title"><p class="solar-cart-product-title-text">FUTURE-H ALL IN ONE SOLUTION</p></div>
                 <div class="solar-cart-product-price">₦1,824,000</div>
                 <div class="solar-cart-product-quantity">
-                    <div class="solar-cart-quantity-decrement"><div class="solar-cart-quantity-icon"></div></div>
+                    <div class="solar-cart-quantity-decrement"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/minus.svg') }}" alt="minus"/></div></div>
                     <div class="solar-cart-quantity-input">
                         <div class="solar-cart-quantity-value"><div class="solar-cart-quantity-text">1</div></div>
                     </div>
-                    <div class="solar-cart-quantity-increment"><div class="solar-cart-quantity-icon"></div></div>
+                    <div class="solar-cart-quantity-increment"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/plus.svg') }}" alt="plus"/></div></div>
                 </div>
                 <div class="solar-cart-product-benefits">
                     <div class="solar-cart-benefit"><div class="solar-cart-benefit-text">FREE SHIPPING</div></div>
                     <div class="solar-cart-benefit-alt"><div class="solar-cart-benefit-text-alt">50% INSTALLATION</div></div>
                 </div>
                 <div class="solar-cart-product-status">
-                    <div class="solar-cart-status-icon"></div>
+                    <div class="solar-cart-status-icon"><img src="{{ url('homepage/images/svgs/active.svg') }}" alt="active"/></div>
                     <div class="solar-cart-status-text">In stock</div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
             </div>
             <div class="solar-cart-checkout-button"><div class="solar-cart-checkout-text">CHECKOUT</div></div>
         </div>
-        <div class="solar-cart-promo-jinko">
+        <div class="solar-cart-promo-jinko" style="background-image:url('homepage/images/home/solar5.png');background-size:cover">
             <div class="solar-cart-promo-content">
                 <div class="solar-cart-promo-brand">JINKO SOLAR</div>
                 <div class="solar-cart-promo-text">
@@ -118,7 +118,7 @@
                 <div class="solar-cart-promo-shop"><div class="solar-cart-promo-shop-text">SHOP NOW</div></div>
             </div>
         </div>
-        <div class="solar-cart-promo-solis">
+        <div class="solar-cart-promo-solis" style="background-image:url('homepage/images/home/solar6.png');background-size:cover">
             <p class="solar-cart-promo-solis-title">
                 <span class="solar-cart-promo-solis-brand">SOLIS</span>
                 <span class="solar-cart-promo-solis-text"> RELIABLE INVERTERS NOW AVAILABLE</span>
@@ -127,7 +127,7 @@
                 <div class="solar-cart-promo-solis-from">FROM AS LOW AS</div>
                 <div class="solar-cart-promo-solis-amount">₦150,000</div>
             </div>
-            <div class="solar-cart-promo-solis-shop"><div class="solar-cart-promo-solis-shop-text">SHOP NOW</div></div>
+            <!-- <div class="solar-cart-promo-solis-shop"><div class="solar-cart-promo-solis-shop-text">SHOP NOW</div></div> -->
         </div>
     </div>
 </div>

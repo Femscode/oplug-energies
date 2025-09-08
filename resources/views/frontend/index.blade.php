@@ -181,9 +181,9 @@
         <div class="frame">
             <div class="frame-2">
                 <div class="heading-top">TOP CATEGORIES</div>
-                <div class="link-view-all">
+                <!-- <div class="link-view-all">
                     <div class="text-wrapper">View All</div>
-                </div>
+                </div> -->
             </div>
             <div class="div-arrows">
                 <div class="vector-wrapper">←</div>
@@ -222,12 +222,12 @@
 <div class="deals-of-the-day">
     <div class="frame">
         <div class="div">
-            <div class="main">
+            <div class="main" style="background-image:url('/homepage/images/home/main.png')">
                 <div class="frame-2">
                     <div class="heading-deals-of">DEALS OF THE DAY</div>
                     <div class="link-view-all">View All</div>
                 </div>
-                <div class="symbol"></div>
+                <div class="symbol">→</div>
             </div>
             <div class="deal-of-the-day">
                 <div class="product">
@@ -317,12 +317,12 @@
             </div>
         </div>
         <div class="frame-9">
-            <div class="main-section-link"></div>
-            <div class="main-section-link-2"></div>
-            <div class="main-section-link-3"></div>
+            <div class="main-section-link" style="background-image:url('/homepage/images/dod1.png')"></div>
+            <div class="main-section-link-2" style="background-image:url('/homepage/images/dod2.png')"></div>
+            <div class="main-section-link-3" style="background-image:url('/homepage/images/dod3.png')"></div>
         </div>
     </div>
-    <div class="main-2">
+    <div class="main-2" style="background-image:url('/homepage/images/home/main1.png');background-size:cover">
         <div class="heading-FREE">ENJOY FREE INSTALLATION</div>
         <p class="heading-with-no">
             <span class="text-wrapper-4">Shop Items worth over ₦5,000,000 to enjoy this.</span>
@@ -359,7 +359,7 @@
                     <div class="heading-2">₦157,000</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"></div>
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="in-stock">In stock</div>
                 </div>
             </div>
@@ -389,7 +389,7 @@
                     <div class="heading-2">₦15,250</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"></div>
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="in-stock">In stock</div>
                 </div>
             </div>
@@ -419,7 +419,7 @@
                     <div class="heading-2">₦255,250</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol-2"></div>
+                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
                     <div class="text-wrapper-2">Out of Stock</div>
                 </div>
             </div>
@@ -449,7 +449,7 @@
                     <div class="heading-2">₦3,800,000</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"></div>
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="in-stock">In stock</div>
                 </div>
             </div>
@@ -477,7 +477,7 @@
                     <div class="heading-2">₦15,250</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"></div>
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="in-stock">In stock</div>
                 </div>
             </div>
@@ -505,7 +505,7 @@
                     <div class="heading-2">₦15,250</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"></div>
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="in-stock">In stock</div>
                 </div>
             </div>
@@ -529,13 +529,13 @@
             <div class="brand-new-heading">BRAND NEW FOR YOU</div>
         </div>
         <div class="brand-new-arrows">
-            <div class="brand-new-vector-wrapper"><img class="brand-new-vector" src="img/image.svg" /></div>
-            <div class="brand-new-img-wrapper"><img class="brand-new-img" src="img/vector.svg" /></div>
+            <div class="brand-new-vector-wrapper">→</div>
+            <div class="brand-new-vector-wrapper">←</div>
         </div>
     </div>
     <div class="brand-new-tabpanel">
         <div class="brand-new-item">
-            <div class="brand-new-link"></div>
+            <div class="brand-new-link" style="background-image:url('/homepage/images/home/prod16.png')"></div>
             <div class="brand-new-group-heading">Huawei Solar</div>
             <p class="brand-new-description">From residential to industrial solar solutions</p>
             <div class="brand-new-action">
@@ -543,7 +543,7 @@
             </div>
         </div>
         <div class="brand-new-item-2">
-            <div class="brand-new-link-2"></div>
+            <div class="brand-new-link-2" style="background-image:url('/homepage/images/home/prod17.png')"></div>
             <div class="brand-new-group-heading">InfiniSolar</div>
             <p class="brand-new-description">Off Grid Storage Inverters, Batteries and ESS</p>
             <div class="brand-new-action">
@@ -551,7 +551,7 @@
             </div>
         </div>
         <div class="brand-new-item-3">
-            <div class="brand-new-link-3"></div>
+            <div class="brand-new-link-3" style="background-image:url('/homepage/images/home/prod15.png')"></div>
             <div class="brand-new-group-heading">Solis</div>
             <p class="brand-new-description">Tier 1 Power Inverter List</p>
             <div class="brand-new-action">
@@ -559,7 +559,7 @@
             </div>
         </div>
         <div class="brand-new-item-4">
-            <div class="brand-new-link-4"></div>
+            <div class="brand-new-link-4" style="background-image:url('/homepage/images/home/prod18.png')"></div>
             <div class="brand-new-group-heading">Jinko Solar</div>
             <p class="brand-new-text">Leading PV module manufacturer and energy storage system integrator.</p>
             <div class="brand-new-action">
@@ -567,7 +567,7 @@
             </div>
         </div>
         <div class="brand-new-item-5">
-            <div class="brand-new-link-5"></div>
+            <div class="brand-new-link-5" style="background-image:url('/homepage/images/home/prod15.png')"></div>
             <div class="brand-new-group-heading">Deye</div>
             <p class="brand-new-text">Range from 1.5-110kW, Hybrid inverter 3kW-50kW, and microinverter 300W-2000W.</p>
             <div class="brand-new-action">
@@ -575,7 +575,7 @@
             </div>
         </div>
         <div class="brand-new-item-6">
-            <div class="brand-new-link-6"></div>
+            <div class="brand-new-link-6" style="background-image:url('/homepage/images/home/prod16.png')"></div>
             <div class="brand-new-group-heading">East</div>
             <p class="brand-new-text">On and Off Grid, Hybrid inverters and monitoring solutions</p>
             <div class="brand-new-action">
@@ -583,7 +583,7 @@
             </div>
         </div>
         <div class="brand-new-item-7">
-            <div class="brand-new-link-7"></div>
+            <div class="brand-new-link-7" style="background-image:url('/homepage/images/home/prod17.png')"></div>
             <div class="brand-new-group-heading">JA Solar</div>
             <div class="brand-new-text">Solar panels: PV Modules</div>
             <div class="brand-new-action">
@@ -591,7 +591,7 @@
             </div>
         </div>
         <div class="brand-new-item-8">
-            <div class="brand-new-link-8"></div>
+            <div class="brand-new-link-8" style="background-image:url('/homepage/images/home/prod18.png')"></div>
             <div class="brand-new-group-heading">Pylontech</div>
             <div class="brand-new-description">Dedicated energy storage system provider</div>
             <div class="brand-new-action">
@@ -599,7 +599,7 @@
             </div>
         </div>
         <div class="brand-new-item-9">
-            <div class="brand-new-link-9"></div>
+            <div class="brand-new-link-9" style="background-image:url('/homepage/images/home/prod15.png')"></div>
             <div class="brand-new-group-heading">Growatt</div>
             <p class="brand-new-text">From PV systems to energy storage to EV chargers</p>
             <div class="brand-new-action">
@@ -607,7 +607,7 @@
             </div>
         </div>
         <div class="brand-new-item-10">
-            <div class="brand-new-link-10"></div>
+            <div class="brand-new-link-10" style="background-image:url('/homepage/images/home/prod16.png')"></div>
             <div class="brand-new-group-heading">ZNShineSolar</div>
             <p class="brand-new-description">From residential to industrial solar solutions</p>
             <div class="brand-new-action">
@@ -624,7 +624,7 @@
     </div>
     <div class="solar-inverters-top-info">
         <div class="solar-inverters-img">
-            <div class="solar-inverters-png">
+            <div class="solar-inverters-png" style="background-image:url('/homepage/images/home/div-img.png');background-size:cover">
                 <div class="solar-inverters-info">
                     <p class="solar-inverters-mobok">
                         <span class="solar-inverters-text-bold">Beta Inverter Dey Here<br /></span>
@@ -643,42 +643,42 @@
                     <div class="solar-inverters-item-heading">InfiniSolar</div>
                     <div class="solar-inverters-item-count">55 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/infini-solar.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
                     <div class="solar-inverters-item-heading">Solis</div>
                     <div class="solar-inverters-item-count">20 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/east.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
                     <div class="solar-inverters-item-heading">Huawei</div>
                     <div class="solar-inverters-item-count">14 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/huawei.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
                     <div class="solar-inverters-item-heading">Growatt</div>
                     <div class="solar-inverters-item-count">1005 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/growatt.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
                     <div class="solar-inverters-item-heading">Deye</div>
                     <div class="solar-inverters-item-count">500 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/deye.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
                     <div class="solar-inverters-item-heading">Galaxy</div>
                     <div class="solar-inverters-item-count">140 Items</div>
                 </div>
-                <div class="solar-inverters-item-img"></div>
+                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/east.png');background-size:cover"></div>
             </div>
             <div class="solar-inverters-item">
                 <div class="solar-inverters-item-frame">
@@ -702,7 +702,7 @@
                     <div class="solar-inverters-product-old-price">₦3,800,000</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -722,7 +722,7 @@
                     <div class="solar-inverters-product-old-price">₦380,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -744,7 +744,7 @@
                     <div class="solar-inverters-product-old-price">₦2,550,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"></div>
+                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
                     <div class="solar-inverters-product-status-text-out">Out of Stock</div>
                 </div>
             </div>
@@ -764,7 +764,7 @@
                     <div class="solar-inverters-product-old-price">₦3,800,000</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -784,7 +784,7 @@
                     <div class="solar-inverters-product-old-price">₦380,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -804,7 +804,7 @@
                     <div class="solar-inverters-product-old-price">₦3,800,000</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -826,7 +826,7 @@
                     <div class="solar-inverters-product-old-price">₦2,550,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"></div>
+                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
                     <div class="solar-inverters-product-status-text-out">Out of Stock</div>
                 </div>
             </div>
@@ -846,7 +846,7 @@
                     <div class="solar-inverters-product-old-price">₦380,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"></div>
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
                 </div>
             </div>
@@ -868,7 +868,7 @@
                     <div class="solar-inverters-product-old-price">₦2,550,250</div>
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"></div>
+                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
                     <div class="solar-inverters-product-status-text-out">Out of Stock</div>
                 </div>
             </div>
@@ -886,7 +886,7 @@
         <div class="solar-panels-view-all">View All</div>
     </div>
     <div class="solar-panels-top-info">
-        <div class="solar-panels-img">
+        <div class="solar-panels-img" style="background-image:url('/homepage/images/home/catch-the-sun.png');background-size:cover">
             <div class="solar-panels-png">
                 <div class="solar-panels-info">
                     <p class="solar-panels-mobok">
@@ -906,28 +906,28 @@
                     <div class="solar-panels-item-heading">Galaxy</div>
                     <div class="solar-panels-item-count">55 Items</div>
                 </div>
-                <div class="solar-panels-item-img"></div>
+                <div class="solar-panels-item-img" style="background-image:url('/homepage/images/home/brand1.png');background-size:cover"></div>
             </div>
             <div class="solar-panels-item">
                 <div class="solar-panels-item-frame">
                     <div class="solar-panels-item-heading">Jinko</div>
                     <div class="solar-panels-item-count">20 Items</div>
                 </div>
-                <div class="solar-panels-item-img-prod"></div>
+                <div class="solar-panels-item-img-prod" style="background-image:url('/homepage/images/home/brand2.png');background-size:cover"></div>
             </div>
             <div class="solar-panels-item">
                 <div class="solar-panels-item-frame">
                     <div class="solar-panels-item-heading">ZNSHINE</div>
                     <div class="solar-panels-item-count">14 Items</div>
                 </div>
-                <div class="solar-panels-item-img-prod"></div>
+                <div class="solar-panels-item-img-prod" style="background-image:url('/homepage/images/home/brand3.png');background-size:cover"></div>
             </div>
             <div class="solar-panels-item">
                 <div class="solar-panels-item-frame">
                     <div class="solar-panels-item-heading">JA Solar</div>
                     <div class="solar-panels-item-count">1005 Items</div>
                 </div>
-                <div class="solar-panels-item-img-prod"></div>
+                <div class="solar-panels-item-img-prod" style="background-image:url('/homepage/images/home/brand5.png');background-size:cover"></div>
             </div>
         </div>
     </div>
@@ -944,7 +944,7 @@
                     <div class="solar-panels-product-old-price">₦150,450</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -964,7 +964,7 @@
                     <div class="solar-panels-product-old-price">₦114,000</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -984,7 +984,7 @@
                     <div class="solar-panels-product-old-price">₦150,450</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1004,7 +1004,7 @@
                     <div class="solar-panels-product-old-price">₦114,000</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1024,7 +1024,7 @@
                     <div class="solar-panels-product-old-price">₦150,450</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1044,7 +1044,7 @@
                     <div class="solar-panels-product-old-price">₦114,000</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1064,7 +1064,7 @@
                     <div class="solar-panels-product-old-price">₦150,450</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1084,7 +1084,7 @@
                     <div class="solar-panels-product-old-price">₦150,450</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1104,7 +1104,7 @@
                     <div class="solar-panels-product-old-price">₦114,000</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1124,7 +1124,7 @@
                     <div class="solar-panels-product-old-price">₦114,000</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"></div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                     <div class="solar-panels-product-status-text">In stock</div>
                 </div>
             </div>
@@ -1138,34 +1138,35 @@
 </div>
 <div class="solar-footer">
     <div class="solar-footer-div">
-        <div class="solar-footer-main">
+        <div class="solar-footer-main" style="background-image:url('/homepage/images/home/pay-online.png');background-size:cover">
             <div class="solar-footer-main-content">
                 <div class="solar-footer-main-text">Pay Online</div>
                 <p class="solar-footer-main-subtext">You can make quick payments on Oplug</p>
             </div>
             <div class="solar-footer-shop-now"><div class="solar-footer-shop-now-text">SHOP NOW</div></div>
         </div>
-        <div class="solar-footer-png">
+        <div class="solar-footer-png" style="background-image:url('/homepage/images/home/banner3.png');background-size:cover">
             <div class="solar-footer-newsletter">
                 <div class="solar-footer-newsletter-content">
                     <div class="solar-footer-newsletter-title">Stay Updated</div>
                     <p class="solar-footer-newsletter-subtext">Enter your email to signup for our newsletter</p>
                 </div>
-                <img class="solar-footer-newsletter-img" src="img/main-section.svg" />
+                <form class="solar-footer-newsletter-form" id="newsletterForm">
+                    <div class="solar-footer-newsletter-input-wrapper">
+                        <input type="email" class="solar-footer-newsletter-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="solar-footer-newsletter-button">Subscribe</button>
+                    </div>
+                    <div class="solar-footer-newsletter-message" id="newsletterMessage"></div>
+                </form>
             </div>
         </div>
     </div>
     <div class="solar-footer-recently-viewed">
         <div class="solar-footer-recently-viewed-header">
             <div class="solar-footer-recently-viewed-title">RECENTLY VIEWED</div>
-            <div class="solar-footer-view-all"></div>
+            <div class="solar-footer-view-all">View all</div>
         </div>
-        <div class="solar-footer-arrows">
-            <div class="solar-footer-vector-wrapper"><img class="solar-footer-vector" src="img/vector.svg" /></div>
-            <div class="solar-footer-img-wrapper"><img class="solar-footer-img" src="img/image.svg" /></div>
-        </div>
-    </div>
-    <div class="solar-footer-scrolling">
+          <div class="solar-footer-scrolling">
         <div class="solar-footer-product">
             <div class="solar-footer-product-img"></div>
             <div class="solar-footer-product-details">
@@ -1203,6 +1204,9 @@
             </div>
         </div>
     </div>
+       
+    </div>
+  
     <p class="solar-footer-description">
         Affordable Solar Panels, Inverters &amp; Batteries – Oplug Solar Store<br />
         At Oplug, we provide high-quality solar energy products including monocrystalline and polycrystalline panels, hybrid inverters, lithium-ion batteries, and complete off-grid solar kits. Enjoy professional installation, fast delivery in Lagos and across Nigeria, and energy solutions built to last.<br />
@@ -1212,4 +1216,101 @@
 
 @endsection
 @section('script')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the scrolling container and arrow buttons for categories section
+    const scrollingContainer = document.querySelector('.scrolling');
+    const leftArrow = document.querySelector('.vector-wrapper');
+    const rightArrow = document.querySelector('.img-wrapper');
+
+    if (scrollingContainer && leftArrow && rightArrow) {
+        // Left arrow click - scroll left
+        leftArrow.addEventListener('click', () => {
+            scrollingContainer.scrollBy({ left: -150, behavior: 'smooth' });
+        });
+
+        // Right arrow click - scroll right
+        rightArrow.addEventListener('click', () => {
+            scrollingContainer.scrollBy({ left: 150, behavior: 'smooth' });
+        });
+    }
+
+    // Get the brand-new section scrolling container and arrow buttons
+    const brandScrollingContainer = document.querySelector('.brand-new-tabpanel');
+    const brandLeftArrows = document.querySelectorAll('.brand-new-vector-wrapper');
+    
+    if (brandScrollingContainer && brandLeftArrows.length >= 2) {
+        // First arrow (left arrow) - scroll left
+        brandLeftArrows[0].addEventListener('click', () => {
+            brandScrollingContainer.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        // Second arrow (right arrow) - scroll right
+        brandLeftArrows[1].addEventListener('click', () => {
+            brandScrollingContainer.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    }
+
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterMessage = document.getElementById('newsletterMessage');
+
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const emailInput = this.querySelector('.solar-footer-newsletter-input');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                showMessage('Please enter your email address.', 'error');
+                return;
+            }
+            
+            // Show loading state
+            const submitButton = this.querySelector('.solar-footer-newsletter-button');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Subscribing...';
+            submitButton.disabled = true;
+            
+            try {
+                // Replace this URL with your actual newsletter API endpoint
+                const response = await fetch('/api/newsletter/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                if (response.ok) {
+                    showMessage('Thank you for subscribing to our newsletter!', 'success');
+                    emailInput.value = '';
+                } else {
+                    showMessage('Something went wrong. Please try again later.', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                // Reset button state
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
+    }
+    
+    function showMessage(message, type) {
+        if (newsletterMessage) {
+            newsletterMessage.textContent = message;
+            newsletterMessage.className = `solar-footer-newsletter-message ${type}`;
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                newsletterMessage.className = 'solar-footer-newsletter-message';
+            }, 5000);
+        }
+    }
+});
+</script>
 @endsection

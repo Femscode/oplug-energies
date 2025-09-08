@@ -2028,6 +2028,8 @@ body {
     padding: 0 16px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
     width: 100%;
+    min-height: 200px;
+    justify-content: center;
 }
 
 .solar-inverters .solar-inverters-info {
@@ -2403,8 +2405,8 @@ body {
 
     .solar-inverters .solar-inverters-vector,
     .solar-inverters .solar-inverters-img {
-        width: 8px;
-        height: 12px;
+        /* width: 8px; */
+        /* height: 12px; */
     }
 
     .solar-inverters .solar-inverters-tabpanel-button:hover,
@@ -2521,6 +2523,8 @@ body {
     padding: 0 16px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
     width: 100%;
+    min-height: 200px;
+    justify-content: center;
 }
 
 .solar-panels .solar-panels-info {
@@ -2899,8 +2903,8 @@ body {
 
     .solar-panels .solar-panels-vector,
     .solar-panels .solar-panels-img {
-        width: 8px;
-        height: 12px;
+        /* width: 8px;
+        height: 12px; */
     }
 
     .solar-panels .solar-panels-tabpanel-button:hover,
@@ -3062,9 +3066,72 @@ body {
     line-height: 1.5;
 }
 
-.solar-footer .solar-footer-newsletter-img {
+.solar-footer .solar-footer-newsletter-form {
     width: 100%;
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.solar-footer .solar-footer-newsletter-input-wrapper {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.solar-footer .solar-footer-newsletter-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #cccccc;
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background-color: var(--text-light);
+}
+
+.solar-footer .solar-footer-newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent-orange);
+}
+
+.solar-footer .solar-footer-newsletter-button {
+    padding: 12px 20px;
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.solar-footer .solar-footer-newsletter-button:hover {
+    background-color: var(--primary-blue);
+}
+
+.solar-footer .solar-footer-newsletter-message {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    display: none;
+}
+
+.solar-footer .solar-footer-newsletter-message.success {
+    color: var(--green);
+    background-color: rgba(26, 186, 26, 0.1);
+    display: block;
+}
+
+.solar-footer .solar-footer-newsletter-message.error {
+    color: var(--red);
+    background-color: rgba(241, 53, 43, 0.1);
+    display: block;
 }
 
 /* Recently viewed section */
@@ -3287,5 +3354,12 @@ body {
 
     .solar-footer .solar-footer-description {
         font-size: 16px;
+    }
+}
+
+/* Mobile Responsiveness - Hide left categories menu on mobile */
+@media (max-width: 767px) {
+    .quick-links .left {
+        display: none;
     }
 }

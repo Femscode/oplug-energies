@@ -67,17 +67,17 @@
                 <div class="solar-product-details-total-amount">₦1,824,000</div>
             </div>
             <div class="solar-product-details-status">
-                <div class="solar-product-details-status-icon"></div>
+                <div class="solar-product-details-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                 <div class="solar-product-details-status-text">In stock</div>
             </div>
         </div>
         <div class="solar-product-details-actions">
             <div class="solar-product-details-quantity">
-                <div class="solar-product-details-quantity-decrement"></div>
+                <div class="solar-product-details-quantity-decrement"><img src="{{ url('homepage/images/home/minus.svg') }}"/></div>
                 <div class="solar-product-details-quantity-input">
                     <div class="solar-product-details-quantity-value">1</div>
                 </div>
-                <div class="solar-product-details-quantity-increment"></div>
+                <div class="solar-product-details-quantity-increment"><img src="{{ url('homepage/images/home/plus.svg') }}"/></div>
             </div>
             <div class="solar-product-details-checkout-button"><div class="solar-product-details-checkout-text">PROCEED TO CHECKOUT</div></div>
             <div class="solar-product-details-cart-button"><div class="solar-product-details-cart-text">ADD TO CART</div></div>
@@ -85,8 +85,8 @@
         <div class="solar-product-details-payment">
             <div class="solar-product-details-payment-label">Guaranteed Safe Checkout</div>
             <div class="solar-product-details-payment-methods">
-                <img class="solar-product-details-payment-img" src="img/images.png" alt="Payment Method" />
-                <img class="solar-product-details-mastercard" src="img/hd-mastercard-payment-logo-transparent-background-701751694777780z7xaiuu0sh.png" alt="Mastercard" />
+                <img class="solar-product-details-payment-img" src="{{ url('homepage/images/home/visa.png') }}" alt="Payment Method" />
+                <img class="solar-product-details-mastercard" src="{{ url('homepage/images/home/mastercard.png') }}" alt="Mastercard" />
             </div>
         </div>
     </div>
@@ -121,7 +121,7 @@
                 Warranty: 5 Years
             </p>
         </div>
-        <div class="solar-product-description-image"></div>
+        <div class="solar-product-description-image" style="background-image: url('{{ url("homepage/images/home/product-details.png") }}'); background-size:cover"></div>
     </div>
 </div>
 @endsection

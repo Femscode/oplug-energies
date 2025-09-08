@@ -282,36 +282,55 @@ main {
     display: flex;
     flex: 1;
     min-width: 300px;
-    align-items: center;
-    border-radius: 20px;
+    align-items: stretch;
+    border-radius: 25px;
     overflow: hidden;
     background-color: #ffffff;
-    border: 1px solid #eee;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.nav .div-search-cat:focus-within {
+    border-color: #ff8a00;
+    box-shadow: 0 4px 12px rgba(255, 138, 0, 0.2);
 }
 
 .nav .input {
     flex: 1;
-    padding: 10px 16px;
+    padding: 12px 20px;
 }
 
 .nav .div-placeholder {
     width: 100%;
     border: none;
     background: none;
-    font-family: "Nata Sans", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 400;
-    font-size: 14px;
-    color: #666;
+    font-size: 15px;
+    color: #333;
     outline: none;
+}
+
+.nav .div-placeholder::placeholder {
+    color: #999;
+    font-weight: 400;
 }
 
 .nav .options {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 16px;
-    background-color: #ff8a00;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #ff8a00 0%, #ff6b00 100%);
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 0;
+}
+
+.nav .options:hover {
+    background: linear-gradient(135deg, #ff6b00 0%, #ff5500 100%);
 }
 
 .nav .frame {
@@ -341,6 +360,12 @@ main {
     height: 6px;
 }
 
+.nav .shipping-info {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
 .nav .link-free-shipping,
 .nav .link-days-money,
 .nav .link-secure {
@@ -362,8 +387,8 @@ main {
 
     .nav .div-search-cat {
         min-width: 100%;
-        flex-direction: column;
-        border-radius: 10px;
+        flex-direction: row;
+        border-radius: 20px;
     }
 
     .nav .input {
@@ -375,16 +400,26 @@ main {
     }
 
     .nav .options {
-        width: 100%;
-        padding: 8px 12px;
-        border-top: 1px solid #eee;
+        width: auto;
+        padding: 8px 16px;
+        border-top: none;
     }
 
     .nav .link-free-shipping,
     .nav .link-days-money,
     .nav .link-secure {
-        font-size: 11px;
+        font-size: 10px;
+        width: auto;
+        flex: 1;
+        text-align: center;
+    }
+    
+    .nav .shipping-info {
+        display: flex;
+        gap: 8px;
         width: 100%;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 

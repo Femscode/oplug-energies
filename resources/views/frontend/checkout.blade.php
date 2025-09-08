@@ -5,13 +5,21 @@
 
 @section('content')
 <div class="solar-breadcrumb">
-    <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
+    <button class="solar-breadcrumb-button">
+        <div class="solar-breadcrumb-item">Home</div>
+    </button>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
+    <div class="solar-breadcrumb-wrapper">
+        <div class="solar-breadcrumb-item">Shop</div>
+    </div>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
+    <div class="solar-breadcrumb-wrapper">
+        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
+    </div>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+    <div class="solar-breadcrumb-wrapper">
+        <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
+    </div>
 </div>
 
 <div class="solar-checkout">
@@ -36,6 +44,7 @@
                         <input type="text" id="last-name" name="last_name" class="solar-checkout-input" required>
                     </div>
                 </div>
+
                 <div class="solar-checkout-form-group">
                     <label class="solar-checkout-label" for="company-name">
                         <span class="solar-checkout-label-text">Company Name</span>
@@ -59,39 +68,43 @@
                         <input type="text" id="apartment" name="apartment" class="solar-checkout-input" placeholder="Apartment, suite, unit, etc.">
                     </div>
                 </div>
-                <div class="solar-checkout-form-group">
-                    <label class="solar-checkout-label" for="city">
-                        <span class="solar-checkout-label-text">Town / City</span>
-                        <span class="solar-checkout-required">*</span>
-                    </label>
-                    <input type="text" id="city" name="city" class="solar-checkout-input" required>
+                <div class="solar-checkout-form-row">
+                    <div class="solar-checkout-form-group">
+                        <label class="solar-checkout-label" for="city">
+                            <span class="solar-checkout-label-text">Town / City</span>
+                            <span class="solar-checkout-required">*</span>
+                        </label>
+                        <input type="text" id="city" name="city" class="solar-checkout-input" required>
+                    </div>
+                    <div class="solar-checkout-form-group">
+                        <label class="solar-checkout-label" for="state">
+                            <span class="solar-checkout-label-text">State / County</span>
+                            <span class="solar-checkout-required">*</span>
+                        </label>
+                        <select id="state" name="state" class="solar-checkout-select" required>
+                            <option value="">Select a state</option>
+                            <option value="Lagos">Lagos</option>
+                            <option value="Abuja">Abuja</option>
+                            <option value="Ogun">Ogun</option>
+                            <option value="Oyo">Oyo</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="solar-checkout-form-group">
-                    <label class="solar-checkout-label" for="state">
-                        <span class="solar-checkout-label-text">State / County</span>
-                        <span class="solar-checkout-required">*</span>
-                    </label>
-                    <select id="state" name="state" class="solar-checkout-select" required>
-                        <option value="">Select a state</option>
-                        <option value="Lagos">Lagos</option>
-                        <option value="Abuja">Abuja</option>
-                        <option value="Ogun">Ogun</option>
-                        <option value="Oyo">Oyo</option>
-                    </select>
-                </div>
-                <div class="solar-checkout-form-group">
-                    <label class="solar-checkout-label" for="zip-code">
-                        <span class="solar-checkout-label-text">Zip Code</span>
-                        <span class="solar-checkout-required">*</span>
-                    </label>
-                    <input type="text" id="zip-code" name="zip_code" class="solar-checkout-input" required>
-                </div>
-                <div class="solar-checkout-form-group">
-                    <label class="solar-checkout-label" for="phone">
-                        <span class="solar-checkout-label-text">Phone Number</span>
-                        <span class="solar-checkout-required">*</span>
-                    </label>
-                    <input type="tel" id="phone" name="phone" class="solar-checkout-input" required>
+                <div class="solar-checkout-form-row">
+                    <div class="solar-checkout-form-group">
+                        <label class="solar-checkout-label" for="zip-code">
+                            <span class="solar-checkout-label-text">Zip Code</span>
+                            <span class="solar-checkout-required">*</span>
+                        </label>
+                        <input type="text" id="zip-code" name="zip_code" class="solar-checkout-input" required>
+                    </div>
+                    <div class="solar-checkout-form-group">
+                        <label class="solar-checkout-label" for="phone">
+                            <span class="solar-checkout-label-text">Phone Number</span>
+                            <span class="solar-checkout-required">*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" class="solar-checkout-input" required>
+                    </div>
                 </div>
                 <div class="solar-checkout-form-group">
                     <label class="solar-checkout-label" for="email">
@@ -182,26 +195,26 @@
 
 @section('script')
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('checkout-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        console.log('Form submitted:', data);
-        alert('Order placed successfully! (Demo submission)');
-        // Add actual form submission logic here (e.g., API call)
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('checkout-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            console.log('Form submitted:', data);
+            alert('Order placed successfully! (Demo submission)');
+            // Add actual form submission logic here (e.g., API call)
+        });
 
-    const radios = document.querySelectorAll('.solar-checkout-radio');
-    radios.forEach(radio => {
-        radio.addEventListener('change', () => {
-            radios.forEach(r => {
-                const wrapper = r.closest('.solar-checkout-payment-option').querySelector('.solar-checkout-radio-wrapper');
-                wrapper.classList.toggle('solar-checkout-radio-selected', r.checked);
+        const radios = document.querySelectorAll('.solar-checkout-radio');
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                radios.forEach(r => {
+                    const wrapper = r.closest('.solar-checkout-payment-option').querySelector('.solar-checkout-radio-wrapper');
+                    wrapper.classList.toggle('solar-checkout-radio-selected', r.checked);
+                });
             });
         });
     });
-});
 </script>
 @endsection

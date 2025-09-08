@@ -191,7 +191,7 @@
                 </div>
             </div>
         </div>
-        <div class="solar-categories-png">
+        <div class="solar-categories-png" style="background-image: url('{{ url("homepage/images/home/catch-the-sun.png") }}'); background-size:cover">
             <div class="solar-categories-info">
                 <p class="solar-categories-mobok">
                     <span class="solar-categories-text-bold">Catch Sun, Save Bill<br /></span>
@@ -220,7 +220,7 @@
                         <div class="solar-categories-best-old-price">₦3,800,000</div>
                     </div>
                     <div class="solar-categories-best-status">
-                        <div class="solar-categories-best-status-icon"></div>
+                        <div class="solar-categories-best-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
                         <div class="solar-categories-best-status-text">In stock</div>
                     </div>
                 </div>
@@ -248,10 +248,7 @@
             <div class="solar-recently-viewed-title">RECENTLY VIEWED</div>
             <div class="solar-recently-viewed-view-all"></div>
         </div>
-        <div class="solar-recently-viewed-arrows">
-            <div class="solar-recently-viewed-vector-wrapper"><img class="solar-recently-viewed-vector" src="img/image.svg" alt="Previous" /></div>
-            <div class="solar-recently-viewed-img-wrapper"><img class="solar-recently-viewed-img" src="img/vector.svg" alt="Next" /></div>
-        </div>
+        
         <div class="solar-recently-viewed-scrolling">
             <div class="solar-recently-viewed-product">
                 <div class="solar-recently-viewed-product-img"></div>

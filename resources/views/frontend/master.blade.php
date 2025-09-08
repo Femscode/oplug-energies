@@ -80,8 +80,10 @@
                 </div>
             </div>
 
+            <div class="shipping-info">
                 <div class="link-free-shipping">FREE SHIPPING OVER ₦1,000,000</div>
                 <div class="link-days-money">30 DAYS MONEY BACK</div>
+            </div>
           
         </div>
     </header>
