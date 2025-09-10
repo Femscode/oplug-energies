@@ -1,10 +1,9 @@
 @extends('admin.master')
 @section('header')
-<link rel="stylesheet" href="{{ url('homepage/css/admin-master.css') }}" />
 <link rel="stylesheet" href="{{ url('homepage/css/user-change-password.css') }}" />
 @endsection
 
-@section('content')
+@section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
     <div class="solar-breadcrumb-divider">/</div>
@@ -14,40 +13,13 @@
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
 </div>
+@endsection
 
 
+@section('content')
 <div class="account-section">
   <!-- Sidebar -->
-   <div class="solar-account-sidebar">
-        <button class="solar-account-sidebar-toggle">☰ Menu</button>
-        <div class="solar-account-user">
-            <div class="solar-account-user-name">Admin Dashboard</div>
-            <div class="solar-account-user-email">bkjones@gmail.com</div>
-        </div>
-        <div class="solar-account-tabs">
-            <div class="solar-account-tab solar-account-tab-active" data-tab="account-info">
-                <div class="solar-account-tab-text">Dashboard</div>
-                <div class="solar-account-tab-icon">→</div>
-            </div>
-            <div class="solar-account-tab" data-tab="my-order">
-                <div class="solar-account-tab-text">Orders</div>
-                <div class="solar-account-tab-icon">→</div>
-            </div>
-            <div class="solar-account-tab" data-tab="products">
-                <div class="solar-account-tab-text">Products</div>
-                <div class="solar-account-tab-icon">→</div>
-            </div>
-            <div class="solar-account-tab" data-tab="settings">
-                <div class="solar-account-tab-text">Settings</div>
-                <div class="solar-account-tab-icon">→</div>
-            </div>
-            <div class="solar-account-tab" data-tab="change-password">
-                <div class="solar-account-tab-text">Change Password</div>
-                <div class="solar-account-tab-icon">→</div>
-            </div>
-        </div>
-    </div>
-
+ 
   <!-- Change Password Form -->
   <div class="customer-addy">
     <div class="top">

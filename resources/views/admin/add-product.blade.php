@@ -1,10 +1,9 @@
 @extends('admin.master')
 @section('header')
-<link rel="stylesheet" href="{{ url('homepage/css/admin-master.css') }}" />
 <link rel="stylesheet" href="{{ url('homepage/css/add-product.css') }}" />
 @endsection
 
-@section('content')
+@section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
@@ -22,57 +21,92 @@
         <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
     </div>
 </div>
+@endsection
+
+@section('content')
+
 
 <div class="dashboard">
-  <form class="product-form">
+  <form class="product-form" method="POST" action="{{ route('admin.store_product') }}" enctype="multipart/form-data">
+    @csrf
     <section class="information">
       <h2>Information</h2>
       <div class="form-group">
         <label for="product-name">Product Name</label>
-        <input type="text" id="product-name" placeholder="Enter product name" required>
+        <input type="text" id="product-name" name="name" placeholder="Enter product name" value="{{ old('name') }}" required>
+        @error('name')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
       <div class="form-group">
         <label for="product-description">Product Description</label>
-        <textarea id="product-description" placeholder="Enter product description" rows="4" required></textarea>
+        <textarea id="product-description" name="description" placeholder="Enter product description" rows="4" required>{{ old('description') }}</textarea>
+        @error('description')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
       <div class="form-group">
-        <label>Images</label>
+        <label>Product Image</label>
         <div class="upload-area" id="upload-area">
-          <input type="file" id="image-upload" accept="image/*" multiple hidden>
+          <input type="file" id="image-upload" name="image" accept="image/*" hidden>
           <button type="button" id="upload-button">Add File</button>
           <p>Or drag and drop files</p>
           <div id="file-preview" class="file-preview"></div>
         </div>
+        @error('image')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
       <div class="form-group">
-        <h3>Price</h3>
+        <h3>Price & Inventory</h3>
         <div class="price-fields">
           <div class="form-group">
-            <label for="product-price">Product Price</label>
-            <input type="number" id="product-price" placeholder="Enter price" min="0" step="0.01" required>
+            <label for="product-price">Product Price (₦)</label>
+            <input type="number" id="product-price" name="price" placeholder="Enter price" min="0" step="0.01" value="{{ old('price') }}" required>
+            @error('price')
+              <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+            @enderror
           </div>
           <div class="form-group">
-            <label for="discount-price">Discount Price</label>
-            <input type="number" id="discount-price" placeholder="Enter discount price" min="0" step="0.01">
+            <label for="discount-price">Discount Price (₦)</label>
+            <input type="number" id="discount-price" name="discount_price" placeholder="Enter discount price" min="0" step="0.01" value="{{ old('discount_price') }}">
+            @error('discount_price')
+              <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity in Stock</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="0" value="{{ old('quantity', 0) }}" required>
+            @error('quantity')
+              <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+            @enderror
           </div>
         </div>
         <div class="toggle-group">
-          <label for="add-tax">Add tax for this product</label>
-          <input type="checkbox" id="add-tax" class="toggle">
+          <label for="is-active">Product is Active</label>
+          <input type="checkbox" id="is-active" name="is_active" class="toggle" {{ old('is_active') ? 'checked' : '' }} value="1">
         </div>
       </div>
     </section>
     <section class="categories">
-      <h2>Categories</h2>
-      <div class="category-list">
-        <label><input type="checkbox" name="category" value="inverters"> Inverters</label>
-        <label><input type="checkbox" name="category" value="solar-panels"> Solar Panels</label>
-        <label><input type="checkbox" name="category" value="lithium-batteries"> Lithium Batteries</label>
-        <label><input type="checkbox" name="category" value="accessories"> Accessories</label>
-        <label><input type="checkbox" name="category" value="all-in-one-solutions"> All-in-one Solutions</label>
-        <label><input type="checkbox" name="category" value="home-appliances"> Home Appliances</label>
+      <h2>Category</h2>
+      <div class="form-group">
+        <label for="product-category">Select Category</label>
+        <select id="product-category" name="product_category_id" required>
+          <option value="">Choose a category</option>
+          @if(isset($categories))
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}" {{ old('product_category_id') == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+              </option>
+            @endforeach
+          @endif
+        </select>
+        @error('product_category_id')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
-      <button type="button" class="create-new">Create New</button>
+      <a href="{{ route('admin.categories.create') }}" class="create-new" style="display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">Create New Category</a>
     </section>
     <section class="tags">
       <h2>Tags</h2>
@@ -106,6 +140,44 @@
 
 @section('script')
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show validation errors with SweetAlert
+      @if($errors->any())
+        var errorMessages = [];
+        @foreach($errors->all() as $error)
+          errorMessages.push('{!! addslashes($error) !!}');
+        @endforeach
+        
+        Swal.fire({
+          icon: 'error',
+          title: 'Validation Error!',
+          html: errorMessages.join('<br>'),
+          confirmButtonText: 'OK'
+        });
+      @endif
+      
+      // Show success message
+      @if(session('success'))
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: '{!! addslashes(session('success')) !!}',
+          timer: 3000,
+          showConfirmButton: false
+        });
+      @endif
+      
+      // Show error message
+      @if(session('error'))
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: '{!! addslashes(session('error')) !!}',
+          confirmButtonText: 'OK'
+        });
+      @endif
+    });
+    
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('image-upload');
     const uploadButton = document.getElementById('upload-button');
@@ -143,5 +215,47 @@
         }
       }
     }
+    
+    // Form validation before submission
+    document.querySelector('.product-form').addEventListener('submit', function(e) {
+      const name = document.getElementById('product-name').value.trim();
+      const description = document.getElementById('product-description').value.trim();
+      const price = document.getElementById('product-price').value;
+      const quantity = document.getElementById('quantity').value;
+      const category = document.getElementById('product-category').value;
+      
+      if (!name || !description || !price || !quantity || !category) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Missing Information!',
+          text: 'Please fill in all required fields.',
+          confirmButtonText: 'OK'
+        });
+        return false;
+      }
+      
+      if (parseFloat(price) <= 0) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Invalid Price!',
+          text: 'Product price must be greater than 0.',
+          confirmButtonText: 'OK'
+        });
+        return false;
+      }
+      
+      if (parseInt(quantity) < 0) {
+        e.preventDefault();
+        Swal.fire({
+          icon: 'warning',
+          title: 'Invalid Quantity!',
+          text: 'Quantity cannot be negative.',
+          confirmButtonText: 'OK'
+        });
+        return false;
+      }
+    });
   </script>
 @endsection

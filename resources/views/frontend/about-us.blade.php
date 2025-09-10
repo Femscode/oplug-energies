@@ -15,13 +15,13 @@
 </div>
 
 <div class="main-section">
-  <div class="banner">
+  <div class="banner" style="background-image: url('homepage/images/about/banner.png');">
     <h1>About Oplug Energies</h1>
     <p class="subtitle">Energy Solutions Company</p>
-    <p class="tagline"><span>BRINGING</span> SUSTAINABLE ENERGY SOLUTIONS <span>TO YOU</span></p>
   </div>
+  <h3 class="tagline">BRINGING<span style="color: #f7982a;"> SUSTAINABLE ENERGY SOLUTIONS </span>TO YOU</h3>
   <div class="info-section">
-    <div class="info-image"></div>
+    <div class="info-image" style="background-image: url('homepage/images/about/about.png');"></div>
     <div class="info-card">
       <p>Oplug Energies is your trusted partner in modern energy solutions.</p>
       <p>While our online presence is currently under refinement, our commitment to excellence remains unwavering. We’re continuously building a robust identity and expanding our footprint to better serve you with innovative energy solutions.</p>
@@ -57,19 +57,19 @@
         <p>To be a global leader in providing innovative quality machinery lubricants and solar power solutions, driving efficiency and promote sustainable practices globally.</p>
       </div>
     </div>
-    <img src="img/about3-png.png" alt="Oplug Energies" class="vision-image">
+    <img src="homepage/images/about/about2.png" alt="Oplug Energies" class="vision-image">
   </div>
  
   <div class="team">
     <h2>Our Team</h2>
     <div class="team-members">
       <div class="team-member">
-        <div class="member-image" style="background-image: url(./img/link-mem1-png.png);"></div>
+        <div class="member-image" style="background-image: url('homepage/images/about/ceo1.png');"></div>
         <h3>Oluwaseun Mendes</h3>
         <p>MD/CEO</p>
       </div>
       <div class="team-member">
-        <div class="member-image" style="background-image: url(./img/link-mem2-png.png);"></div>
+        <div class="member-image" style="background-image: url('homepage/images/about/ceo2.png');"></div>
         <h3>Adekunle Taiwo</h3>
         <p>Operations Manager</p>
       </div>
