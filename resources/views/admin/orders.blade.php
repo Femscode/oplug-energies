@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ url('homepage/css/admin-dashboard.css') }}" />
 @endsection
 
-@section('breadcrump')
+@section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>

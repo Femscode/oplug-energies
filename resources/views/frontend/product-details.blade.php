@@ -1,6 +1,7 @@
 @extends('frontend.master')
 @section('header')
 <link rel="stylesheet" href="{{ url('homepage/css/product-details.css') }}" />
+<script src="{{ url('homepage/js/image-gallery.js') }}"></script>
 @endsection
 
 @section('content')
@@ -17,38 +18,69 @@
 <div class="solar-product-details">
     <div class="solar-product-details-deal">
         <div class="solar-product-details-product">
-            <div class="solar-product-details-swiper-wrapper">
-                <div class="solar-product-details-thumb"></div>
-                <div class="solar-product-details-thumb-prod"></div>
-                <div class="solar-product-details-thumb-prod"></div>
-            </div>
-            <div class="solar-product-details-main-img">
-                <div class="solar-product-details-discount-card">
-                    <div class="solar-product-details-save">SAVE</div>
-                    <div class="solar-product-details-save-amount">₦150,000</div>
+            @if($product && $product->image)
+                @php
+                    $images = json_decode($product->image, true);
+                    $images = is_array($images) ? $images : [$product->image];
+                @endphp
+                @if(count($images) > 1)
+                <div class="solar-product-details-swiper-wrapper">
+                    @foreach($images as $index => $image)
+                        <div class="solar-product-details-thumb thumbnail-image" 
+                             data-image="{{ asset('uploads/products/' . $image) }}"
+                             style="background-image: url(&quot;{{ asset('uploads/products/' . $image) }}&quot;); background-size: cover; background-position: center; cursor: pointer; border: 2px solid {{ $index === 0 ? '#007bff' : 'transparent' }}; transition: all 0.2s ease;"
+                             onclick="switchMainImage('{{ asset('uploads/products/' . $image) }}', this)"></div>
+                    @endforeach
                 </div>
-            </div>
+                @endif
+                <div class="solar-product-details-main-img">
+                    <div class="main-product-image" id="mainProductImage" 
+                         style="width: 100%; height: 100%; background-image: url(&quot;{{ asset('uploads/products/' . $images[0]) }}&quot;); background-size: cover; background-position: center; transition: all 0.3s ease;"></div>
+                    @if($product->discount_price && $product->discount_price < $product->price)
+                    <div class="solar-product-details-discount-card">
+                        <div class="solar-product-details-save">SAVE</div>
+                        <div class="solar-product-details-save-amount">₦{{ number_format($product->price - $product->discount_price) }}</div>
+                    </div>
+                    @endif
+                </div>
+            @else
+                <div class="solar-product-details-swiper-wrapper">
+                    <div class="solar-product-details-thumb"></div>
+                </div>
+                <div class="solar-product-details-main-img">
+                    <div class="main-product-image" id="mainProductImage" 
+                         style="width: 100%; height: 100%; background-image: url(&quot;{{ asset('homepage/images/default-product.png') }}&quot;); background-size: cover; background-position: center;"></div>
+                </div>
+            @endif
         </div>
         <div class="solar-product-details-info">
             <div class="solar-product-details-title-section">
-                <p class="solar-product-details-title">GROWATT FUTURE-H ALL IN ONE SOLUTION</p>
-                <div class="solar-product-details-category">All-In-One Solutions</div>
+                <p class="solar-product-details-title">{{ $product->name ?? 'Product Name' }}</p>
+                <div class="solar-product-details-category">{{ $product->category->name ?? 'Product Category' }}</div>
             </div>
             <div class="solar-product-details-details">
                 <div class="solar-product-details-price">
-                    <div class="solar-product-details-current-price">₦1,824,000</div>
-                    <div class="solar-product-details-old-price">₦2,045,214</div>
+                    @if($product && $product->discount_price && $product->discount_price < $product->price)
+                        <div class="solar-product-details-current-price">₦{{ number_format($product->discount_price) }}</div>
+                        <div class="solar-product-details-old-price">₦{{ number_format($product->price) }}</div>
+                    @else
+                        <div class="solar-product-details-current-price">₦{{ number_format($product->price ?? 0) }}</div>
+                    @endif
                 </div>
+                @if($product && $product->short_description)
                 <div class="solar-product-details-specs">
                     <div class="solar-product-details-spec-item">
-                        <p class="solar-product-details-spec-text">SIM 6000ES PLUS-H + BATTERY + BASE 6KW + 5.5 kKWH</p>
+                        <p class="solar-product-details-spec-text">{{ $product->short_description }}</p>
                     </div>
                 </div>
+                @endif
+                @if($product && $product->description)
                 <div class="solar-product-details-specs">
                     <div class="solar-product-details-spec-item">
-                        <p class="solar-product-details-spec-text">Integrated inverter and lithium battery system, Compact size &amp; easy installation, Flexible expansion capacity up to 18kW/33kWh, Maximum PV</p>
+                        <p class="solar-product-details-spec-text">{{ Str::limit($product->description, 150) }}</p>
                     </div>
                 </div>
+                @endif
                 <div class="solar-product-details-benefits">
                     <div class="solar-product-details-benefit"><div class="solar-product-details-benefit-text">FREE SHIPPING</div></div>
                     <div class="solar-product-details-benefit-alt"><div class="solar-product-details-benefit-text-alt">50% INSTALLATION</div></div>
@@ -64,11 +96,20 @@
         <div class="solar-product-details-checkout-info">
             <div class="solar-product-details-price-total">
                 <div class="solar-product-details-total-label">TOTAL PRICE:</div>
-                <div class="solar-product-details-total-amount">₦1,824,000</div>
+                @if($product && $product->discount_price && $product->discount_price < $product->price)
+                    <div class="solar-product-details-total-amount">₦{{ number_format($product->discount_price) }}</div>
+                @else
+                    <div class="solar-product-details-total-amount">₦{{ number_format($product->price ?? 0) }}</div>
+                @endif
             </div>
             <div class="solar-product-details-status">
-                <div class="solar-product-details-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                <div class="solar-product-details-status-text">In stock</div>
+                @if($product && $product->stock_quantity > 0)
+                    <div class="solar-product-details-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
+                    <div class="solar-product-details-status-text">In stock</div>
+                @else
+                    <div class="solar-product-details-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
+                    <div class="solar-product-details-status-text">Out of Stock</div>
+                @endif
             </div>
         </div>
         <div class="solar-product-details-actions">
@@ -80,7 +121,7 @@
                 <div class="solar-product-details-quantity-increment"><img src="{{ url('homepage/images/home/plus.svg') }}"/></div>
             </div>
             <div class="solar-product-details-checkout-button"><div class="solar-product-details-checkout-text">PROCEED TO CHECKOUT</div></div>
-            <div class="solar-product-details-cart-button"><div class="solar-product-details-cart-text">ADD TO CART</div></div>
+            <div class="solar-product-details-cart-button add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;"><div class="solar-product-details-cart-text">ADD TO CART</div></div>
         </div>
         <div class="solar-product-details-payment">
             <div class="solar-product-details-payment-label">Guaranteed Safe Checkout</div>
@@ -98,28 +139,36 @@
     </div>
     <div class="solar-product-description-content">
         <div class="solar-product-description-text" id="description-content">
-            <p>
-                Integrated inverter and lithium battery system<br />
-                Compact size and easy installation<br />
-                Flexible expansion capacity up to 18kW/33kWh<br />
-                Maximum PV input voltage up to 500VDC<br />
-                Excellent safety of LiFePO4 battery<br />
-                Grid and Generator dual AC input with integrated transfer switch
-            </p>
+            @if($product && $product->description)
+                <p>{!! nl2br(e($product->description)) !!}</p>
+            @else
+                <p>
+                    Integrated inverter and lithium battery system<br />
+                    Compact size and easy installation<br />
+                    Flexible expansion capacity up to 18kW/33kWh<br />
+                    Maximum PV input voltage up to 500VDC<br />
+                    Excellent safety of LiFePO4 battery<br />
+                    Grid and Generator dual AC input with integrated transfer switch
+                </p>
+            @endif
         </div>
         <div class="solar-product-description-text" id="additional-content" style="display: none;">
-            <p>
-                <strong>Specifications:</strong><br />
-                Rated power: 6000VA/6000W<br />
-                Surge power: 12000VA<br />
-                3 units maximum (single or three phase)<br />
-                Maximum PV array power: 8000W<br />
-                MPPT range: 120VDC ~ 450VDC<br />
-                Rated Capacity: 5.5kWh<br />
-                Operating Voltage: 40 ~ 58.4V<br />
-                Max Charging Current: 100A<br />
-                Warranty: 5 Years
-            </p>
+            @if($product && $product->specifications)
+                <p><strong>Specifications:</strong><br />{!! nl2br(e($product->specifications)) !!}</p>
+            @else
+                <p>
+                    <strong>Specifications:</strong><br />
+                    Rated power: 6000VA/6000W<br />
+                    Surge power: 12000VA<br />
+                    3 units maximum (single or three phase)<br />
+                    Maximum PV array power: 8000W<br />
+                    MPPT range: 120VDC ~ 450VDC<br />
+                    Rated Capacity: 5.5kWh<br />
+                    Operating Voltage: 40 ~ 58.4V<br />
+                    Max Charging Current: 100A<br />
+                    Warranty: 5 Years
+                </p>
+            @endif
         </div>
         <div class="solar-product-description-image" style="background-image: url('{{ url("homepage/images/home/product-details.png") }}'); background-size:cover"></div>
     </div>
@@ -180,4 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
+<!-- Cart functionality -->
+<script src="{{ asset('js/cart.js') }}"></script>
 @endsection

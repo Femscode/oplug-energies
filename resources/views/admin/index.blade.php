@@ -26,7 +26,7 @@
 
 @section('content')
 <div class="dashboard">
-    <header class="dashboard-header">
+    <header class="dashboard-header" style="display:block">
         <h1>Dashboard</h1>
         <div class="dashboard-stats">
             <div class="stat-card">

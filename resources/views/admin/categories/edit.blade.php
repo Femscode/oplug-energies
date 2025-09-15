@@ -50,7 +50,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="admin-form-group admin-form-group-full">
+            <!-- <div class="admin-form-group admin-form-group-full">
                 <label for="description" class="admin-form-label">Description</label>
                 <textarea class="admin-form-textarea @error('description') error @enderror" 
                           id="description" name="description" rows="4" 
@@ -58,13 +58,13 @@
                 @error('description')
                     <div class="admin-form-error">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> -->
             <div class="admin-form-group admin-form-group-full">
                 <label for="image" class="admin-form-label">Category Image</label>
                 <div class="admin-file-upload">
                     @if($category->image)
                         <div class="admin-current-image">
-                            <img src="{{ asset('uploads/categories/' . $category->image) }}" alt="Current Image" class="admin-current-img">
+                            <img src="{{ asset( $category->image) }}" alt="Current Image" class="admin-current-img">
                             <div class="admin-current-image-overlay">
                                 <span class="admin-current-image-label">Current Image</span>
                                 <button type="button" class="admin-btn admin-btn-danger admin-btn-sm" id="removeCurrentImage">

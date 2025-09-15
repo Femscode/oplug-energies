@@ -9,79 +9,47 @@
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Cart</div></div>
 </div>
 
 <div class="solar-cart">
     <div class="solar-cart-left">
-        <div class="solar-cart-product">
-            <div class="solar-cart-product-img"></div>
-            <div class="solar-cart-product-info">
-                <div class="solar-cart-product-title"><p class="solar-cart-product-title-text">FUTURE-H ALL IN ONE SOLUTION</p></div>
-                <div class="solar-cart-product-price">₦1,824,000</div>
-                <div class="solar-cart-product-quantity">
-                    <div class="solar-cart-quantity-decrement"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/minus.svg') }}" alt="minus"/></div></div>
-                    <div class="solar-cart-quantity-input">
-                        <div class="solar-cart-quantity-value"><div class="solar-cart-quantity-text">1</div></div>
+        @if($cartItems->count() > 0)
+            @foreach($cartItems as $item)
+            <div class="solar-cart-product" data-product-id="{{ $item->product->id }}">
+                @php
+                    $images = $item->product->image ? json_decode($item->product->image, true) : [];
+                    $firstImage = !empty($images) ? $images[0] : null;
+                    $imageUrl = $firstImage ? url('uploads/products/' . $firstImage) : url('homepage/images/home/solar1.png');
+                @endphp
+                <div class="solar-cart-product-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>
+                <div class="solar-cart-product-info">
+                    <div class="solar-cart-product-title"><p class="solar-cart-product-title-text">{{ strtoupper($item->product->name) }}</p></div>
+                    <div class="solar-cart-product-price">₦{{ number_format($item->product->price, 0) }}</div>
+                    <div class="solar-cart-product-quantity">
+                        <div class="solar-cart-quantity-decrement" onclick="updateCartQuantity({{ $item->product->id }}, {{ $item->quantity - 1 }})"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/minus.svg') }}" alt="minus"/></div></div>
+                        <div class="solar-cart-quantity-input">
+                            <div class="solar-cart-quantity-value"><div class="solar-cart-quantity-text">{{ $item->quantity }}</div></div>
+                        </div>
+                        <div class="solar-cart-quantity-increment" onclick="updateCartQuantity({{ $item->product->id }}, {{ $item->quantity + 1 }})"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/plus.svg') }}" alt="plus"/></div></div>
                     </div>
-                    <div class="solar-cart-quantity-increment"><div class="solar-cart-quantity-icon"><img src="{{ url('homepage/images/home/plus.svg') }}" alt="plus"/></div></div>
-                </div>
-                <div class="solar-cart-product-benefits">
-                    <div class="solar-cart-benefit"><div class="solar-cart-benefit-text">FREE SHIPPING</div></div>
-                    <div class="solar-cart-benefit-alt"><div class="solar-cart-benefit-text-alt">50% INSTALLATION</div></div>
-                </div>
-                <div class="solar-cart-product-status">
-                    <div class="solar-cart-status-icon"><img src="{{ url('homepage/images/svgs/active.svg') }}" alt="active"/></div>
-                    <div class="solar-cart-status-text">In stock</div>
+                    <div class="solar-cart-product-benefits">
+                        <div class="solar-cart-benefit"><div class="solar-cart-benefit-text">FREE SHIPPING</div></div>
+                        <div class="solar-cart-benefit-alt"><div class="solar-cart-benefit-text-alt">50% INSTALLATION</div></div>
+                    </div>
+                    <div class="solar-cart-product-status">
+                        <div class="solar-cart-status-icon"><img src="{{ url('homepage/images/svgs/active.svg') }}" alt="active"/></div>
+                        <div class="solar-cart-status-text">In stock</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="solar-cart-product">
-            <div class="solar-cart-product-img-prod"></div>
-            <div class="solar-cart-product-info">
-                <div class="solar-cart-product-title"><p class="solar-cart-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                <div class="solar-cart-product-price">₦103,000</div>
-                <div class="solar-cart-product-quantity">
-                    <div class="solar-cart-quantity-decrement"><div class="solar-cart-quantity-icon"></div></div>
-                    <div class="solar-cart-quantity-input">
-                        <div class="solar-cart-quantity-value"><div class="solar-cart-quantity-text">1</div></div>
-                    </div>
-                    <div class="solar-cart-quantity-increment"><div class="solar-cart-quantity-icon"></div></div>
-                </div>
-                <div class="solar-cart-product-benefits">
-                    <div class="solar-cart-benefit"><div class="solar-cart-benefit-text">FREE SHIPPING</div></div>
-                    <div class="solar-cart-benefit-alt"><div class="solar-cart-benefit-text-alt">50% INSTALLATION</div></div>
-                </div>
-                <div class="solar-cart-product-status">
-                    <div class="solar-cart-status-icon"></div>
-                    <div class="solar-cart-status-text">In stock</div>
-                </div>
+            @endforeach
+        @else
+            <div class="empty-cart" style="text-align: center; padding: 50px;">
+                <p style="font-size: 18px; margin-bottom: 20px;">Your cart is empty</p>
+                <a href="{{ route('shop') }}" class="continue-shopping" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Continue Shopping</a>
             </div>
-        </div>
-        <div class="solar-cart-product">
-            <div class="solar-cart-product-img-2"></div>
-            <div class="solar-cart-product-info">
-                <div class="solar-cart-product-title"><div class="solar-cart-product-title-text">Growatt Inverter SPF 3000</div></div>
-                <div class="solar-cart-product-price">₦373,000</div>
-                <div class="solar-cart-product-quantity">
-                    <div class="solar-cart-quantity-decrement"><div class="solar-cart-quantity-icon"></div></div>
-                    <div class="solar-cart-quantity-input">
-                        <div class="solar-cart-quantity-value"><div class="solar-cart-quantity-text">1</div></div>
-                    </div>
-                    <div class="solar-cart-quantity-increment"><div class="solar-cart-quantity-icon"></div></div>
-                </div>
-                <div class="solar-cart-product-benefits">
-                    <div class="solar-cart-benefit"><div class="solar-cart-benefit-text">FREE SHIPPING</div></div>
-                    <div class="solar-cart-benefit-alt"><div class="solar-cart-benefit-text-alt">50% INSTALLATION</div></div>
-                </div>
-                <div class="solar-cart-product-status">
-                    <div class="solar-cart-status-icon"></div>
-                    <div class="solar-cart-status-text">In stock</div>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
     <div class="solar-cart-right">
         <div class="solar-cart-summary">
@@ -90,23 +58,23 @@
                 <div class="solar-cart-summary-items">
                     <div class="solar-cart-summary-item">
                         <div class="solar-cart-summary-label">Sub Total:</div>
-                        <div class="solar-cart-summary-value">₦2,300,000</div>
+                        <div class="solar-cart-summary-value">₦{{ number_format($subtotal, 0) }}</div>
                     </div>
                     <div class="solar-cart-summary-item">
                         <div class="solar-cart-summary-label">Discount:</div>
-                        <div class="solar-cart-summary-value">-₦100,000</div>
+                        <div class="solar-cart-summary-value">-₦0</div>
                     </div>
                     <div class="solar-cart-summary-item">
                         <div class="solar-cart-summary-label">Tax estimate:</div>
-                        <div class="solar-cart-summary-value">₦172,500</div>
+                        <div class="solar-cart-summary-value">₦{{ number_format($tax, 0) }}</div>
                     </div>
                 </div>
             </div>
             <div class="solar-cart-summary-total">
                 <div class="solar-cart-total-label">ORDER TOTAL:</div>
-                <div class="solar-cart-total-value">₦2,372,500</div>
+                <div class="solar-cart-total-value">₦{{ number_format($total, 0) }}</div>
             </div>
-            <div class="solar-cart-checkout-button"><div class="solar-cart-checkout-text">CHECKOUT</div></div>
+            <a href="{{ route('checkout') }}" class="solar-cart-checkout-button"><div class="solar-cart-checkout-text">CHECKOUT</div></a>
         </div>
         <div class="solar-cart-promo-jinko" style="background-image:url('homepage/images/home/solar5.png');background-size:cover">
             <div class="solar-cart-promo-content">
@@ -127,14 +95,70 @@
                 <div class="solar-cart-promo-solis-from">FROM AS LOW AS</div>
                 <div class="solar-cart-promo-solis-amount">₦150,000</div>
             </div>
-            <!-- <div class="solar-cart-promo-solis-shop"><div class="solar-cart-promo-solis-shop-text">SHOP NOW</div></div> -->
         </div>
     </div>
 </div>
 
-
 @endsection
 
 @section('script')
+<script>
+function updateCartQuantity(productId, newQuantity) {
+    if (newQuantity < 1) {
+        if (confirm('Remove this item from cart?')) {
+            removeFromCart(productId);
+        }
+        return;
+    }
+    
+    fetch('/cart/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            product_id: productId,
+            quantity: newQuantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.message || 'Error updating cart');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating cart');
+    });
+}
 
+function removeFromCart(productId) {
+    fetch('/cart/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            product_id: productId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert(data.message || 'Error removing item');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error removing item');
+    });
+}
+</script>
 @endsection

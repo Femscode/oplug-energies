@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection
 
-@section('content')
+@section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
@@ -23,20 +23,17 @@
         <p class="solar-breadcrumb-current">Edit Product</p>
     </div>
 </div>
+@endsection 
 
-<div class="admin-tabs">
-    <a href="{{ route('admin.products') }}" class="solar-account-tab">
-        <div class="solar-account-tab-text">Products</div>
-        <div class="solar-account-tab-icon">→</div>
-    </a>
-    <a href="{{ route('admin.categories.index') }}" class="solar-account-tab">
-        <div class="solar-account-tab-text">Categories</div>
-        <div class="solar-account-tab-icon">→</div>
-    </a>
-</div>
+@section('content')
+
+
 
 <div class="dashboard">
-  <form class="product-form" method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
+   <header class="dashboard-header">
+            <h1>Edit Product</h1>
+        </header>
+  <form class="product-formd" method="POST" action="{{ route('admin.products.update', $product->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <section class="information">
@@ -56,22 +53,57 @@
         @enderror
       </div>
       <div class="form-group">
-        <label>Product Image</label>
+        <label>Product Images</label>
         @if($product->image)
-          <div class="current-image" style="margin-bottom: 10px;">
-            <img src="{{ asset($product->image) }}" alt="Current product image" style="max-width: 200px; height: auto; border-radius: 5px;">
-            <p style="font-size: 12px; color: #666;">Current image</p>
+          <div class="current-images" style="margin-bottom: 15px;">
+            <h4 style="font-size: 14px; margin-bottom: 10px;">Current Images:</h4>
+            <div class="current-images-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;">
+              @php
+                $images = is_string($product->image) ? (json_decode($product->image) ?: [$product->image]) : [$product->image];
+              @endphp
+              @foreach($images as $index => $image)
+                <div class="current-image-item" style="position: relative; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+                  <img src="{{ asset('/uploads/products/'.$image) }}" alt="Product image" style="width: 100%; height: 120px; object-fit: cover;">
+                  <button type="button" class="remove-current-image" data-image="{{ $image }}" style="position: absolute; top: 5px; right: 5px; background: rgba(255,0,0,0.8); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer;">&times;</button>
+                  <div style="padding: 5px; font-size: 10px; text-align: center; color: #666;">{{ basename($image) }}</div>
+                </div>
+              @endforeach
+            </div>
           </div>
         @endif
         <div class="upload-area" id="upload-area">
-          <input type="file" id="image-upload" name="image" accept="image/*" hidden>
-          <button type="button" id="upload-button">{{ $product->image ? 'Change Image' : 'Add File' }}</button>
-          <p>Or drag and drop files</p>
-          <div id="file-preview" class="file-preview"></div>
+          <input type="file" id="image-upload" name="images[]" accept="image/*" multiple hidden>
+          <button type="button" id="upload-button">Add New Images</button>
+          <p>Or drag and drop multiple images</p>
         </div>
-        @error('image')
+        <div id="image-preview-container" class="image-preview-container"></div>
+        @error('images')
           <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
         @enderror
+        @error('images.*')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
+      </div>
+      <div class="form-group">
+        <h3>Category</h3>
+        <div class="form-group">
+        <label for="product-category">Select Category</label>
+        <select id="product-category" class="form-select" name="product_category_id" required>
+          <option value="">Choose a category</option>
+          @if(isset($categories))
+            @foreach($categories as $category)
+              <option value="{{ $category->id }}" {{ old('product_category_id', $product->product_category_id) == $category->id ? 'selected' : '' }}>
+                {{ $category->name }}
+              </option>
+            @endforeach
+          @endif
+        </select>
+        @error('product_category_id')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
+      </div>
+      <!-- <a href="{{ route('admin.categories.create') }}" class="create-new" style="display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">Create New Category</a> -->
+    
       </div>
       <div class="form-group">
         <h3>Price & Inventory</h3>
@@ -92,7 +124,7 @@
           </div>
           <div class="form-group">
             <label for="quantity">Quantity in Stock</label>
-            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" min="0" value="{{ old('quantity', $product->quantity) }}" required>
+            <input type="number" id="quantity" name="stock_quantity" placeholder="Enter quantity" min="0" value="{{ old('quantity', $product->stock_quantity) }}" required>
             @error('quantity')
               <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
             @enderror
@@ -104,48 +136,38 @@
         </div>
       </div>
     </section>
-    <section class="categories">
-      <h2>Category</h2>
+    
+   <br>
+    <section class="seo-settings">
+      <h2>SEO Settings <span style="color: #5a607f; font-size: 0.875rem;">(Optional)</span></h2>
       <div class="form-group">
-        <label for="product-category">Select Category</label>
-        <select id="product-category" name="product_category_id" required>
-          <option value="">Choose a category</option>
-          @if(isset($categories))
-            @foreach($categories as $category)
-              <option value="{{ $category->id }}" {{ old('product_category_id', $product->product_category_id) == $category->id ? 'selected' : '' }}>
-                {{ $category->name }}
-              </option>
-            @endforeach
-          @endif
-        </select>
-        @error('product_category_id')
+        <label for="seo-title">SEO Title</label>
+        <input type="text" id="seo-title" name="seo_title" placeholder="Enter SEO title (optional)" value="{{ old('seo_title', $product->seo_title ?? '') }}">
+        @error('seo_title')
           <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
         @enderror
       </div>
-      <a href="{{ route('admin.categories.create') }}" class="create-new" style="display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">Create New Category</a>
+      <div class="form-group">
+        <label for="seo-description">SEO Description</label>
+        <textarea id="seo-description" name="seo_description" placeholder="Enter SEO description (optional)" rows="4">{{ old('seo_description', $product->seo_description ?? '') }}</textarea>
+        @error('seo_description')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
+      </div>
     </section>
+    <br>
     <section class="tags">
       <h2>Tags</h2>
       <div class="form-group">
         <label for="tag-input">Add Tags</label>
-        <input type="text" id="tag-input" placeholder="Enter tag name">
+        <input type="text" id="tag-input" name="tag_input" placeholder="Enter tag name and press Enter">
+        <input type="hidden" id="tags-hidden" name="tags" value="{{ old('tags', is_array($product->tags) ? implode(',', $product->tags) : '') }}">
+        @error('tags')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
-      <div class="tag-list">
-        <span class="tag">Free Installation <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">Free Gift <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">New <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">Hot Sale <button type="button" class="remove-tag">×</button></span>
-      </div>
-    </section>
-    <section class="seo-settings">
-      <h2>SEO Settings</h2>
-      <div class="form-group">
-        <label for="seo-title">Title</label>
-        <input type="text" id="seo-title" placeholder="Enter SEO title">
-      </div>
-      <div class="form-group">
-        <label for="seo-description">Description</label>
-        <textarea id="seo-description" placeholder="Enter SEO description" rows="4"></textarea>
+      <div class="tag-list" id="tag-list">
+        <!-- Tags will be dynamically added here -->
       </div>
     </section>
     <div class="form-actions" style="display: flex; gap: 15px; margin-top: 20px;">
@@ -161,11 +183,13 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Show validation errors with SweetAlert
-      @if($errors->any())
-        var errorMessages = [];
-        @foreach($errors->all() as $error)
-          errorMessages.push('{!! addslashes($error) !!}');
-        @endforeach
+      var hasErrors = {{ $errors->any() ? 'true' : 'false' }};
+      if (hasErrors) {
+        var errorMessages = [
+          @foreach($errors->all() as $error)
+            '{!! addslashes($error) !!}',
+          @endforeach
+        ];
         
         Swal.fire({
           icon: 'error',
@@ -173,10 +197,11 @@
           html: errorMessages.join('<br>'),
           confirmButtonText: 'OK'
         });
-      @endif
+      }
       
       // Show success message
-      @if(session('success'))
+      var hasSuccess = {{ session('success') ? 'true' : 'false' }};
+      if (hasSuccess) {
         Swal.fire({
           icon: 'success',
           title: 'Success!',
@@ -184,23 +209,26 @@
           timer: 3000,
           showConfirmButton: false
         });
-      @endif
+      }
       
       // Show error message
-      @if(session('error'))
+      var hasError = {{ session('error') ? 'true' : 'false' }};
+      if (hasError) {
         Swal.fire({
           icon: 'error',
           title: 'Error!',
           text: '{!! addslashes(session('error')) !!}',
           confirmButtonText: 'OK'
         });
-      @endif
+      }
     });
     
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('image-upload');
     const uploadButton = document.getElementById('upload-button');
-    const filePreview = document.getElementById('file-preview');
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    let selectedFiles = [];
+    let removedImages = [];
 
     uploadButton.addEventListener('click', () => fileInput.click());
 
@@ -216,24 +244,127 @@
     uploadArea.addEventListener('drop', (e) => {
       e.preventDefault();
       uploadArea.classList.remove('dragover');
-      const files = e.dataTransfer.files;
+      const files = Array.from(e.dataTransfer.files);
       handleFiles(files);
     });
 
     fileInput.addEventListener('change', () => {
-      handleFiles(fileInput.files);
+      const files = Array.from(fileInput.files);
+      handleFiles(files);
     });
 
     function handleFiles(files) {
-      filePreview.innerHTML = '';
-      for (const file of files) {
+      files.forEach(file => {
         if (file.type.startsWith('image/')) {
-          const fileName = document.createElement('p');
-          fileName.textContent = file.name;
-          filePreview.appendChild(fileName);
+          selectedFiles.push(file);
+          createImagePreview(file, selectedFiles.length - 1);
         }
+      });
+      updateFileInput();
+    }
+
+    function createImagePreview(file, index) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const previewItem = document.createElement('div');
+        previewItem.className = 'image-preview-item';
+        previewItem.innerHTML = `
+          <img src="${e.target.result}" alt="Preview">
+          <button type="button" class="image-delete-btn" onclick="removeImage(${index})">&times;</button>
+          <div class="image-name">${file.name}</div>
+        `;
+        imagePreviewContainer.appendChild(previewItem);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeImage(index) {
+      selectedFiles.splice(index, 1);
+      updateImagePreviews();
+      updateFileInput();
+    }
+
+    function updateImagePreviews() {
+      imagePreviewContainer.innerHTML = '';
+      selectedFiles.forEach((file, index) => {
+        createImagePreview(file, index);
+      });
+    }
+
+    function updateFileInput() {
+      const dt = new DataTransfer();
+      selectedFiles.forEach(file => dt.items.add(file));
+      fileInput.files = dt.files;
+    }
+
+    // Handle removal of current images
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove-current-image')) {
+        const imageToRemove = e.target.getAttribute('data-image');
+        removedImages.push(imageToRemove);
+        e.target.closest('.current-image-item').remove();
+        
+        // Add hidden input to track removed images
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'removed_images[]';
+        hiddenInput.value = imageToRemove;
+        document.querySelector('form').appendChild(hiddenInput);
+      }
+    });
+
+    window.removeImage = removeImage;
+    
+    // Tag management functionality
+    const tagInput = document.getElementById('tag-input');
+    const tagList = document.getElementById('tag-list');
+    const tagsHidden = document.getElementById('tags-hidden');
+    let tags = [];
+    
+    // Load existing tags from product or old input
+    if (tagsHidden.value) {
+      tags = tagsHidden.value.split(',').filter(tag => tag.trim() !== '');
+      updateTagDisplay();
+    }
+    
+    tagInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addTag();
+      }
+    });
+    
+    function addTag() {
+      const tagValue = tagInput.value.trim();
+      if (tagValue && !tags.includes(tagValue)) {
+        tags.push(tagValue);
+        updateTagDisplay();
+        updateHiddenInput();
+        tagInput.value = '';
       }
     }
+    
+    function removeTag(tagToRemove) {
+      tags = tags.filter(tag => tag !== tagToRemove);
+      updateTagDisplay();
+      updateHiddenInput();
+    }
+    
+    function updateTagDisplay() {
+      tagList.innerHTML = '';
+      tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'tag';
+        tagElement.innerHTML = `${tag} <button type="button" class="remove-tag" onclick="removeTag('${tag}')">&times;</button>`;
+        tagList.appendChild(tagElement);
+      });
+    }
+    
+    function updateHiddenInput() {
+      tagsHidden.value = tags.join(',');
+    }
+    
+    window.removeTag = removeTag;
     
     // Form validation before submission
     document.querySelector('.product-form').addEventListener('submit', function(e) {

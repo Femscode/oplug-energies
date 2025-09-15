@@ -22,6 +22,10 @@ class Order extends Model
         'notes',
         'shipped_at',
         'delivered_at',
+        'session_id',
+        'email',
+        'phone',
+        'name'
     ];
 
     protected $casts = [

@@ -58,7 +58,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="admin-form-group admin-form-group-full">
+            <!-- <div class="admin-form-group admin-form-group-full">
                 <label for="description" class="admin-form-label">Description</label>
                 <textarea class="admin-form-textarea @error('description') error @enderror" 
                           id="description" name="description" rows="4" 
@@ -66,7 +66,7 @@
                 @error('description')
                     <div class="admin-form-error">{{ $message }}</div>
                 @enderror
-            </div>
+            </div> -->
             <div class="admin-form-group admin-form-group-full">
                 <label for="image" class="admin-form-label">Category Image</label>
                 <div class="admin-file-upload">

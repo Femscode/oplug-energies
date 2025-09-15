@@ -19,42 +19,51 @@
   <div class="contact-container">
     <div class="contact-form">
       <p>Contact us for all your questions and opinions</p>
-      <form>
+      
+      @if(session('success'))
+        <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+          {{ session('success') }}
+        </div>
+      @endif
+      
+      @if($errors->any())
+        <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 0.25rem; margin-bottom: 1rem;">
+          <ul style="margin: 0; padding-left: 1.5rem;">
+            @foreach($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+      <form action="{{ route('contact.submit') }}" method="POST">
+        @csrf
         <div class="form-row">
           <div class="form-group">
             <label for="first-name">First Name <span class="required">*</span></label>
-            <input type="text" id="first-name" required>
+            <input type="text" id="first-name" name="first_name" required>
           </div>
           <div class="form-group">
             <label for="last-name">Last Name <span class="required">*</span></label>
-            <input type="text" id="last-name" required>
+            <input type="text" id="last-name" name="last_name" required>
           </div>
         </div>
         <div class="form-group">
           <label for="email">Email Address <span class="required">*</span></label>
-          <input type="email" id="email" required>
+          <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
           <label for="phone">Phone Number (Optional)</label>
-          <input type="tel" id="phone">
+          <input type="tel" id="phone" name="phone">
         </div>
         <div class="form-group">
           <label for="subject">Subject (Optional)</label>
-          <input type="text" id="subject">
+          <input type="text" id="subject" name="subject">
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" placeholder="Note about your order, e.g. special note for delivery" rows="4"></textarea>
+          <textarea id="message" name="message" placeholder="Note about your order, e.g. special note for delivery" rows="4" required></textarea>
         </div>
-        <div class="form-group upload-group">
-          <label>Attach Files (Optional)</label>
-          <div class="upload-area" id="upload-area">
-            <input type="file" id="file-upload" accept="image/*,.pdf" multiple hidden>
-            <button type="button" id="upload-button">Upload Files</button>
-            <p>Or drag and drop files</p>
-            <div id="file-preview" class="file-preview"></div>
-          </div>
-        </div>
+
         <div class="form-group checkbox-group">
           <input type="checkbox" id="newsletter" name="newsletter">
           <label for="newsletter">I want to receive news and updates on promotions and sales.</label>

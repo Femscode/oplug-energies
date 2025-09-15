@@ -24,7 +24,7 @@ body {
 
 header {
     flex-shrink: 0;
-    padding :15px;
+    /* padding :15px; */
     background: #fff;
     width: 100%;
     border-bottom: 1px solid #eee;
@@ -126,6 +126,13 @@ main {
     align-items: center;
     gap: 6px;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.cart:hover {
+    text-decoration: none;
+    color: inherit;
 }
 
 .cart-icon {
@@ -219,10 +226,24 @@ main {
     }
 }
 
+/* Mobile cart controls */
+.mobile-nav-controls {
+    display: none;
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-cart {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mobile-cart:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 @media (max-width: 600px) {
-
-   
-
     .top-nav {
         /* flex-direction: column; */
         gap: 6px;
@@ -238,6 +259,11 @@ main {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+    }
+
+    .mobile-nav-controls {
+        display: flex;
+        order: 3;
     }
 
     .menu-toggle {
@@ -263,6 +289,11 @@ main {
     .mid-nav .nav-links.active,
     .mid-nav .actions.active {
         display: flex;
+    }
+
+    /* Hide desktop cart on mobile */
+    .mid-nav .actions .cart {
+        display: none;
     }
 }
 

@@ -51,10 +51,13 @@ class ProductController extends Controller
         $data['slug'] = Str::slug($request->name);
         
         // Handle image upload
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('products', 'public');
-        }
         
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $imageName);
+            $data['image'] =  $imageName;
+        }
         // Handle tags
         if ($request->tags) {
             $data['tags'] = array_map('trim', explode(',', $request->tags));
@@ -107,15 +110,13 @@ class ProductController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
         
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $data['image'] = $request->file('image')->store('products', 'public');
-        }
         
+          if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $imageName);
+            $data['image'] = 'uploads/products/' . $imageName;
+        }
         // Handle tags
         if ($request->tags) {
             $data['tags'] = array_map('trim', explode(',', $request->tags));

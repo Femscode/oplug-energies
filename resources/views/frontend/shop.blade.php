@@ -5,60 +5,40 @@
 
 @section('content')
 <div class="solar-breadcrumb">
-    <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
+    <a href="/" class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></a>
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+    @if(isset($category))
+        <div class="solar-breadcrumb-divider">/</div>
+        <div class="solar-breadcrumb-wrapper"><a href="{{ route('shop.category', $category->slug) }}" class="solar-breadcrumb-current">{{ $category->name }}</a></div>
+    @endif
 </div>
 
 <div class="solar-categories">
     <div class="solar-categories-div">
         <div class="solar-categories-all">
-            <div class="solar-categories-inverters">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">Inverters</div></div>
-                <div class="solar-categories-subitems">
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Infini-Solar Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Solis Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Galaxy Solar Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">East Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Deye Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Huawei Inverters</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Growatt Inverters</div></div>
+            @if(isset($categories) && $categories->count() > 0)
+                @foreach($categories as $category)
+                    <div class="solar-categories-{{ Str::slug($category->name) }}">
+                        <a href="{{ route('shop.category', $category->slug) }}" class="solar-categories-item-link">
+                            <div class="solar-categories-item-text">{{ $category->name }}</div>
+                        </a>
+                        @if($category->products->count() > 0)
+                            <div class="solar-categories-subitems">
+                                @foreach($category->products->take(5) as $product)
+                                    <a href="{{ route('shop.category', $category->slug) }}" class="solar-categories-subitem-link">
+                                        <div class="solar-categories-subitem-text">{{ $product->name }}</div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            @else
+                <div class="solar-categories-default">
+                    <div class="solar-categories-item-link"><div class="solar-categories-item-text">No Categories Available</div></div>
                 </div>
-            </div>
-            <div class="solar-categories-panels">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">Solar Panels</div></div>
-                <div class="solar-categories-subitems">
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Galaxy Solar Panels</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Jinko Solar Panels</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">ZNSHINESOLA Panels</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">JA Solar Panels</div></div>
-                </div>
-            </div>
-            <div class="solar-categories-batteries">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">Lithium Batteries</div></div>
-            </div>
-            <div class="solar-categories-accessories">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">Accessories</div></div>
-                <div class="solar-categories-subitems">
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Mounting kits</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">UPS</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">Bracket</div></div>
-                </div>
-            </div>
-            <div class="solar-categories-solutions">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">All-in-one Solutions</div></div>
-                <div class="solar-categories-subitems">
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">All-In-one Solar Generators</div></div>
-                    <div class="solar-categories-subitem-link"><div class="solar-categories-subitem-text">All-in-one Street Light</div></div>
-                </div>
-            </div>
-            <div class="solar-categories-appliances">
-                <div class="solar-categories-item-link"><div class="solar-categories-item-text">Home Appliances</div></div>
-            </div>
+            @endif
         </div>
         <div class="solar-categories-filter-box">
             <div class="solar-categories-filter-header"><div class="solar-categories-filter-title">FILTERS</div></div>
@@ -166,8 +146,9 @@
                                 <div class="solar-categories-filter-check-count">(64)</div>
                             </div>
                         </div>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="solar-categories-filter-group-price">
                     <div class="solar-categories-filter-label">Sort By Price</div>
                     <div class="solar-categories-price-range">
@@ -205,30 +186,72 @@
         </div>
     </div>
     <div class="solar-categories-best-seller">
-        <div class="solar-categories-best-title">ALL INVERTERS</div>
+        <div class="solar-categories-best-title">{{ isset($category) ? strtoupper($category->name) . ' PRODUCTS' : 'ALL PRODUCTS' }}</div>
         <div class="solar-categories-best-products">
-            @for ($i = 0; $i < 9; $i++)
-            <div class="solar-categories-best-item">
-                <div class="solar-categories-best-product">
-                    <div class="solar-categories-best-img-wrapper"><div class="solar-categories-best-img"></div></div>
-                    <div class="solar-categories-best-details">
-                        <div class="solar-categories-best-title-text">Huawei POWER MODULE...</div>
-                        <div class="solar-categories-best-category">Inverters</div>
+            @if($products && $products->count() > 0)
+                @foreach($products as $product)
+                <div class="solar-categories-best-item">
+                    <div class="solar-categories-best-product">
+                        <a href="{{ route('prd', $product->slug) }}" style="text-decoration: none; color: inherit;">
+                            <div class="solar-categories-best-img-wrapper">
+                                @php
+                                    $images = json_decode($product->image, true);
+                                    $firstImage = $images[0] ?? $product->image;
+                                @endphp
+                                @php $imageUrl = url("uploads/products/".$firstImage); @endphp
+                                <div class="solar-categories-best-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>
+                            </div>
+                        </a>
+                        <div class="solar-categories-best-details">
+                            <a href="{{ route('prd', $product->slug) }}" style="text-decoration: none; color: inherit;">
+                                <div class="solar-categories-best-title-text">{{ Str::limit($product->name, 20) }}</div>
+                            </a>
+                            <div class="solar-categories-best-category">{{ $product->category->name ?? 'Product' }}</div>
+                        </div>
+                        <div class="solar-categories-best-price">
+                            @if($product->discount_price && $product->discount_price < $product->price)
+                                <div class="solar-categories-best-current-price">₦{{ number_format($product->discount_price, 0) }}</div>
+                                <div class="solar-categories-best-old-price">₦{{ number_format($product->price, 0) }}</div>
+                            @else
+                                <div class="solar-categories-best-current-price">₦{{ number_format($product->price, 0) }}</div>
+                            @endif
+                        </div>
+                        <div class="solar-categories-best-status">
+                            @if($product->stock_quantity > 0)
+                                <div class="solar-categories-best-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
+                                <div class="solar-categories-best-status-text">In stock</div>
+                            @else
+                                <div class="solar-categories-best-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
+                                <div class="solar-categories-best-status-text">Out of Stock</div>
+                            @endif
+                        </div>
                     </div>
-                    <div class="solar-categories-best-price">
-                        <div class="solar-categories-best-current-price">₦3,100,000</div>
-                        <div class="solar-categories-best-old-price">₦3,800,000</div>
-                    </div>
-                    <div class="solar-categories-best-status">
-                        <div class="solar-categories-best-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                        <div class="solar-categories-best-status-text">In stock</div>
+                    <div class="solar-categories-best-action" data-product-id="{{ $product->id }}">
+                        <div class="solar-categories-best-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;"><div class="solar-categories-best-action-text">ADD TO CART</div></div>
                     </div>
                 </div>
-                <div class="solar-categories-best-action">
-                    <div class="solar-categories-best-action-link"><div class="solar-categories-best-action-text">ADD TO CART</div></div>
+                @endforeach
+            @else
+                <div class="solar-categories-best-item">
+                    <div class="solar-categories-best-product">
+                        <div class="solar-categories-best-img-wrapper"><div class="solar-categories-best-img"></div></div>
+                        <div class="solar-categories-best-details">
+                            <div class="solar-categories-best-title-text">No Products Available</div>
+                            <div class="solar-categories-best-category">Product</div>
+                        </div>
+                        <div class="solar-categories-best-price">
+                            <div class="solar-categories-best-current-price">₦0</div>
+                        </div>
+                        <div class="solar-categories-best-status">
+                            <div class="solar-categories-best-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
+                            <div class="solar-categories-best-status-text">Out of Stock</div>
+                        </div>
+                    </div>
+                    <div class="solar-categories-best-action">
+                        <div class="solar-categories-best-action-link"><div class="solar-categories-best-action-text">ADD TO CART</div></div>
+                    </div>
                 </div>
-            </div>
-            @endfor
+            @endif
         </div>
         <div class="solar-categories-pagination">
             <div class="solar-categories-page-nav-active"><div class="solar-categories-page-number">1</div></div>
@@ -250,34 +273,42 @@
         </div>
         
         <div class="solar-recently-viewed-scrolling">
-            <div class="solar-recently-viewed-product">
-                <div class="solar-recently-viewed-product-img"></div>
-                <div class="solar-recently-viewed-product-details">
-                    <div class="solar-recently-viewed-product-title"><div class="solar-recently-viewed-product-title-text">Growatt Inverter SPF 3000..</div></div>
-                    <div class="solar-recently-viewed-product-price">₦373,000</div>
+            @if($recentProducts && $recentProducts->count() > 0)
+                @foreach($recentProducts as $product)
+                <a href="{{ route('prd', $product->slug) }}" style="text-decoration: none; color: inherit;">
+                    <div class="solar-recently-viewed-product">
+                        @php
+                            $images = json_decode($product->image, true);
+                            $firstImage = $images[0] ?? $product->image;
+                        @endphp
+                        @if($product->image)
+                            @php $recentImageUrl = url("uploads/products/" . $firstImage); @endphp
+                            <div class="solar-recently-viewed-product-img" style="background-image: url('{{ $recentImageUrl }}'); background-size: cover; background-position: center;"></div>
+                        @else
+                            @php $defaultImageUrl = asset("homepage/images/default-product.png"); @endphp
+                            <div class="solar-recently-viewed-product-img" style="background-image: url('{{ $defaultImageUrl }}'); background-size: cover; background-position: center;"></div>
+                        @endif
+                        <div class="solar-recently-viewed-prd">
+                            <div class="solar-recently-viewed-product-title"><div class="solar-recently-viewed-product-title-text">{{ Str::limit($product->name, 25) }}</div></div>
+                        <div class="solar-recently-viewed-product-price">
+                            @if($product->discount_price && $product->discount_price < $product->price)
+                                ₦{{ number_format($product->discount_price, 0) }}
+                            @else
+                                ₦{{ number_format($product->price, 0) }}
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="solar-recently-viewed-product">
-                <div class="solar-recently-viewed-product-img-prod"></div>
-                <div class="solar-recently-viewed-product-details-alt">
-                    <div class="solar-recently-viewed-product-title-wrapper"><div class="solar-recently-viewed-product-title-text">Huawei POWER MO...</div></div>
-                    <div class="solar-recently-viewed-product-price">₦373,000</div>
+                @endforeach
+            @else
+                <div class="solar-recently-viewed-product">
+                    <div class="solar-recently-viewed-product-img"></div>
+                    <div class="solar-recently-viewed-prd">
+                        <div class="solar-recently-viewed-product-title"><div class="solar-recently-viewed-product-title-text">No Recent Products</div></div>
+                        <div class="solar-recently-viewed-product-price">₦0</div>
+                    </div>
                 </div>
-            </div>
-            <div class="solar-recently-viewed-product">
-                <div class="solar-recently-viewed-product-img-2"></div>
-                <div class="solar-recently-viewed-product-details">
-                    <div class="solar-recently-viewed-product-title"><div class="solar-recently-viewed-product-title-text">Growatt Inverter SPF 3000..</div></div>
-                    <div class="solar-recently-viewed-product-price">₦373,000</div>
-                </div>
-            </div>
-            <div class="solar-recently-viewed-product">
-                <div class="solar-recently-viewed-product-img-3"></div>
-                <div class="solar-recently-viewed-product-details-alt">
-                    <div class="solar-recently-viewed-product-title-wrapper"><div class="solar-recently-viewed-product-title-text">Huawei POWER MO...</div></div>
-                    <div class="solar-recently-viewed-product-price">₦373,000</div>
-                </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
@@ -301,4 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
+<!-- Cart functionality -->
+<script src="{{ asset('js/cart.js') }}"></script>
 @endsection

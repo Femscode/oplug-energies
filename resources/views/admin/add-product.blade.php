@@ -27,7 +27,7 @@
 
 
 <div class="dashboard">
-  <form class="product-form" method="POST" action="{{ route('admin.store_product') }}" enctype="multipart/form-data">
+  <form class="product-formd" method="POST" action="{{ route('admin.store_product') }}" enctype="multipart/form-data">
     @csrf
     <section class="information">
       <h2>Information</h2>
@@ -46,14 +46,17 @@
         @enderror
       </div>
       <div class="form-group">
-        <label>Product Image</label>
+        <label>Product Images</label>
         <div class="upload-area" id="upload-area">
-          <input type="file" id="image-upload" name="image" accept="image/*" hidden>
-          <button type="button" id="upload-button">Add File</button>
-          <p>Or drag and drop files</p>
-          <div id="file-preview" class="file-preview"></div>
+          <input type="file" id="image-upload" name="images[]" accept="image/*" multiple hidden>
+          <button type="button" id="upload-button">Add Images</button>
+          <p>Or drag and drop multiple images</p>
         </div>
-        @error('image')
+        <div id="image-preview-container" class="image-preview-container"></div>
+        @error('images')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
+        @error('images.*')
           <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
         @enderror
       </div>
@@ -88,6 +91,7 @@
         </div>
       </div>
     </section>
+    <br>
     <section class="categories">
       <h2>Category</h2>
       <div class="form-group">
@@ -108,30 +112,39 @@
       </div>
       <a href="{{ route('admin.categories.create') }}" class="create-new" style="display: inline-block; padding: 8px 16px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">Create New Category</a>
     </section>
+    <br>
     <section class="tags">
       <h2>Tags</h2>
       <div class="form-group">
         <label for="tag-input">Add Tags</label>
-        <input type="text" id="tag-input" placeholder="Enter tag name">
+        <input type="text" id="tag-input" name="tag_input" placeholder="Enter tag name and press Enter">
+        <input type="hidden" id="tags-hidden" name="tags" value="{{ old('tags') }}">
+        @error('tags')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
-      <div class="tag-list">
-        <span class="tag">Free Installation <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">Free Gift <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">New <button type="button" class="remove-tag">×</button></span>
-        <span class="tag">Hot Sale <button type="button" class="remove-tag">×</button></span>
+      <div class="tag-list" id="tag-list">
+        <!-- Tags will be dynamically added here -->
       </div>
     </section>
+    <br>
     <section class="seo-settings">
-      <h2>SEO Settings</h2>
+      <h2>SEO Settings <span style="color: #5a607f; font-size: 0.875rem;">(Optional)</span></h2>
       <div class="form-group">
-        <label for="seo-title">Title</label>
-        <input type="text" id="seo-title" placeholder="Enter SEO title">
+        <label for="seo-title">SEO Title</label>
+        <input type="text" id="seo-title" name="seo_title" placeholder="Enter SEO title (optional)" value="{{ old('seo_title') }}">
+        @error('seo_title')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
       <div class="form-group">
-        <label for="seo-description">Description</label>
-        <textarea id="seo-description" placeholder="Enter SEO description" rows="4"></textarea>
+        <label for="seo-description">SEO Description</label>
+        <textarea id="seo-description" name="seo_description" placeholder="Enter SEO description (optional)" rows="4">{{ old('seo_description') }}</textarea>
+        @error('seo_description')
+          <span class="error-text" style="color: red; font-size: 12px;">{{ $message }}</span>
+        @enderror
       </div>
-    </section>
+    </section><br>
     <button type="submit" class="submit-button">Submit</button>
   </form>
 
@@ -140,48 +153,51 @@
 
 @section('script')
   <script>
+     document.addEventListener('DOMContentLoaded', function() {
+       @if($errors->any())
+         var errorMessages = [];
+         @foreach($errors->all() as $error)
+           errorMessages.push('{!! addslashes($error) !!}');
+         @endforeach
+         
+         Swal.fire({
+           icon: 'error',
+           title: 'Validation Error!',
+           html: errorMessages.join('<br>'),
+           confirmButtonText: 'OK'
+         });
+       @endif
+       
+       @if(session('success'))
+         Swal.fire({
+           icon: 'success',
+           title: 'Success!',
+           text: '{!! addslashes(session('success')) !!}',
+           timer: 3000,
+           showConfirmButton: false
+         });
+       @endif
+       
+       @if(session('error'))
+         Swal.fire({
+           icon: 'error',
+           title: 'Error!',
+           text: '{!! addslashes(session('error')) !!}',
+           confirmButtonText: 'OK'
+         });
+       @endif
+     });
+   </script>
+  
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Show validation errors with SweetAlert
-      @if($errors->any())
-        var errorMessages = [];
-        @foreach($errors->all() as $error)
-          errorMessages.push('{!! addslashes($error) !!}');
-        @endforeach
-        
-        Swal.fire({
-          icon: 'error',
-          title: 'Validation Error!',
-          html: errorMessages.join('<br>'),
-          confirmButtonText: 'OK'
-        });
-      @endif
-      
-      // Show success message
-      @if(session('success'))
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: '{!! addslashes(session('success')) !!}',
-          timer: 3000,
-          showConfirmButton: false
-        });
-      @endif
-      
-      // Show error message
-      @if(session('error'))
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: '{!! addslashes(session('error')) !!}',
-          confirmButtonText: 'OK'
-        });
-      @endif
     });
     
     const uploadArea = document.getElementById('upload-area');
     const fileInput = document.getElementById('image-upload');
     const uploadButton = document.getElementById('upload-button');
-    const filePreview = document.getElementById('file-preview');
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+    let selectedFiles = [];
 
     uploadButton.addEventListener('click', () => fileInput.click());
 
@@ -197,24 +213,111 @@
     uploadArea.addEventListener('drop', (e) => {
       e.preventDefault();
       uploadArea.classList.remove('dragover');
-      const files = e.dataTransfer.files;
+      const files = Array.from(e.dataTransfer.files);
       handleFiles(files);
     });
 
     fileInput.addEventListener('change', () => {
-      handleFiles(fileInput.files);
+      const files = Array.from(fileInput.files);
+      handleFiles(files);
     });
 
     function handleFiles(files) {
-      filePreview.innerHTML = '';
-      for (const file of files) {
+      files.forEach(file => {
         if (file.type.startsWith('image/')) {
-          const fileName = document.createElement('p');
-          fileName.textContent = file.name;
-          filePreview.appendChild(fileName);
+          selectedFiles.push(file);
+          createImagePreview(file, selectedFiles.length - 1);
         }
+      });
+      updateFileInput();
+    }
+
+    function createImagePreview(file, index) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const previewItem = document.createElement('div');
+        previewItem.className = 'image-preview-item';
+        previewItem.innerHTML = `
+          <img src="${e.target.result}" alt="Preview">
+          <button type="button" class="image-delete-btn" onclick="removeImage(${index})">&times;</button>
+          <div class="image-name">${file.name}</div>
+        `;
+        imagePreviewContainer.appendChild(previewItem);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeImage(index) {
+      selectedFiles.splice(index, 1);
+      updateImagePreviews();
+      updateFileInput();
+    }
+
+    function updateImagePreviews() {
+      imagePreviewContainer.innerHTML = '';
+      selectedFiles.forEach((file, index) => {
+        createImagePreview(file, index);
+      });
+    }
+
+    function updateFileInput() {
+      const dt = new DataTransfer();
+      selectedFiles.forEach(file => dt.items.add(file));
+      fileInput.files = dt.files;
+    }
+
+    window.removeImage = removeImage;
+    
+    // Tag management functionality
+    const tagInput = document.getElementById('tag-input');
+    const tagList = document.getElementById('tag-list');
+    const tagsHidden = document.getElementById('tags-hidden');
+    let tags = [];
+    
+    // Load existing tags from old input
+    if (tagsHidden.value) {
+      tags = tagsHidden.value.split(',').filter(tag => tag.trim() !== '');
+      updateTagDisplay();
+    }
+    
+    tagInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addTag();
+      }
+    });
+    
+    function addTag() {
+      const tagValue = tagInput.value.trim();
+      if (tagValue && !tags.includes(tagValue)) {
+        tags.push(tagValue);
+        updateTagDisplay();
+        updateHiddenInput();
+        tagInput.value = '';
       }
     }
+    
+    function removeTag(tagToRemove) {
+      tags = tags.filter(tag => tag !== tagToRemove);
+      updateTagDisplay();
+      updateHiddenInput();
+    }
+    
+    function updateTagDisplay() {
+      tagList.innerHTML = '';
+      tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'tag';
+        tagElement.innerHTML = `${tag} <button type="button" class="remove-tag" onclick="removeTag('${tag}')">&times;</button>`;
+        tagList.appendChild(tagElement);
+      });
+    }
+    
+    function updateHiddenInput() {
+      tagsHidden.value = tags.join(',');
+    }
+    
+    window.removeTag = removeTag;
     
     // Form validation before submission
     document.querySelector('.product-form').addEventListener('submit', function(e) {

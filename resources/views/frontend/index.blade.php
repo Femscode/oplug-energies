@@ -191,30 +191,16 @@
             </div>
         </div>
         <div class="scrolling">
-            <div class="frame-3">
-                <div class="group-link" style="background-image:url('homepage/images/categories/cat2.png')"></div>
-                <div class="text-wrapper-2">Inverters</div>
-            </div>
-            <div class="frame-4">
-                <div class="group-link-prod" style="background-image:url('homepage/images/categories/cat1.png')"></div>
-                <div class="text-wrapper-2">Solar Panels</div>
-            </div>
-            <div class="frame-5">
-                <div class="group-link-2" style="background-image:url('homepage/images/categories/cat3.png')"></div>
-                <div class="group-link-3">Lithium Batteries</div>
-            </div>
-            <div class="frame-6">
-                <div class="group-link-4" style="background-image:url('homepage/images/categories/cat4.png')"></div>
-                <div class="group-link-5">Accessories</div>
-            </div>
-            <div class="frame-7">
-                <div class="group-link-6" style="background-image:url('homepage/images/categories/cat5.png')"></div>
-                <div class="group-link-5">All-In-One</div>
-            </div>
-            <div class="frame-8">
-                <div class="group-link-7" style="background-image:url('homepage/images/categories/cat6.png')"></div>
-                <div class="group-link-5">Home Appliances</div>
-            </div>
+                @foreach($categories as $index => $category)
+                <div class="frame-{{ $index + 3 }}">
+                    <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
+                            <div class="group-link{{ $index === 1 ? '-prod' : ($index > 1 ? '-' . $index : '') }}" style="background-image: url({{ asset($category->image) }}); background-size: cover; background-position: center;"></div>
+                       
+                        <div class="{{ $index < 2 ? 'text-wrapper-2' : 'group-link-' . ($index + 2) }}">{{ $category->name }}</div>
+                    </a>
+                </div>
+                @endforeach
+           
         </div>
     </div>
 </div>
@@ -230,6 +216,122 @@
                 <div class="symbol">→</div>
             </div>
             <div class="deal-of-the-day">
+                @if($dealOfTheDay)
+                <div class="product">
+                    <!-- Image Gallery Container -->
+                    <div class="image-gallery-container" style="display: flex; gap: 15px; width: 100%; max-width: 500px;">
+                        @if($dealOfTheDay->image)
+                        @php
+                        $images = json_decode($dealOfTheDay->image, true);
+                        $images = is_array($images) && !empty($images) ? $images : [];
+                        @endphp
+                        @endif
+                        
+                        @if(!empty($images))
+                        <!-- Thumbnail Gallery on Left -->
+                        <div class="thumbnail-gallery" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
+                            @foreach($images as $index => $image)
+                                <div class="group-prod-png thumbnail-image {{ $index === 0 ? 'active' : '' }}" 
+                                     data-image="{{ asset('uploads/products/' . $image) }}" 
+                                     style="width: 80px; height: 80px; background-image: url('{{ asset('uploads/products/' . $image) }}'); background-size: cover; background-position: center; cursor: pointer; border-radius: 8px; border: 2px solid {{ $index === 0 ? '#007bff' : 'transparent' }}; transition: all 0.2s ease;"
+                                     onclick="switchMainImage('{{ asset('uploads/products/' . $image) }}', this)"></div>
+                            @endforeach
+                        </div>
+                        
+                        <!-- Main Preview Image -->
+                        <div class="main-image-container" style="flex: 1; height: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <div class="group-png main-product-image" id="mainProductImage" 
+                                 style="width: 100%; height: 100%; background-image: url('{{ asset('uploads/products/' . $images[0]) }}'); background-size: cover; background-position: center; transition: all 0.3s ease;"></div>
+                        </div>
+                        @else
+                        <!-- Fallback when no images available -->
+                        <div class="thumbnail-gallery" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
+                            <!-- No thumbnails when no images available -->
+                        </div>
+                        
+                        <div class="main-image-container" style="flex: 1; height: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <div class="group-png main-product-image" id="mainProductImage" 
+                                 style="width: 100%; height: 100%; background-color: #f5f5f5; background-image: url('{{ asset('homepage/images/default-product.png') }}'); background-size: cover; background-position: center;"></div>
+                        </div>
+                        @endif
+                    </div>
+                    <div class="png">
+                        <div class="div-dis-card">
+                            <div class="small-save">SAVE</div>
+                            @if($dealOfTheDay->discount_price)
+                            <div class="heading">₦{{ number_format($dealOfTheDay->price - $dealOfTheDay->discount_price) }}</div>
+                            @else
+                            <div class="heading">₦150,000</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-3">
+                    <div class="frame-4">
+                        <a href="{{ route('prd', $dealOfTheDay->slug) }}" class="heading-link-xioma" style="text-decoration: none; color: inherit;">{{ $dealOfTheDay->name }}</a>
+                        <div class="text-wrapper">{{ $dealOfTheDay->category->name ?? 'Product' }}</div>
+                    </div>
+                    <div class="details">
+                        <div class="price">
+                            @if($dealOfTheDay->discount_price)
+                            <div class="heading-2">₦{{ number_format($dealOfTheDay->discount_price) }}</div>
+                            <div class="heading-3">₦{{ number_format($dealOfTheDay->price) }}</div>
+                            @else
+                            <div class="heading-2">₦{{ number_format($dealOfTheDay->price) }}</div>
+                            @endif
+                        </div>
+                        <div class="specs">
+                            <div class="frame-5">
+                                <div class="list-item"></div>
+                                <p class="p">{{ Str::limit($dealOfTheDay->description, 100) }}</p>
+                            </div>
+                        </div>
+                        <div class="frame-6">
+                            <div class="link-free-shipping-wrapper">
+                                <div class="link-free-shipping">FREE SHIPPING</div>
+                            </div>
+                            <div class="div-wrapper">
+                                <div class="link-free-shipping-2">50% INSTALLATION</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frame-7" data-product-id="{{ $dealOfTheDay->id }}">
+                        <div class="link">
+                            <div class="shop-now">BUY NOW</div>
+                        </div>
+                        <div class="shop-now-wrapper">
+                            <div class="shop-now-2 add-to-cart-btn" data-product-id="{{ $dealOfTheDay->id }}" style="cursor: pointer;">ADD TO CART</div>
+                        </div>
+                    </div>
+                    <div class="frame-8">
+                        <div class="hurry-up-promotion">HURRY UP!<br />PROMOTION WILL<br />EXPIRE IN</div>
+                        <div class="timer">
+                            <div class="div-c-card">
+                                <div class="text-wrapper-2">52</div>
+                                <div class="small-d">Days</div>
+                            </div>
+                            <div class="div-c-card">
+                                <div class="text-wrapper-2">12</div>
+                                <div class="small-d">Hours</div>
+                            </div>
+                            <div class="div-c-card">
+                                <div class="text-wrapper-2">01</div>
+                                <div class="small-d">Minutes</div>
+                            </div>
+                            <div class="div-c-card">
+                                <div class="text-wrapper-2">03</div>
+                                <div class="small-d">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-progress-content">
+                        <div class="div-progress">
+                            <div class="progressbar"></div>
+                        </div>
+                        <p class="sold"><span class="span">Sold: </span> <span class="text-wrapper-3">{{ $dealOfTheDay->stock_quantity > 0 ? '26/75' : 'Out of Stock' }}</span></p>
+                    </div>
+                </div>
+                @else
                 <div class="product">
                     <div class="div-swiper-wrapper">
                         <div class="group-png"></div>
@@ -247,26 +349,17 @@
                 </div>
                 <div class="frame-3">
                     <div class="frame-4">
-                        <div class="heading-link-xioma">Solis Inverter - S6-EH1P(9.9-18)K03-NV-YD-L</div>
-                        <div class="text-wrapper">Inverters</div>
+                        <div class="heading-link-xioma">No Deal Available</div>
+                        <div class="text-wrapper">Product</div>
                     </div>
                     <div class="details">
                         <div class="price">
-                            <div class="heading-2">₦1,200,000</div>
-                            <div class="heading-3">₦1,845,214</div>
+                            <div class="heading-2">₦0</div>
                         </div>
                         <div class="specs">
                             <div class="frame-5">
                                 <div class="list-item"></div>
-                                <p class="p">Compatible with mainstream lithium and lead-acid batteries</p>
-                            </div>
-                            <div class="frame-5">
-                                <div class="list-item"></div>
-                                <p class="p">7-inch LCD screen for an intuitive user experience</p>
-                            </div>
-                            <div class="frame-5">
-                                <div class="list-item"></div>
-                                <p class="p">160% PV input capacity to maximize solar energy utilization</p>
+                                <p class="p">No products available for deal of the day</p>
                             </div>
                         </div>
                         <div class="frame-6">
@@ -311,9 +404,10 @@
                         <div class="div-progress">
                             <div class="progressbar"></div>
                         </div>
-                        <p class="sold"><span class="span">Sold: </span> <span class="text-wrapper-3">26/75</span></p>
+                        <p class="sold"><span class="span">Sold: </span> <span class="text-wrapper-3">0/0</span></p>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
         <div class="frame-9">
@@ -343,6 +437,63 @@
         <div class="link-view-all">View All</div>
     </div>
     <div class="tabpanel">
+        @if($featuredProducts && $featuredProducts->count() > 0)
+        @foreach($featuredProducts->take(6) as $index => $product)
+        <div class="group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
+            <div class="div">
+                <a href="{{ route('prd', $product->slug) }}" class="link" style="text-decoration: none;">
+                    @if($product->image)
+                    @php
+                    $images = json_decode($product->image, true);
+                    $firstImage = is_array($images) && !empty($images) ? $images[0] : null;
+                    @endphp
+                    @if($firstImage)
+                    <div class="png{{ $index > 0 ? '-' . $index : '' }}" style="background-image: url({{ asset('uploads/products/' . $firstImage) }}); background-size: cover; background-position: center;"></div>
+                    @else
+                    <div class="png{{ $index > 0 ? '-' . $index : '' }}"></div>
+                    @endif
+                    @else
+                    <div class="png{{ $index > 0 ? '-' . $index : '' }}"></div>
+                    @endif
+                </a>
+                <div class="frame-2">
+                    <div class="heading-link-xioma{{ $index > 2 ? '-wrapper' : '' }}">
+                        <a href="{{ route('prd', $product->slug) }}" class="text-wrapper{{ $index > 3 ? '' : '' }}" style="text-decoration: none; color: inherit;">{{ Str::limit($product->name, 25) }}</a>
+                    </div>
+                    <div class="heading-link-xioma-2">{{ $product->category->name ?? 'Product' }}</div>
+                </div>
+                <div class="frame-3">
+                    @if($product->discount_price)
+                    <div class="heading">₦{{ number_format($product->discount_price) }}</div>
+                    <div class="heading-2">₦{{ number_format($product->price) }}</div>
+                    @else
+                    <div class="heading">₦{{ number_format($product->price) }}</div>
+                    @endif
+                </div>
+                <div class="frame-4">
+                    @if($product->stock_quantity > 0)
+                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
+                    <div class="in-stock">In stock</div>
+                    @else
+                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                    <div class="text-wrapper-2">Out of Stock</div>
+                    @endif
+                </div>
+            </div>
+            @if($product->discount_price)
+            <div class="div-dis-card">
+                <div class="small-save">SAVE</div>
+                <div class="heading-3">₦{{ number_format($product->price - $product->discount_price) }}</div>
+            </div>
+            @endif
+            <div class="link-wrapper">
+                <div class="shop-now-wrapper">
+                    <div class="shop-now">ADD TO CART</div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @else
         <div class="group">
             <div class="div">
                 <div class="link">
@@ -350,177 +501,29 @@
                 </div>
                 <div class="frame-2">
                     <div class="heading-link-xioma">
-                        <div class="text-wrapper">Jinko 615N-66HL4-BD</div>
+                        <div class="text-wrapper">No Products Available</div>
                     </div>
-                    <div class="heading-link-xioma-2">Solar Panels</div>
+                    <div class="heading-link-xioma-2">Product</div>
                 </div>
                 <div class="frame-3">
-                    <div class="heading">₦123,000</div>
-                    <div class="heading-2">₦157,000</div>
+                    <div class="heading">₦0</div>
                 </div>
                 <div class="frame-4">
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="in-stock">In stock</div>
-                </div>
-            </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦45,000</div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        <div class="group-2">
-            <div class="div">
-                <div class="link">
-                    <div class="prod-png"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <div class="text-wrapper">Solis GPRS/WIFI</div>
-                    </div>
-                    <div class="heading-link-xioma-2">Accessories</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦14,500</div>
-                    <div class="heading-2">₦15,250</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="in-stock">In stock</div>
-                </div>
-            </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦5,000</div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        <div class="group-3">
-            <div class="div">
-                <div class="link">
-                    <div class="png-2"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <p class="text-wrapper">All in one Street Light</p>
-                    </div>
-                    <div class="heading-link-xioma-2">All-in-one Solutions</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦205,000</div>
-                    <div class="heading-2">₦255,250</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
+                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
                     <div class="text-wrapper-2">Out of Stock</div>
                 </div>
             </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦15,000</div>
-            </div>
             <div class="link-wrapper">
                 <div class="shop-now-wrapper">
                     <div class="shop-now">ADD TO CART</div>
                 </div>
             </div>
         </div>
-        <div class="group-4">
-            <div class="div">
-                <div class="link">
-                    <div class="png-3"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma-wrapper">
-                        <div class="heading-link-xioma-3">Huawei POWER MODULE...</div>
-                    </div>
-                    <div class="heading-link-xioma-2">Inverters</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦3,100,000</div>
-                    <div class="heading-2">₦3,800,000</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="in-stock">In stock</div>
-                </div>
-            </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦205,000</div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        <div class="group-5">
-            <div class="div">
-                <div class="link">
-                    <div class="png-4"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma-4">Solis GPRS/WIFI</div>
-                    <div class="heading-link-xioma-2">Accessories</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦14,500</div>
-                    <div class="heading-2">₦15,250</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="in-stock">In stock</div>
-                </div>
-            </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦5,000</div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        <div class="group-6">
-            <div class="div">
-                <div class="link">
-                    <div class="png-5"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma-4">Solis GPRS/WIFI</div>
-                    <div class="heading-link-xioma-2">Accessories</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦14,500</div>
-                    <div class="heading-2">₦15,250</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="in-stock">In stock</div>
-                </div>
-            </div>
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦5,000</div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
+        @endif
+
+
     </div>
-    
+
 </div>
 
 <div class="brand-new">
@@ -619,7 +622,9 @@
 
 <div class="solar-inverters">
     <div class="solar-inverters-frame">
-        <div class="solar-inverters-heading-wrapper"><div class="solar-inverters-heading">THE BEST SOLAR INVERTERS</div></div>
+        <div class="solar-inverters-heading-wrapper">
+            <div class="solar-inverters-heading">THE BEST SOLAR INVERTERS</div>
+        </div>
         <div class="solar-inverters-view-all">View All</div>
     </div>
     <div class="solar-inverters-top-info">
@@ -638,251 +643,113 @@
             </div>
         </div>
         <div class="solar-inverters-key-products">
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">InfiniSolar</div>
-                    <div class="solar-inverters-item-count">55 Items</div>
+            @if($categories && $categories->count() > 0)
+                @foreach($categories as $category)
+                <div class="solar-inverters-item">
+                    <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
+                        <div class="solar-inverters-item-frame">
+                            <div class="solar-inverters-item-heading">{{ $category->name }}</div>
+                            <div class="solar-inverters-item-count">{{ $category->products_count }} Items</div>
+                        </div>
+                        @if($category->image)
+                            <div class="solar-inverters-item-img" style="background-image: url({{ asset( $category->image) }}); background-size: cover; background-position: center;"></div>
+                        @else
+                            <div class="img-prod"></div>
+                        @endif
+                    </a>
                 </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/infini-solar.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">Solis</div>
-                    <div class="solar-inverters-item-count">20 Items</div>
+                @endforeach
+            @else
+                <div class="solar-inverters-item">
+                    <div class="solar-inverters-item-frame">
+                        <div class="solar-inverters-item-heading">No Categories</div>
+                        <div class="solar-inverters-item-count">0 Items</div>
+                    </div>
+                    <div class="solar-inverters-item-img-prod"></div>
                 </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/east.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">Huawei</div>
-                    <div class="solar-inverters-item-count">14 Items</div>
-                </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/huawei.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">Growatt</div>
-                    <div class="solar-inverters-item-count">1005 Items</div>
-                </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/growatt.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">Deye</div>
-                    <div class="solar-inverters-item-count">500 Items</div>
-                </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/deye.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">Galaxy</div>
-                    <div class="solar-inverters-item-count">140 Items</div>
-                </div>
-                <div class="solar-inverters-item-img" style="background-image:url('/homepage/images/home/east.png');background-size:cover"></div>
-            </div>
-            <div class="solar-inverters-item">
-                <div class="solar-inverters-item-frame">
-                    <div class="solar-inverters-item-heading">East</div>
-                    <div class="solar-inverters-item-count">255 Items</div>
-                </div>
-                <div class="solar-inverters-item-img-prod"></div>
-            </div>
+            @endif
         </div>
     </div>
     <div class="solar-inverters-tabpanel">
+        @if($popularProducts && $popularProducts->count() > 0)
+        @foreach($popularProducts->take(6) as $index => $product)
+        @php
+            $images = $product->image ? json_decode($product->image, true) : [];
+            $firstImage = !empty($images) ? $images[0] : null;
+            $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
+            $currentPrice = $hasDiscount ? $product->discount_price : $product->price;
+            $oldPrice = $hasDiscount ? $product->price : null;
+        @endphp
         <div class="solar-inverters-group">
             <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Huawei POWER MODULE...</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦3,100,000</div>
-                    <div class="solar-inverters-product-old-price">₦3,800,000</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-2">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-2"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Growatt Inverter SPF 3000..</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦373,000</div>
-                    <div class="solar-inverters-product-old-price">₦380,250</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-3">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-3"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title-wrapper">
-                        <div class="solar-inverters-product-title-text">Deye Inverter SUN-5/6/8/...</div>
+                <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-img-wrapper" style="text-decoration: none;">
+                    <div class="solar-inverters-product-img" style="background-image: url({{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }})"></div>
+                </a>
+                <div class="solar-inverters-prd">
+                    <div class="solar-inverters-product-title">
+                        <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
                     </div>
-                    <div class="solar-inverters-product-category">Inverters</div>
+                    <div class="solar-inverters-product-category">{{ $product->category->name ?? 'Product' }}</div>
                 </div>
                 <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦2,400,000</div>
-                    <div class="solar-inverters-product-old-price">₦2,550,250</div>
+                    <div class="solar-inverters-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
+                    @if($oldPrice)
+                    <div class="solar-inverters-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
+                    @endif
                 </div>
                 <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
-                    <div class="solar-inverters-product-status-text-out">Out of Stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-4">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Huawei POWER MODULE...</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦3,100,000</div>
-                    <div class="solar-inverters-product-old-price">₦3,800,000</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
+                    @if($product->stock_quantity > 0)
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
                     <div class="solar-inverters-product-status-text">In stock</div>
+                    @else
+                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                    <div class="solar-inverters-product-status-text">Out of stock</div>
+                    @endif
                 </div>
             </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-5">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-2"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Growatt Inverter SPF 3000..</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
+            <div class="solar-inverters-product-action" data-product-id="{{ $product->id }}">
+                <div class="solar-inverters-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+                    <div class="solar-inverters-product-action-text">ADD TO CART</div>
                 </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦373,000</div>
-                    <div class="solar-inverters-product-old-price">₦380,250</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
             </div>
         </div>
-        <div class="solar-inverters-group-6">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Huawei POWER MODULE...</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
+        @endforeach
+        @else
+        <div class="group">
+            <div class="div">
+                <div class="link">
+                    <div class="png"></div>
                 </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦3,100,000</div>
-                    <div class="solar-inverters-product-old-price">₦3,800,000</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-7">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-3"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title-wrapper">
-                        <div class="solar-inverters-product-title-text">Deye Inverter SUN-5/6/8/...</div>
+                <div class="frame-2">
+                    <div class="heading-link-xioma">
+                        <div class="text-wrapper">No Products Available</div>
                     </div>
-                    <div class="solar-inverters-product-category">Inverters</div>
+                    <div class="heading-link-xioma-2">Product</div>
                 </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦2,400,000</div>
-                    <div class="solar-inverters-product-old-price">₦2,550,250</div>
+                <div class="frame-3">
+                    <div class="heading">₦0</div>
                 </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
-                    <div class="solar-inverters-product-status-text-out">Out of Stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-inverters-group-8">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-2"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title"><div class="solar-inverters-product-title-text">Growatt Inverter SPF 3000..</div></div>
-                    <div class="solar-inverters-product-category">Inverters</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦373,000</div>
-                    <div class="solar-inverters-product-old-price">₦380,250</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
+                <div class="frame-4">
+                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                    <div class="text-wrapper-2">Out of Stock</div>
                 </div>
             </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
+            <div class="link-wrapper">
+                <div class="shop-now-wrapper">
+                    <div class="shop-now">ADD TO CART</div>
+                </div>
             </div>
         </div>
-        <div class="solar-inverters-group-9">
-            <div class="solar-inverters-product-frame">
-                <div class="solar-inverters-product-img-wrapper"><div class="solar-inverters-product-img-3"></div></div>
-                <div class="solar-inverters-product-details">
-                    <div class="solar-inverters-product-title-wrapper">
-                        <div class="solar-inverters-product-title-text">Deye Inverter SUN-5/6/8/...</div>
-                    </div>
-                    <div class="solar-inverters-product-category">Inverters</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦2,400,000</div>
-                    <div class="solar-inverters-product-old-price">₦2,550,250</div>
-                </div>
-                <div class="solar-inverters-product-status">
-                    <div class="solar-inverters-product-status-icon-out"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel"/></div>
-                    <div class="solar-inverters-product-status-text-out">Out of Stock</div>
-                </div>
-            </div>
-            <div class="solar-inverters-product-action">
-                <div class="solar-inverters-product-action-link"><div class="solar-inverters-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
+        @endif
     </div>
-   
+
 </div>
 
 <div class="solar-panels">
     <div class="solar-panels-frame">
-        <div class="solar-panels-heading-wrapper"><div class="solar-panels-heading">QUALITY SOLAR PANELS</div></div>
+        <div class="solar-panels-heading-wrapper">
+            <div class="solar-panels-heading">QUALITY SOLAR PANELS</div>
+        </div>
         <div class="solar-panels-view-all">View All</div>
     </div>
     <div class="solar-panels-top-info">
@@ -932,209 +799,84 @@
         </div>
     </div>
     <div class="solar-panels-tabpanel">
+        @if($popularProducts && $popularProducts->count() > 0)
+        @foreach($popularProducts->take(9) as $index => $product)
+        @php
+            $images = $product->image ? json_decode($product->image, true) : [];
+            $firstImage = !empty($images) ? $images[0] : null;
+            $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
+            $currentPrice = $hasDiscount ? $product->discount_price : $product->price;
+            $oldPrice = $hasDiscount ? $product->price : null;
+        @endphp
+        <div class="solar-panels-group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
+            <div class="solar-panels-product-frame">
+                <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-img-wrapper" style="text-decoration: none;">
+                    <div class="solar-panels-product-img{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url({{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }})"></div>
+                </a>
+                <div class="solar-panels-prd">
+                    <div class="solar-panels-product-title{{ $index == 1 || $index == 3 || $index == 5 || $index == 8 ? '-wrapper' : '' }}">
+                        @if($index == 1 || $index == 3 || $index == 5 || $index == 8)
+                        <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+                        @else
+                        <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+                        @endif
+                    </div>
+                    <div class="solar-panels-product-category">{{ $product->category->name ?? 'Product' }}</div>
+                </div>
+                <div class="solar-panels-product-price">
+                    <div class="solar-panels-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
+                    @if($oldPrice)
+                    <div class="solar-panels-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
+                    @endif
+                </div>
+                <div class="solar-panels-product-status">
+                    @if($product->stock_quantity > 0)
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
+                    <div class="solar-panels-product-status-text">In stock</div>
+                    @else
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                    <div class="solar-panels-product-status-text">Out of stock</div>
+                    @endif
+                </div>
+            </div>
+            <div class="solar-panels-product-action" data-product-id="{{ $product->id }}">
+                <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+                    <div class="solar-panels-product-action-text">ADD TO CART</div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        @else
         <div class="solar-panels-group">
             <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title"><div class="solar-panels-product-title-text">Jinko Solar Panel 615N-66HL4-BD</div></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
+                <div class="solar-panels-product-img-wrapper">
+                    <div class="solar-panels-product-img"></div>
+                </div>
+                <div class="solar-panels-prd">
+                    <div class="solar-panels-product-title">
+                        <div class="solar-panels-product-title-text">No Products Available</div>
+                    </div>
+                    <div class="solar-panels-product-category">Product</div>
                 </div>
                 <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦123,000</div>
-                    <div class="solar-panels-product-old-price">₦150,450</div>
+                    <div class="solar-panels-product-current-price">₦0</div>
                 </div>
                 <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
+                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                    <div class="solar-panels-product-status-text">Out of stock</div>
                 </div>
             </div>
             <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
+                <div class="solar-panels-product-action-link">
+                    <div class="solar-panels-product-action-text">ADD TO CART</div>
+                </div>
             </div>
         </div>
-        <div class="solar-panels-group-2">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-2"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title-wrapper"><p class="solar-panels-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦103,000</div>
-                    <div class="solar-panels-product-old-price">₦114,000</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-3">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-3"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title"><div class="solar-panels-product-title-text">Jinko Solar Panel 615N-66HL4-BD</div></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦123,000</div>
-                    <div class="solar-panels-product-old-price">₦150,450</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-4">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-4"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title-wrapper"><p class="solar-panels-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦103,000</div>
-                    <div class="solar-panels-product-old-price">₦114,000</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-5">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-5"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title"><div class="solar-panels-product-title-text">Jinko Solar Panel 615N-66HL4-BD</div></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦123,000</div>
-                    <div class="solar-panels-product-old-price">₦150,450</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-6">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-6"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title-wrapper"><p class="solar-panels-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦103,000</div>
-                    <div class="solar-panels-product-old-price">₦114,000</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-7">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-7"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title"><div class="solar-panels-product-title-text">Jinko Solar Panel 615N-66HL4-BD</div></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦123,000</div>
-                    <div class="solar-panels-product-old-price">₦150,450</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-8">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-8"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title"><div class="solar-panels-product-title-text">Jinko Solar Panel 615N-66HL4-BD</div></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦123,000</div>
-                    <div class="solar-panels-product-old-price">₦150,450</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-9">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-9"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title-wrapper"><p class="solar-panels-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦103,000</div>
-                    <div class="solar-panels-product-old-price">₦114,000</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
-        <div class="solar-panels-group-10">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper"><div class="solar-panels-product-img-10"></div></div>
-                <div class="solar-panels-product-details">
-                    <div class="solar-panels-product-title-wrapper"><p class="solar-panels-product-title-text">JA Solar 575W Bifacial N-Type Solar Panel</p></div>
-                    <div class="solar-panels-product-category">Solar Panels</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦103,000</div>
-                    <div class="solar-panels-product-old-price">₦114,000</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active"/></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link"><div class="solar-panels-product-action-text">ADD TO CART</div></div>
-            </div>
-        </div>
+        @endif
+
     </div>
-    
-   
+
+
 </div>
 <div class="solar-footer">
     <div class="solar-footer-div">
@@ -1143,7 +885,9 @@
                 <div class="solar-footer-main-text">Pay Online</div>
                 <p class="solar-footer-main-subtext">You can make quick payments on Oplug</p>
             </div>
-            <div class="solar-footer-shop-now"><div class="solar-footer-shop-now-text">SHOP NOW</div></div>
+            <div class="solar-footer-shop-now">
+                <div class="solar-footer-shop-now-text">SHOP NOW</div>
+            </div>
         </div>
         <div class="solar-footer-png" style="background-image:url('/homepage/images/home/banner3.png');background-size:cover">
             <div class="solar-footer-newsletter">
@@ -1166,47 +910,44 @@
             <div class="solar-footer-recently-viewed-title">RECENTLY VIEWED</div>
             <div class="solar-footer-view-all">View all</div>
         </div>
-          <div class="solar-footer-scrolling">
-        <div class="solar-footer-product">
-            <div class="solar-footer-product-img"></div>
-            <div class="solar-footer-product-details">
-                <div class="solar-footer-product-title">
-                    <div class="solar-footer-product-title-text">Growatt Inverter SPF 3000..</div>
+        <div class="solar-footer-scrolling">
+            @if($recentProducts && $recentProducts->count() > 0)
+            @foreach($recentProducts as $product)
+            <a href="{{ route('prd', $product->slug) }}" class="solar-footer-product" style="text-decoration: none; color: inherit;">
+                @if($product->image)
+                <div class="solar-footer-product-img" style="background-image: url({{ asset('storage/' . $product->image) }}); background-size: cover; background-position: center;"></div>
+                @else
+                <div class="solar-footer-product-img" style="background-image: url({{ asset('homepage/images/default-product.png') }}); background-size: cover; background-position: center;"></div>
+                @endif
+                <div class="solar-footer-prd">
+                    <div class="solar-footer-product-title">
+                        <div class="solar-footer-product-title-text">{{ Str::limit($product->name, 25) }}</div>
+                    </div>
+                    <div class="solar-footer-product-price">
+                        @if($product->discount_price && $product->discount_price < $product->price)
+                            ₦{{ number_format($product->discount_price, 0) }}
+                            @else
+                            ₦{{ number_format($product->price, 0) }}
+                            @endif
+                    </div>
                 </div>
-                <div class="solar-footer-product-price">₦373,000</div>
-            </div>
-        </div>
-        <div class="solar-footer-product">
-            <div class="solar-footer-product-img-prod"></div>
-            <div class="solar-footer-product-details">
-                <div class="solar-footer-product-title-wrapper">
-                    <div class="solar-footer-product-title-text">Huawei POWER MO...</div>
+            </a>
+            @endforeach
+            @else
+            <div class="solar-footer-product">
+                <div class="solar-footer-product-img"></div>
+                <div class="solar-footer-prd">
+                    <div class="solar-footer-product-title">
+                        <div class="solar-footer-product-title-text">No Recent Products</div>
+                    </div>
+                    <div class="solar-footer-product-price">₦0</div>
                 </div>
-                <div class="solar-footer-product-price">₦373,000</div>
             </div>
+            @endif
         </div>
-        <div class="solar-footer-product">
-            <div class="solar-footer-product-img-2"></div>
-            <div class="solar-footer-product-details">
-                <div class="solar-footer-product-title">
-                    <div class="solar-footer-product-title-text">Growatt Inverter SPF 3000..</div>
-                </div>
-                <div class="solar-footer-product-price">₦373,000</div>
-            </div>
-        </div>
-        <div class="solar-footer-product">
-            <div class="solar-footer-product-img-3"></div>
-            <div class="solar-footer-product-details">
-                <div class="solar-footer-product-title-wrapper">
-                    <div class="solar-footer-product-title-text">Huawei POWER MO...</div>
-                </div>
-                <div class="solar-footer-product-price">₦373,000</div>
-            </div>
-        </div>
+
     </div>
-       
-    </div>
-  
+
     <p class="solar-footer-description">
         Affordable Solar Panels, Inverters &amp; Batteries – Oplug Solar Store<br />
         At Oplug, we provide high-quality solar energy products including monocrystalline and polycrystalline panels, hybrid inverters, lithium-ion batteries, and complete off-grid solar kits. Enjoy professional installation, fast delivery in Lagos and across Nigeria, and energy solutions built to last.<br />
@@ -1216,101 +957,119 @@
 
 @endsection
 @section('script')
+<script src="{{ asset('homepage/js/image-gallery.js') }}"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the scrolling container and arrow buttons for categories section
-    const scrollingContainer = document.querySelector('.scrolling');
-    const leftArrow = document.querySelector('.vector-wrapper');
-    const rightArrow = document.querySelector('.img-wrapper');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the scrolling container and arrow buttons for categories section
+        const scrollingContainer = document.querySelector('.scrolling');
+        const leftArrow = document.querySelector('.vector-wrapper');
+        const rightArrow = document.querySelector('.img-wrapper');
 
-    if (scrollingContainer && leftArrow && rightArrow) {
-        // Left arrow click - scroll left
-        leftArrow.addEventListener('click', () => {
-            scrollingContainer.scrollBy({ left: -150, behavior: 'smooth' });
-        });
-
-        // Right arrow click - scroll right
-        rightArrow.addEventListener('click', () => {
-            scrollingContainer.scrollBy({ left: 150, behavior: 'smooth' });
-        });
-    }
-
-    // Get the brand-new section scrolling container and arrow buttons
-    const brandScrollingContainer = document.querySelector('.brand-new-tabpanel');
-    const brandLeftArrows = document.querySelectorAll('.brand-new-vector-wrapper');
-    
-    if (brandScrollingContainer && brandLeftArrows.length >= 2) {
-        // First arrow (left arrow) - scroll left
-        brandLeftArrows[0].addEventListener('click', () => {
-            brandScrollingContainer.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        // Second arrow (right arrow) - scroll right
-        brandLeftArrows[1].addEventListener('click', () => {
-            brandScrollingContainer.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-    }
-
-    // Newsletter form submission
-    const newsletterForm = document.getElementById('newsletterForm');
-    const newsletterMessage = document.getElementById('newsletterMessage');
-
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const emailInput = this.querySelector('.solar-footer-newsletter-input');
-            const email = emailInput.value.trim();
-            
-            if (!email) {
-                showMessage('Please enter your email address.', 'error');
-                return;
-            }
-            
-            // Show loading state
-            const submitButton = this.querySelector('.solar-footer-newsletter-button');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Subscribing...';
-            submitButton.disabled = true;
-            
-            try {
-                // Replace this URL with your actual newsletter API endpoint
-                const response = await fetch('/api/newsletter/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                    },
-                    body: JSON.stringify({ email: email })
+        if (scrollingContainer && leftArrow && rightArrow) {
+            // Left arrow click - scroll left
+            leftArrow.addEventListener('click', () => {
+                scrollingContainer.scrollBy({
+                    left: -150,
+                    behavior: 'smooth'
                 });
-                
-                if (response.ok) {
-                    showMessage('Thank you for subscribing to our newsletter!', 'success');
-                    emailInput.value = '';
-                } else {
-                    showMessage('Something went wrong. Please try again later.', 'error');
-                }
-            } catch (error) {
-                showMessage('Network error. Please check your connection and try again.', 'error');
-            } finally {
-                // Reset button state
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-            }
-        });
-    }
-    
-    function showMessage(message, type) {
-        if (newsletterMessage) {
-            newsletterMessage.textContent = message;
-            newsletterMessage.className = `solar-footer-newsletter-message ${type}`;
-            
-            // Hide message after 5 seconds
-            setTimeout(() => {
-                newsletterMessage.className = 'solar-footer-newsletter-message';
-            }, 5000);
+            });
+
+            // Right arrow click - scroll right
+            rightArrow.addEventListener('click', () => {
+                scrollingContainer.scrollBy({
+                    left: 150,
+                    behavior: 'smooth'
+                });
+            });
         }
-    }
-});
+
+        // Get the brand-new section scrolling container and arrow buttons
+        const brandScrollingContainer = document.querySelector('.brand-new-tabpanel');
+        const brandLeftArrows = document.querySelectorAll('.brand-new-vector-wrapper');
+
+        if (brandScrollingContainer && brandLeftArrows.length >= 2) {
+            // First arrow (left arrow) - scroll left
+            brandLeftArrows[0].addEventListener('click', () => {
+                brandScrollingContainer.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Second arrow (right arrow) - scroll right
+            brandLeftArrows[1].addEventListener('click', () => {
+                brandScrollingContainer.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterMessage = document.getElementById('newsletterMessage');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const emailInput = this.querySelector('.solar-footer-newsletter-input');
+                const email = emailInput.value.trim();
+
+                if (!email) {
+                    showMessage('Please enter your email address.', 'error');
+                    return;
+                }
+
+                // Show loading state
+                const submitButton = this.querySelector('.solar-footer-newsletter-button');
+                const originalText = submitButton.textContent;
+                submitButton.textContent = 'Subscribing...';
+                submitButton.disabled = true;
+
+                try {
+                    // Replace this URL with your actual newsletter API endpoint
+                    const response = await fetch('/api/newsletter/subscribe', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                        },
+                        body: JSON.stringify({
+                            email: email
+                        })
+                    });
+
+                    if (response.ok) {
+                        showMessage('Thank you for subscribing to our newsletter!', 'success');
+                        emailInput.value = '';
+                    } else {
+                        showMessage('Something went wrong. Please try again later.', 'error');
+                    }
+                } catch (error) {
+                    showMessage('Network error. Please check your connection and try again.', 'error');
+                } finally {
+                    // Reset button state
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            });
+        }
+
+        function showMessage(message, type) {
+            if (newsletterMessage) {
+                newsletterMessage.textContent = message;
+                newsletterMessage.className = `solar-footer-newsletter-message ${type}`;
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    newsletterMessage.className = 'solar-footer-newsletter-message';
+                }, 5000);
+            }
+        }
+    });
 </script>
+
+<!-- Cart functionality -->
+<script src="{{ asset('js/cart.js') }}"></script>
 @endsection

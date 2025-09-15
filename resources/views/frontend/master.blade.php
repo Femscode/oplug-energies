@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ url('homepage/css/global.css') }}" />
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="{{ url('homepage/css/master.css') }}" />
@@ -35,35 +36,47 @@
         <div class="mid-nav">
             <img src="{{ url('homepage/images/ologo.png') }}" alt="Logo" class="logo" />
 
-            <!-- Hamburger toggle (mobile only) -->
-            <button class="menu-toggle" aria-label="Toggle Menu">
-                <span class="hamburger-line top"></span>
-                <span class="hamburger-line middle"></span>
-                <span class="hamburger-line bottom"></span>
-            </button>
+            <!-- Mobile cart and hamburger -->
+            <div class="mobile-nav-controls">
+                <a href="{{ route('cart') }}" class="mobile-cart">
+                    <div class="cart-icon">
+                        <img src="{{ url('homepage/images/cart.svg') }}" width="20" alt="cart" />
+                        <span class="cart-count">0</span>
+                    </div>
+                </a>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span class="hamburger-line top"></span>
+                    <span class="hamburger-line middle"></span>
+                    <span class="hamburger-line bottom"></span>
+                </button>
+            </div>
 
             <nav class="nav-links">
-                <a href="#">Homes</a>
-                <a href="#">Shop</a>
-                <a href="#">Contact</a>
-                <a href="#">About Us</a>
+                <a href="/">Homes</a>
+                <a href="/shop">Shop</a>
+                <a href="/contact-us">Contact</a>
+                <a href="/about-us">About Us</a>
             </nav>
 
             <div class="actions">
                 <div>
-                    <div class="welcome">Welcome To Oplug</div>
-                    <div class="login">LOG IN / REGISTER</div>
+                    @if(auth()->check())
+                        <div class="welcome">Welcome, {{ auth()->user()->name }}</div>
+                    @else
+                        <div class="welcome">Welcome To Oplug</div>
+                        <div class="login">LOG IN / REGISTER</div>
+                    @endif
                 </div>
-                <div class="cart">
+                <a href="{{ route('cart') }}" class="cart">
                     <div class="cart-icon">
                         <img src="{{ url('homepage/images/cart.svg') }}" width="20" alt="cart" />
-                        <span>5</span>
+                        <span class="cart-count">0</span>
                     </div>
                     <div>
                         <div class="small-cart">Cart</div>
-                        <div class="price">₦400,000</div>
+                        <div class="price">₦0</div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 

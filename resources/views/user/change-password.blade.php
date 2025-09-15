@@ -1,73 +1,66 @@
-@extends('frontend.master')
+@extends('user.master')
 @section('header')
 <link rel="stylesheet" href="{{ url('homepage/css/user-change-password.css') }}" />
 @endsection
 
-@section('content')
+@section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
+    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Account</div></div>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Change Password</p></div>
 </div>
+@endsection
 
+@section('content')
+<section class="password-section">
+    <h2>Change Password</h2>
 
-<div class="account-section">
-  <!-- Sidebar -->
-  <div class="div-tabs-side">
-    <div class="frame">
-      <div class="heading-mark-cole">Bukola Jones</div>
-      <div class="list-item-link-swoo">bkjones@gmail.com</div>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <div class="form-container">
+        <form class="admin-form" method="POST" action="{{ route('user.change-password.update') }}">
+            @csrf
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="current_password" class="form-label">Current Password</label>
+                    <input type="password" id="current_password" name="current_password" class="form-input" placeholder="Enter current password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter new password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-input" placeholder="Re-enter new password" required>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    Save Password
+                </button>
+            </div>
+        </form>
     </div>
-    <div class="div">
-      <div class="tablist-button">
-        <div class="text-wrapper">Account info</div>
-        <div class="symbol"></div>
-      </div>
-      <div class="tablist-button">
-        <div class="text-wrapper-2">My Order</div>
-        <div class="symbol"></div>
-      </div>
-      <div class="tablist-button-2">
-        <div class="text-wrapper-3">Change password</div>
-        <div class="symbol-2"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Change Password Form -->
-  <div class="customer-addy">
-    <div class="top">
-      <div class="div-wrapper">
-        <div class="text-wrapper-4">Change Password</div>
-      </div>
-    </div>
-
-    <form class="password-form">
-      <div class="frame-2">
-        <label for="current-password" class="label-email-address">Current Password</label>
-        <input type="password" id="current-password" name="current-password" class="input" placeholder="Enter current password" required>
-      </div>
-
-      <div class="frame-2">
-        <label for="new-password" class="label-email-address">New Password</label>
-        <input type="password" id="new-password" name="new-password" class="input" placeholder="Enter new password" required>
-      </div>
-
-      <div class="frame-2">
-        <label for="confirm-password" class="label-email-address">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" class="input" placeholder="Re-enter new password" required>
-      </div>
-
-      <button type="submit" class="request">
-        <div class="request-quote">Save Password</div>
-      </button>
-    </form>
-  </div>
-</div>
+</section>
 
 
 

@@ -63,16 +63,63 @@ class AdminController extends Controller
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'product_category_id' => 'required|exists:product_categories,id',
-            'quantity' => 'required|integer|min:0',
+            'stock_quantity' => 'required|integer|min:0',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'removed_images' => 'nullable|array',
+            'tags' => 'nullable|string',
+            'seo_title' => 'nullable|string|max:255',
+            'seo_description' => 'nullable|string|max:500',
             'is_active' => 'boolean'
         ]);
+        
+        // Get current images
+        $currentImages = $product->image ? json_decode($product->image, true) : [];
+        
+        // If new images are being uploaded, delete all existing images first
+        if ($request->hasFile('images')) {
+            // Delete all existing images from filesystem
+            if (!empty($currentImages)) {
+                foreach ($currentImages as $existingImage) {
+                    if (file_exists(public_path('uploads/products/' . $existingImage))) {
+                        unlink(public_path('uploads/products/' . $existingImage));
+                    }
+                }
+            }
+            
+            // Reset current images array and upload new ones
+            $currentImages = [];
+            foreach ($request->file('images') as $index => $image) {
+                $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/products'), $imageName);
+                $currentImages[] = $imageName;
+            }
+        } else {
+            // Handle individual image removal if no new images are uploaded
+            if ($request->has('removed_images')) {
+                foreach ($request->removed_images as $removedImage) {
+                    // Remove from filesystem
+                    if (file_exists(public_path('uploads/products/' . $removedImage))) {
+                        unlink(public_path('uploads/products/' . $removedImage));
+                    }
+                    // Remove from current images array
+                    $currentImages = array_filter($currentImages, function($img) use ($removedImage) {
+                        return $img !== $removedImage;
+                    });
+                }
+            }
+        }
         
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'image' => !empty($currentImages) ? json_encode(array_values($currentImages)) : null,
             'product_category_id' => $request->product_category_id,
-            'quantity' => $request->quantity,
+            'stock_quantity' => $request->stock_quantity,
+            'tags' => $request->tags ? array_map('trim', explode(',', $request->tags)) : null,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->has('is_active')
         ]);
         
@@ -81,6 +128,20 @@ class AdminController extends Controller
     
     public function deleteProduct($id) {
         $product = Product::findOrFail($id);
+        
+        // Delete associated images from filesystem
+        if ($product->image) {
+            $images = json_decode($product->image, true);
+            if (is_array($images)) {
+                foreach ($images as $image) {
+                    $imagePath = public_path('uploads/products/' . $image);
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
+                }
+            }
+        }
+        
         $product->delete();
         
         return redirect()->route('admin.products')->with('success', 'Product deleted successfully!');
@@ -98,7 +159,11 @@ class AdminController extends Controller
             'discount_price' => 'nullable|numeric|min:0',
             'quantity' => 'required|integer|min:0',
             'product_category_id' => 'required|exists:product_categories,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'tags' => 'nullable|string',
+            'seo_title' => 'nullable|string|max:255',
+            'seo_description' => 'nullable|string|max:500',
             'is_active' => 'boolean'
         ]);
         
@@ -108,17 +173,23 @@ class AdminController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
-            'quantity' => $request->quantity,
+            'stock_quantity' => $request->quantity,
             'product_category_id' => $request->product_category_id,
+            'tags' => $request->tags ? array_map('trim', explode(',', $request->tags)) : null,
+            'seo_title' => $request->seo_title,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->has('is_active')
         ];
         
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/products'), $imageName);
-            $productData['image'] = 'uploads/products/' . $imageName;
+        // Handle multiple image uploads
+        $imageNames = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $image) {
+                $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/products'), $imageName);
+                $imageNames[] = $imageName;
+            }
+            $productData['image'] = json_encode($imageNames);
         }
         
         Product::create($productData);

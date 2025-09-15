@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -18,14 +21,33 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class,'index'])->name('home');
 Route::get('/shop',[FrontendController::class,'shop'])->name('shop');
-Route::get('/product-details',[FrontendController::class,'productDetails'])->name('product-details');
+Route::get('/shop/category/{slug}',[FrontendController::class,'shopByCategory'])->name('shop.category');
+Route::get('/prd/{id}',[FrontendController::class,'productDetails'])->name('prd');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart');
 Route::get('/checkout',[FrontendController::class,'checkout'])->name('checkout');
 Route::get('/about-us',[FrontendController::class,'about'])->name('about');
 Route::get('/contact-us',[FrontendController::class,'contact'])->name('contact');
+Route::post('/contact-us',[FrontendController::class,'contactSubmit'])->name('contact.submit');
+
+// Cart routes
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/cart/items', [CartController::class, 'getCartItems'])->name('cart.items');
+Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
+Route::get('/cart/product-quantity', [CartController::class, 'getProductCartQuantity'])->name('cart.product.quantity');
+
+// Order routes
+Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
+Route::get('/order/success/{order}', [OrderController::class, 'orderSuccess'])->name('order.success');
+
+// Payment routes
+Route::get('/payment/process/{order}', [PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/payment/callback', [PaymentController::class, 'paymentCallback'])->name('payment.callback');
+Route::get('/payment/failed/{order}', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
 
 // User dashboard routes 
-Route::group(['prefix' => 'user', 'middleware' => ['auth', 'role:user']], function() {
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
     
     // User Orders

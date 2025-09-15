@@ -2,6 +2,14 @@
 @section('header')
 @endsection
 
+<link rel="stylesheet" href="{{ url('css/admin-products.css') }}">
+@if(session('success'))
+<meta name="success-message" content="{{ session('success') }}">
+@endif
+@if(session('error'))
+<meta name="error-message" content="{{ session('error') }}">
+@endif
+
 @section('breadcrumb')
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button">
@@ -29,42 +37,67 @@
             <h1>All Products</h1>
             <a href="{{ route('admin.add-product') }}" class="btn btn-primary" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px;">Add New Product</a>
         </header>
-        <section class="transactions">
-            <div class="table-wrapper">
-                <div class="table">
-                    <div class="table-header">
-                        <span>Name</span>
-                        <span>Category</span>
-                        <span>Price</span>
-                        <span>Quantity</span>
-                        <span>Status</span>
-                        <span>Actions</span>
-                    </div>
-                    @forelse($products as $product)
-                    <div class="table-row">
-                        <span>{{ $product->name }}</span>
-                        <span>{{ $product->category->name ?? 'N/A' }}</span>
-                        <span>₦{{ number_format($product->price, 2) }}</span>
-                        <span>{{ $product->quantity ?? 0 }}</span>
-                        <span class="badge {{ $product->is_active ? 'paid' : 'pending' }}">{{ $product->is_active ? 'Active' : 'Inactive' }}</span>
-                        <span>
-                            <a href="{{ route('admin.products.edit', $product->id) }}" style="color: #007bff; margin-right: 10px;">Edit</a>
-                            <a href="#" onclick="deleteProduct({{ $product->id }})" style="color: #dc3545;">Delete</a>
-                        </span>
-                    </div>
-                    @empty
-                    <div class="table-row">
-                        <span colspan="6" style="text-align: center;">No products found</span>
-                    </div>
-                    @endforelse
-                </div>
+        <!-- <section class="transactions"> -->
+            <div class="admin-table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                           
+                            <th>Price (Qty)</th>
+                          
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($products as $product)
+                        <tr>
+                            <td class="image-cell">
+                                @if($product->image)
+                                    @php
+                                        $images = json_decode($product->image, true);
+                                        $firstImage = is_array($images) ? $images[0] : $product->image;
+                                    @endphp
+                                    <img src="{{ url('/uploads/products/'.$firstImage) }}" alt="{{ $product->name }}" class="admin-table-image">
+                                @else
+                                <div class="admin-no-image">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                @endif
+                            </td>
+                            <td>{{ $product->name }} <br>{{ $product->category->name ?? 'N/A' }}</td>
+                            <td>₦{{ number_format($product->price, 2) }}<br> <span class="admin-badge {{ $product->is_active ? 'admin-badge-success' : 'admin-badge-secondary' }}">
+                                    {{ $product->is_active ? 'Active' : 'Inactive' }} ({{ $product->stock_quantity ?? 0 }})
+                                </span></td>
+                            
+                           
+                            <td class="actions-cell">
+                                <a href="{{ route('admin.products.edit', $product->id) }}" class="admin-btn admin-btn-sm admin-btn-outline">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <button data-product-id="{{ $product->id }}" class="admin-btn admin-btn-sm admin-btn-danger delete-product-btn">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7" class="empty-message">
+                                <i class="fas fa-box-open"></i>
+                                <p>No products found</p>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
             
             <!-- Pagination -->
             <div style="margin-top: 20px;">
                 {{ $products->links() }}
             </div>
-        </section>
+        <!-- </section> -->
       
     </div>
 @endsection
@@ -73,25 +106,37 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Show success/error messages
-        @if(session('success'))
+        var successMessage = document.querySelector('meta[name="success-message"]');
+        var errorMessage = document.querySelector('meta[name="error-message"]');
+        
+        if (successMessage) {
             Swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                text: '{!! addslashes(session('success')) !!}',
+                text: successMessage.getAttribute('content'),
                 timer: 3000,
                 showConfirmButton: false
             });
-        @endif
+        }
         
-        @if(session('error'))
+        if (errorMessage) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error!',
-                text: '{!! addslashes(session('error')) !!}',
+                text: errorMessage.getAttribute('content'),
                 timer: 3000,
                 showConfirmButton: false
             });
-        @endif
+        }
+
+        // Add event listeners to delete buttons
+        var deleteButtons = document.querySelectorAll('.delete-product-btn');
+        deleteButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var productId = this.getAttribute('data-product-id');
+                deleteProduct(productId);
+            });
+        });
         
         // Tab switching functionality
         var tabs = document.querySelectorAll('.solar-account-tab');
@@ -180,7 +225,7 @@
                 var csrfToken = document.createElement('input');
                 csrfToken.type = 'hidden';
                 csrfToken.name = '_token';
-                csrfToken.value = '{{ csrf_token() }}';
+                csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 
                 var methodField = document.createElement('input');
                 methodField.type = 'hidden';
