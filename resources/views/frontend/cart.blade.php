@@ -5,9 +5,11 @@
 
 @section('content')
 <div class="solar-breadcrumb">
-    <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
+    <a href="/" class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></a>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
+    <div class="solar-breadcrumb-wrapper">
+        <a href='/shop'><div class="solar-breadcrumb-item">Shop</div></a>
+    </div>
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Cart</div></div>
 </div>

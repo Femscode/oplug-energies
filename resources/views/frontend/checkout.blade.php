@@ -165,6 +165,10 @@
                         <input type="radio" id="cash-on-delivery" name="payment_method" value="cash_on_delivery" class="solar-checkout-radio" form="checkout-form">
                         <label for="cash-on-delivery" class="solar-checkout-payment-label">Cash on Delivery</label>
                     </div>
+                    <div class="solar-checkout-payment-option">
+                        <input type="radio" id="whatsapp" name="payment_method" value="whatsapp" class="solar-checkout-radio" form="checkout-form">
+                        <label for="whatsapp" class="solar-checkout-payment-label">Order via WhatsApp</label>
+                    </div>
                 </div>
                 <button type="submit" form="checkout-form" class="solar-checkout-place-order">
                     <span class="solar-checkout-place-order-text">PLACE ORDER</span>

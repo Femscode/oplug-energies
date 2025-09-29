@@ -60,7 +60,7 @@
                 </div>
                 @forelse($recentOrders as $order)
                 <div class="table-row">
-                    <span>{{ $order->user->name }}</span>
+                    <span>{{ $order->user->name ?? $order->name }}</span>
                     <span>{{ $order->order_number }}</span>
                     <span>{{ $order->created_at->format('d.m.Y') }}</span>
                     <span>₦{{ number_format($order->total_amount, 2) }}</span>

@@ -37,7 +37,7 @@ class FrontendController extends Controller
             ->withCount('products')
             ->get();
         
-        return view('frontend.index', compact('featuredProducts', 'dealOfTheDay', 'popularProducts','recentProducts', 'categories'));
+        return view('frontend.index2', compact('featuredProducts', 'dealOfTheDay', 'popularProducts','recentProducts', 'categories'));
     }
     
     public function shop() {
@@ -98,6 +98,83 @@ class FrontendController extends Controller
             ->get();
         
         return view('frontend.shop', compact('products','otherproducts', 'featuredProducts','recentProducts', 'category', 'categories'));
+    }
+
+    public function search(Request $request) {
+        $query = $request->get('q');
+        $brand = $request->get('brand');
+        $category = $request->get('category');
+        $minPrice = $request->get('min_price');
+        $maxPrice = $request->get('max_price');
+        
+        // Start with base query
+        $productsQuery = Product::where('is_active', true)->with('category');
+        
+        // Search in product name, description, and brand
+        if ($query) {
+            $productsQuery->where(function($q) use ($query) {
+                $q->where('name', 'LIKE', "%{$query}%")
+                  ->orWhere('description', 'LIKE', "%{$query}%")
+                //   ->orWhere('brand', 'LIKE', "%{$query}%")
+                  ->orWhereHas('category', function($categoryQuery) use ($query) {
+                      $categoryQuery->where('name', 'LIKE', "%{$query}%");
+                  });
+            });
+        }
+        
+        // Filter by brand
+        if ($brand) {
+            // $productsQuery->where('brand', 'LIKE', "%{$brand}%");
+        }
+        
+        // Filter by category
+        if ($category) {
+            $productsQuery->whereHas('category', function($categoryQuery) use ($category) {
+                $categoryQuery->where('slug', $category);
+            });
+        }
+        
+        // Filter by price range
+        if ($minPrice) {
+            $productsQuery->where('price', '>=', $minPrice);
+        }
+
+        if ($maxPrice) {
+            $productsQuery->where('price', '<=', $maxPrice);
+        }
+
+        $products = $productsQuery->paginate(12);
+        
+        // Get other products for recommendations
+        $otherproducts = Product::where('is_active', true)
+            ->inRandomOrder()
+            ->limit(12)
+            ->get();
+        
+        $featuredProducts = Product::where('is_active', true)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+
+        $recentProducts = Product::where('is_active', true)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+        
+        $categories = ProductCategory::where('is_active', true)
+            ->withCount('products')
+            ->get();
+        
+        // Get unique brands for filter
+        // $brands = Product::where('is_active', true)
+        //     ->whereNotNull('brand')
+        //     ->where('brand', '!=', '')
+        //     ->distinct()
+        //     ->pluck('brand')
+        //     ->sort();
+        $brands = null;
+        
+        return view('frontend.shop', compact('products','otherproducts', 'featuredProducts','recentProducts', 'categories', 'query', 'brands', 'brand', 'category', 'minPrice', 'maxPrice'));
     }
     public function productDetails($id) {
         // $product = Product::with('category')->findOrFail($id);

@@ -8,11 +8,14 @@
 <div class="solar-breadcrumb">
     <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
+    <div class="solar-breadcrumb-wrapper">
+        <a href='/shop'><div class="solar-breadcrumb-item">Shop</div></a>
+    </div>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+   
+    <div class="solar-breadcrumb-wrapper">
+        <a href='/shop/all-in-one-solutions/{{ $product->id }}'><p class="solar-breadcrumb-current">{{ $product->name }}</p></a>
+    </div>
 </div>
 
 <div class="solar-product-details">

@@ -45,6 +45,7 @@ class CartManager {
     }
 
     async addToCart(productId, quantity = 1) {
+        console.log('🛒 Adding to cart - Product ID:', productId, 'Quantity:', quantity);
         try {
             const response = await fetch('/cart/add', {
                 method: 'POST',
@@ -59,16 +60,22 @@ class CartManager {
             });
 
             const data = await response.json();
+            console.log('🛒 Server response:', data);
             
             if (data.success) {
                 this.updateCartCount();
-                this.updateProductButton(productId);
+                console.log('🛒 About to update product button');
+                // Add a small delay to ensure the backend has processed the request
+                setTimeout(() => {
+                    this.updateProductButton(productId);
+                }, 100);
                 this.showNotification(data.message, 'success');
             } else {
+                console.log('🛒 Failed to add to cart:', data.message);
                 this.showNotification(data.message || 'Error adding product to cart', 'error');
             }
         } catch (error) {
-            console.error('Error adding to cart:', error);
+            console.error('🛒 Error adding to cart:', error);
             this.showNotification('Error adding product to cart', 'error');
         }
     }
@@ -184,49 +191,82 @@ class CartManager {
     }
 
     async updateProductButton(productId) {
+        console.log('🔄 Updating product button for ID:', productId);
         const quantity = await this.getProductQuantity(productId);
+        console.log('🔄 Current quantity:', quantity);
         const productContainers = document.querySelectorAll(`[data-product-id="${productId}"]`);
+        console.log('🔄 Found containers:', productContainers.length);
         
-        productContainers.forEach(container => {
-            // Find add to cart button in current container or its children
+        productContainers.forEach((container, index) => {
+            console.log(`🔄 Processing container ${index + 1}:`, container);
+            // Find add to cart button - check both as child and as the element itself
             let addToCartBtn = container.querySelector('.add-to-cart-btn');
             if (!addToCartBtn && container.classList.contains('add-to-cart-btn')) {
                 addToCartBtn = container;
             }
+            console.log('🔄 Add to cart button:', addToCartBtn);
             
-            // Find quantity controls in the action container
+            // Find quantity controls
             let quantityControls = container.querySelector('.quantity-controls');
+            console.log('🔄 Existing quantity controls:', quantityControls);
             
-            // Find the action container to work with
+            // Find the action container - prioritize shop-now-wrapper for best seller section
             let actionContainer = container;
-            if (!container.classList.contains('solar-inverters-product-action') && 
+            
+            // If current container doesn't have action classes, look for them
+            if (!container.classList.contains('shop-now-wrapper') &&
+                !container.classList.contains('solar-inverters-product-action') && 
                 !container.classList.contains('solar-panels-product-action') && 
                 !container.classList.contains('solar-categories-best-action')) {
-                actionContainer = container.querySelector('.solar-inverters-product-action, .solar-panels-product-action, .solar-categories-best-action');
+                
+                // Look for action containers in order of priority
+                actionContainer = container.querySelector('.shop-now-wrapper') ||
+                                container.querySelector('.solar-inverters-product-action') ||
+                                container.querySelector('.solar-panels-product-action') ||
+                                container.querySelector('.solar-categories-best-action') ||
+                                container.querySelector('.solar-product-details-cart') ||
+                                container.querySelector('.frame-7');
+                
                 if (actionContainer) {
                     quantityControls = actionContainer.querySelector('.quantity-controls');
                 }
             }
+            console.log('🔄 Action container:', actionContainer);
             
             if (quantity > 0) {
-                // Show quantity controls, hide add to cart button
-                if (addToCartBtn) addToCartBtn.style.display = 'none';
+                console.log('🔄 Quantity > 0, showing controls');
+                // Hide add to cart button
+                if (addToCartBtn) {
+                    addToCartBtn.style.display = 'none';
+                    console.log('🔄 Hidden add to cart button');
+                }
+                
+                // Show or create quantity controls
                 if (quantityControls) {
                     quantityControls.style.display = 'flex';
                     this.updateQuantityDisplay(productId, quantity);
+                    console.log('🔄 Showed existing quantity controls');
                 } else {
-                    // Create quantity controls if they don't exist
+                    // Create quantity controls in the appropriate container
+                    console.log('🔄 Creating new quantity controls in:', actionContainer || container);
                     this.createQuantityControls(actionContainer || container, productId, quantity);
                 }
             } else {
+                console.log('🔄 Quantity = 0, showing add to cart button');
                 // Show add to cart button, hide quantity controls
-                if (addToCartBtn) addToCartBtn.style.display = 'block';
-                if (quantityControls) quantityControls.style.display = 'none';
+                if (addToCartBtn) {
+                    addToCartBtn.style.display = 'block';
+                }
+                if (quantityControls) {
+                    quantityControls.style.display = 'none';
+                }
             }
         });
     }
 
     createQuantityControls(container, productId, quantity) {
+        console.log('🔧 Creating quantity controls for product:', productId, 'in container:', container);
+        
         // Look for action containers in all product sections
         let actionContainer = container.querySelector('.solar-inverters-product-action');
         if (!actionContainer) actionContainer = container.querySelector('.solar-panels-product-action');
@@ -238,14 +278,19 @@ class CartManager {
         // If container itself has the action class, use it
         if (!actionContainer && (container.classList.contains('solar-inverters-product-action') || 
                                 container.classList.contains('solar-panels-product-action') || 
-                                container.classList.contains('solar-categories-best-action'))) {
+                                container.classList.contains('solar-categories-best-action') ||
+                                container.classList.contains('shop-now-wrapper') ||
+                                container.classList.contains('solar-product-details-cart') ||
+                                container.classList.contains('frame-7'))) {
             actionContainer = container;
         }
+        
+        console.log('🔧 Final action container:', actionContainer);
         
         if (actionContainer) {
             const quantityControls = document.createElement('div');
             quantityControls.className = 'quantity-controls';
-            quantityControls.style.cssText = 'display: flex; align-items: center; gap: 10px; justify-content: center; background: #f8f9fa; border-radius: 8px; padding: 8px; margin-top: 5px;';
+            quantityControls.style.cssText = 'display: flex; align-items: center; gap: 10px; justify-content: center; margin-top: 5px;';
             
             quantityControls.innerHTML = `
                 <button class="cart-quantity-minus" data-product-id="${productId}" style="background: #dc3545; color: white; border: none; border-radius: 4px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; font-weight: bold;">-</button>
@@ -254,6 +299,9 @@ class CartManager {
             `;
             
             actionContainer.appendChild(quantityControls);
+            console.log('🔧 Successfully created and appended quantity controls');
+        } else {
+            console.error('🔧 No action container found for creating quantity controls');
         }
     }
 

@@ -34,7 +34,7 @@
 
         <!-- Mid Nav -->
         <div class="mid-nav">
-            <img src="{{ url('homepage/images/ologo.png') }}" alt="Logo" class="logo" />
+            <a href='/'><img src="{{ url('homepage/images/ologo.png') }}" alt="Logo" class="logo" /></a>
 
             <!-- Mobile cart and hamburger -->
             <div class="mobile-nav-controls">
@@ -64,7 +64,7 @@
                         <div class="welcome">Welcome, {{ auth()->user()->name }}</div>
                     @else
                         <div class="welcome">Welcome To Oplug</div>
-                        <div class="login">LOG IN / REGISTER</div>
+                        <a href="/login" class="login">LOG IN / REGISTER</a>
                     @endif
                 </div>
                 <a href="{{ route('cart') }}" class="cart">
@@ -74,24 +74,23 @@
                     </div>
                     <div>
                         <div class="small-cart">Cart</div>
-                        <div class="price">₦0</div>
+                        <!-- <div class="price">₦0</div> -->
                     </div>
                 </a>
             </div>
         </div>
 
         <div class="nav">
-            <div class="div-search-cat">
+            <form action="{{ route('search') }}" method="GET" class="div-search-cat">
                 <div class="input">
-                    <input class="div-placeholder" placeholder="Search anything..." type="text" />
+                    <input class="div-placeholder" name="q" placeholder="Search anything..." type="text" value="{{ request('q') }}" />
                 </div>
                 <div class="options">
-                    <div class="frame">
+                    <button type="submit" class="frame" style="background: none; border: none; cursor: pointer;">
                         <div class="text-wrapper">Search</div>
-                        
-                    </div>
+                    </button>
                 </div>
-            </div>
+            </form>
 
             <div class="shipping-info">
                 <div class="link-free-shipping">FREE SHIPPING OVER ₦1,000,000</div>

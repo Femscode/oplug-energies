@@ -102,7 +102,7 @@
 
                 <div class="solar-account-user">
                     <div class="solar-account-user-avatar">
-                        <img src="{{ asset('homepage/images/user-avatar.png') }}" alt="User Avatar">
+                        <!-- <img src="{{ asset('homepage/images/user-avatar.png') }}" alt="User Avatar"> -->
                     </div>
                     <div class="solar-account-user-info">
                         <h4>{{ Auth::user()->name }}</h4>

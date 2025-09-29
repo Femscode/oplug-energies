@@ -1,6 +1,6 @@
 @extends('frontend.master')
 @section('header')
-<link rel="stylesheet" href="{{ url('homepage/css/index.css') }}" />
+<link rel="stylesheet" href="{{ url('homepage/css/index2.css') }}" />
 @endsection
 @section('content')
 <div class="quick-links">
@@ -8,90 +8,59 @@
         <div class="frame">
             <p class="link-SALE-OFF">SHOP NOW, GET UP TO 40% OFF</p>
             <div class="all-categories">
-                <div class="inverters">
-                    <div class="list-item-link">
-                        <div class="text-wrapper">Inverters</div>
-                    </div>
-                    <div class="div">
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Infini-Solar Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Solis Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Galaxy Solar Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">East Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Deye Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Huawei Inverters</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Growatt Inverters</div>
+                <div class="category-grid">
+                    <div class="category-box" onclick="window.location.href='/shop?category=inverters'">
+                        <div class="category-content">
+                            <div class="category-title">Inverters</div>
+                            <div class="category-arrow">→</div>
                         </div>
                     </div>
-                </div>
-                <div class="inverters-2">
-                    <div class="list-item-link">
-                        <div class="text-wrapper">Solar Panels</div>
+                    
+                    <div class="category-box" onclick="window.location.href='/shop?category=solar-panels'">
+                        <div class="category-content">
+                            <div class="category-title">Solar Panels</div>
+                            <div class="category-arrow">→</div>
+                        </div>
                     </div>
-                    <div class="div">
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Galaxy Solar Panels</div>
+                    
+                    <div class="category-box" onclick="window.location.href='/shop?category=lithium-batteries'">
+                        <div class="category-content">
+                            <div class="category-title">Lithium Batteries</div>
+                            <div class="category-arrow">→</div>
                         </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Jinko Solar Panels</div>
+                    </div>
+                    
+                    <div class="category-box" onclick="window.location.href='/shop?category=accessories'">
+                        <div class="category-content">
+                            <div class="category-title">Accessories</div>
+                            <div class="category-arrow">→</div>
                         </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">ZNSHINESOLA Panels</div>
+                    </div>
+                    
+                    <div class="category-box" onclick="window.location.href='/shop?category=all-in-one-solutions'">
+                        <div class="category-content">
+                            <div class="category-title">All-in-one Solutions</div>
+                            <div class="category-arrow">→</div>
                         </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">JA Solar Panels</div>
+                    </div>
+                    
+                    <div class="category-box" onclick="window.location.href='/shop?category=home-appliances'">
+                        <div class="category-content">
+                            <div class="category-title">Home Appliances</div>
+                            <div class="category-arrow">→</div>
                         </div>
                     </div>
                 </div>
-                <div class="inverters-2">
-                    <div class="list-item-link">
-                        <div class="text-wrapper">Lithium Batteries</div>
-                    </div>
-                </div>
-                <div class="inverters-2">
-                    <div class="list-item-link">
-                        <div class="text-wrapper">Accessories</div>
-                    </div>
-                    <div class="div">
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Mounting kits</div>
+                <div class="png" style="width:100%">
+                    <div class="frame-7">
+                        <div class="small-xomia">JINKO SOLAR</div>
+                        <div class="frame-3">
+                            <div class="heading-sport">Low Light Champion</div>
+                            <div class="heading-sport-2">Tiger Neo III</div>
                         </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">UPS</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">Bracket</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="inverters">
-                    <div class="list-item-link">
-                        <div class="list-item-link-3">All-in-one Solutions</div>
-                    </div>
-                    <div class="div">
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">All-In-one Solar Generators</div>
-                        </div>
-                        <div class="list-item-link-wrapper">
-                            <div class="list-item-link-2">All-in-one Street Light</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="inverters-2">
-                    <div class="list-item-link">
-                        <div class="text-wrapper">Home Appliances</div>
+                        <!-- <a href="/shop" style='cursor:pointer' class="link">
+                            <div class="shop-now">SHOP NOW</div>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -109,52 +78,27 @@
                     <div class="group-list-item-2">Supports Peak Shaving Mode</div>
                     <p class="group-list-item-2">Compatible With Multiple Brands Of Lithium Battery Models</p>
                 </div>
-                <div class="group">
+                <a href="/shop" style="cursor: pointer;" class="group">
                     <div class="buy-now">BUY NOW</div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="frame-5">
             <div class="div-img">
                 <div class="frame-6">
                     <p class="heading-sono"><span class="span">Install your solar for as low as </span><span class="text-wrapper-2">₦40,000</span></p>
-                    <div class="link-discover-now">
+                    <a href='contact-us' class="link-discover-now">
                         <div class="link-discover-now-2">LEARN MORE</div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="div-img-2">
-                <p class="heading-logitek"><span class="text-wrapper-3">Top Quality</span><span class="span">&nbsp;</span><span class="text-wrapper-2">Lithium (LFP) Battery</span></p>
-                <div class="link-discover-now-wrapper">
-                    <div class="link-discover-now-3">DISCOVER MORE</div>
-                </div>
+                <p class="heading-logitek"><span class="text-wrapper-3">Top Quality<br></span><span class="span">&nbsp;</span><span class="text-wrapper-2">Lithium (LFP) Battery</span></p>
+
             </div>
         </div>
     </div>
-    <div class="right">
-        <div class="png">
-            <div class="frame-7">
-                <div class="small-xomia">JINKO SOLAR</div>
-                <div class="frame-3">
-                    <div class="heading-sport">Low Light Champion</div>
-                    <div class="heading-sport-2">Tiger Neo III</div>
-                </div>
-                <div class="link">
-                    <div class="shop-now">SHOP NOW</div>
-                </div>
-            </div>
-        </div>
-        <div class="slider-png">
-            <p class="heading-strong"><span class="text-wrapper-4">SOLIS</span><span class="text-wrapper-6"> RELIABLE INVERTERS NOW AVAILABLE</span></p>
-            <div class="frame-3"><br>
-                <div class="small-from">FROM AS LOW AS</div>
-                <div class="heading">₦150,000</div>
-            </div>
-            <div class="link-discover-now">
-                <div class="link-discover-now-4" style="color:black;cursor:pointer">SHOP NOW</div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 <div class="lower">
@@ -191,19 +135,19 @@
             </div>
         </div>
         <div class="scrolling">
-                @foreach($categories as $index => $category)
-                @php
-                $categoryImageUrl = asset($category->image);
-                @endphp
-                <div class="frame-{{ $index + 3 }}">
-                    <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
-                             <div class="group-link{{ $index === 1 ? '-prod' : ($index > 1 ? '-' . $index : '') }}" style="background-image: url('{{ $categoryImageUrl }}'); background-size: cover; background-position: center;"></div>
-                       
-                        <div class="{{ $index < 2 ? 'text-wrapper-2' : 'group-link-' . ($index + 2) }}">{{ $category->name }}</div>
-                    </a>
-                </div>
-                @endforeach
-           
+            @foreach($categories as $index => $category)
+            @php
+            $categoryImageUrl = asset($category->image);
+            @endphp
+            <div class="frame-{{ $index + 3 }}">
+                <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
+                    <div class="group-link{{ $index === 1 ? '-prod' : ($index > 1 ? '-' . $index : '') }}" style="background-image: url('{{ $categoryImageUrl }}'); background-size: cover; background-position: center;"></div>
+
+                    <div class="{{ $index < 2 ? 'text-wrapper-2' : 'group-link-' . ($index + 2) }}">{{ $category->name }}</div>
+                </a>
+            </div>
+            @endforeach
+
         </div>
     </div>
 </div>
@@ -229,42 +173,42 @@
                         $images = is_array($images) && !empty($images) ? $images : [];
                         @endphp
                         @endif
-                        
+
                         @if(!empty($images))
                         <!-- Thumbnail Gallery on Left -->
                         <div class="thumbnail-gallery" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
                             @foreach($images as $index => $image)
-                                @php
-                                $thumbImageUrl = asset('uploads/products/' . $image);
-                                $borderColor = $index === 0 ? '#007bff' : 'transparent';
-                                @endphp
-                                <div class="group-prod-png thumbnail-image {{ $index === 0 ? 'active' : '' }}" 
-                                     data-image="{{ $thumbImageUrl }}" 
-                                     style="width: 80px; height: 80px; background-image: url({{ $thumbImageUrl }}); background-size: cover; background-position: center; cursor: pointer; border-radius: 8px; border: 2px solid {{ $borderColor }}; transition: all 0.2s ease;"
-                                     onclick="switchMainImage('{{ $thumbImageUrl }}', this)"></div>
+                            @php
+                            $thumbImageUrl = asset('uploads/products/' . $image);
+                            $borderColor = $index === 0 ? '#007bff' : 'transparent';
+                            @endphp
+                            <div class="group-prod-png thumbnail-image {{ $index === 0 ? 'active' : '' }}"
+                                data-image="{{ $thumbImageUrl }}"
+                                style="width: 80px; height: 80px; background-image: url('{{ $thumbImageUrl }}'); background-size: cover; background-position: center; cursor: pointer; border-radius: 8px; border: 2px solid {{ $borderColor }}; transition: all 0.2s ease;"
+                                onclick="switchMainImage('{{ $thumbImageUrl }}', this)"></div>
                             @endforeach
                         </div>
-                        
+
                         <!-- Main Preview Image -->
                         @php
                         $mainImageUrl = asset('uploads/products/' . $images[0]);
                         @endphp
                         <div class="main-image-container" style="flex: 1; height: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                            <div class="group-png main-product-image" id="mainProductImage" 
-                                 style="width: 100%; height: 100%; background-image: url('{{ $mainImageUrl }}'); background-size: cover; background-position: center; transition: all 0.3s ease;"></div>
+                            <div class="group-png main-product-image" id="mainProductImage"
+                                style="width: 100%; height: 100%; background-image: url('{{ $mainImageUrl }}'); background-size: cover; background-position: center; transition: all 0.3s ease;"></div>
                         </div>
                         @else
                         <!-- Fallback when no images available -->
                         <div class="thumbnail-gallery" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
                             <!-- No thumbnails when no images available -->
                         </div>
-                        
+
                         @php
                         $defaultImageUrl = asset('homepage/images/default-product.png');
                         @endphp
                         <div class="main-image-container" style="flex: 1; height: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                            <div class="group-png main-product-image" id="mainProductImage" 
-                                 style="width: 100%; height: 100%; background-color: #f5f5f5; background-image: url('{{ $defaultImageUrl }}'); background-size: cover; background-position: center;"></div>
+                            <div class="group-png main-product-image" id="mainProductImage"
+                                style="width: 100%; height: 100%; background-color: #f5f5f5; background-image: url('{{ $defaultImageUrl }}'); background-size: cover; background-position: center;"></div>
                         </div>
                         @endif
                     </div>
@@ -442,95 +386,6 @@
     </div>
 </div>
 
-<div class="best-seller">
-    <div class="frame">
-        <div class="tablist-tab-best-wrapper">
-            <div class="tablist-tab-best">BEST SELLER</div>
-        </div>
-        <div class="link-view-all">View All</div>
-    </div>
-    <div class="tabpanel">
-        @if($featuredProducts && $featuredProducts->count() > 0)
-        @foreach($featuredProducts->take(6) as $index => $product)
-        @php
-        $images = $product->image ? json_decode($product->image, true) : [];
-        $firstImage = !empty($images) ? $images[0] : null;
-        $featuredProductImageUrl = $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png');
-        @endphp
-        <div class="group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
-            <div class="div">
-                <a href="{{ route('prd', $product->slug) }}" class="link" style="text-decoration: none;">
-                    <div class="png{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url('{{ $featuredProductImageUrl }}'); background-size: cover; background-position: center;"></div>
-                </a>
-                <div class="frame-2">
-                    <div class="heading-link-xioma{{ $index > 2 ? '-wrapper' : '' }}">
-                        <a href="{{ route('prd', $product->slug) }}" class="text-wrapper{{ $index > 3 ? '' : '' }}" style="text-decoration: none; color: inherit;">{{ Str::limit($product->name, 25) }}</a>
-                    </div>
-                    <div class="heading-link-xioma-2">{{ $product->category->name ?? 'Product' }}</div>
-                </div>
-                <div class="frame-3">
-                    @if($product->discount_price)
-                    <div class="heading">₦{{ number_format($product->discount_price) }}</div>
-                    <div class="heading-2">₦{{ number_format($product->price) }}</div>
-                    @else
-                    <div class="heading">₦{{ number_format($product->price) }}</div>
-                    @endif
-                </div>
-                <div class="frame-4">
-                    @if($product->stock_quantity > 0)
-                    <div class="symbol"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
-                    <div class="in-stock">In stock</div>
-                    @else
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="text-wrapper-2">Out of Stock</div>
-                    @endif
-                </div>
-            </div>
-            @if($product->discount_price)
-            <div class="div-dis-card">
-                <div class="small-save">SAVE</div>
-                <div class="heading-3">₦{{ number_format($product->price - $product->discount_price) }}</div>
-            </div>
-            @endif
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper" data-product-id="{{ $product->id }}">
-                    <div class="shop-now add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        @else
-        <div class="group">
-            <div class="div">
-                <div class="link">
-                    <div class="png"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <div class="text-wrapper">No Products Available</div>
-                    </div>
-                    <div class="heading-link-xioma-2">Product</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦0</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="text-wrapper-2">Out of Stock</div>
-                </div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endif
-
-
-    </div>
-
-</div>
 
 <div class="brand-new">
     <div class="brand-new-frame">
@@ -650,29 +505,29 @@
         </div>
         <div class="solar-inverters-key-products">
             @if($categories && $categories->count() > 0)
-                @foreach($categories as $category)
-                <div class="solar-inverters-item">
-                    <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
-                        <div class="solar-inverters-item-frame">
-                            <div class="solar-inverters-item-heading">{{ $category->name }}</div>
-                            <div class="solar-inverters-item-count">{{ $category->products_count }} Items</div>
-                        </div>
-                        @if($category->image)
-                            <div class="solar-inverters-item-img" style="background-image: url('{{ asset($category->image) }}'); background-size: cover; background-position: center;"></div>
-                        @else
-                            <div class="img-prod"></div>
-                        @endif
-                    </a>
-                </div>
-                @endforeach
-            @else
-                <div class="solar-inverters-item">
+            @foreach($categories as $category)
+            <div class="solar-inverters-item">
+                <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
                     <div class="solar-inverters-item-frame">
-                        <div class="solar-inverters-item-heading">No Categories</div>
-                        <div class="solar-inverters-item-count">0 Items</div>
+                        <div class="solar-inverters-item-heading">{{ $category->name }}</div>
+                        <div class="solar-inverters-item-count">{{ $category->products_count }} Items</div>
                     </div>
-                    <div class="solar-inverters-item-img-prod"></div>
+                    @if($category->image)
+                    <div class="solar-inverters-item-img" style="background-image: url('{{ asset($category->image) }}'); background-size: cover; background-position: center;"></div>
+                    @else
+                    <div class="img-prod"></div>
+                    @endif
+                </a>
+            </div>
+            @endforeach
+            @else
+            <div class="solar-inverters-item">
+                <div class="solar-inverters-item-frame">
+                    <div class="solar-inverters-item-heading">No Categories</div>
+                    <div class="solar-inverters-item-count">0 Items</div>
                 </div>
+                <div class="solar-inverters-item-img-prod"></div>
+            </div>
             @endif
         </div>
     </div>
@@ -680,73 +535,73 @@
         @if($popularProducts && $popularProducts->count() > 0)
         @foreach($popularProducts->take(6) as $index => $product)
         @php
-            $images = $product->image ? json_decode($product->image, true) : [];
-            $firstImage = !empty($images) ? $images[0] : null;
-            $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
+        $images = $product->image ? json_decode($product->image, true) : [];
+        $firstImage = !empty($images) ? $images[0] : null;
+        $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
             $currentPrice = $hasDiscount ? $product->discount_price : $product->price;
             $oldPrice = $hasDiscount ? $product->price : null;
-        @endphp
-        <div class="solar-inverters-group">
-            <div class="solar-inverters-product-frame">
-                <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-img-wrapper" style="text-decoration: none;">
-                    <div class="solar-inverters-product-img" style="background-image: url({{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }})"></div>
-                </a>
-                <div class="solar-inverters-prd">
-                    <div class="solar-inverters-product-title">
-                        <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+            @endphp
+            <div class="solar-inverters-group">
+                <div class="solar-inverters-product-frame">
+                    <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-img-wrapper" style="text-decoration: none;">
+                        <div class="solar-inverters-product-img" style="background-image: url('{{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }}')"></div>
+                    </a>
+                    <div class="solar-inverters-prd">
+                        <div class="solar-inverters-product-title">
+                            <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+                        </div>
+                        <div class="solar-inverters-product-category">{{ $product->category->name ?? 'Product' }}</div>
                     </div>
-                    <div class="solar-inverters-product-category">{{ $product->category->name ?? 'Product' }}</div>
-                </div>
-                <div class="solar-inverters-product-price">
-                    <div class="solar-inverters-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
-                    @if($oldPrice)
-                    <div class="solar-inverters-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
-                    @endif
-                </div>
-                <div class="solar-inverters-product-status">
-                    @if($product->stock_quantity > 0)
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
-                    <div class="solar-inverters-product-status-text">In stock</div>
-                    @else
-                    <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="solar-inverters-product-status-text">Out of stock</div>
-                    @endif
-                </div>
-            </div>
-            <div class="solar-inverters-product-action" data-product-id="{{ $product->id }}">
-                <div class="solar-inverters-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
-                    <div class="solar-inverters-product-action-text">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        @else
-        <div class="group">
-            <div class="div">
-                <div class="link">
-                    <div class="png"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <div class="text-wrapper">No Products Available</div>
+                    <div class="solar-inverters-product-price">
+                        <div class="solar-inverters-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
+                        @if($oldPrice)
+                        <div class="solar-inverters-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
+                        @endif
                     </div>
-                    <div class="heading-link-xioma-2">Product</div>
+                    <div class="solar-inverters-product-status">
+                        @if($product->stock_quantity > 0)
+                        <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
+                        <div class="solar-inverters-product-status-text">In stock</div>
+                        @else
+                        <div class="solar-inverters-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                        <div class="solar-inverters-product-status-text">Out of stock</div>
+                        @endif
+                    </div>
                 </div>
-                <div class="frame-3">
-                    <div class="heading">₦0</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="text-wrapper-2">Out of Stock</div>
+                <div class="solar-inverters-product-action" data-product-id="{{ $product->id }}">
+                    <div class="solar-inverters-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+                        <div class="solar-inverters-product-action-text">ADD TO CART</div>
+                    </div>
                 </div>
             </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
+            @endforeach
+            @else
+            <div class="group">
+                <div class="div">
+                    <div class="link">
+                        <div class="png"></div>
+                    </div>
+                    <div class="frame-2">
+                        <div class="heading-link-xioma">
+                            <div class="text-wrapper">No Products Available</div>
+                        </div>
+                        <div class="heading-link-xioma-2">Product</div>
+                    </div>
+                    <div class="frame-3">
+                        <div class="heading">₦0</div>
+                    </div>
+                    <div class="frame-4">
+                        <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                        <div class="text-wrapper-2">Out of Stock</div>
+                    </div>
+                </div>
+                <div class="link-wrapper">
+                    <div class="shop-now-wrapper">
+                        <div class="shop-now">ADD TO CART</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        @endif
+            @endif
     </div>
 
 </div>
@@ -808,77 +663,77 @@
         @if($popularProducts && $popularProducts->count() > 0)
         @foreach($popularProducts->take(9) as $index => $product)
         @php
-            $images = $product->image ? json_decode($product->image, true) : [];
-            $firstImage = !empty($images) ? $images[0] : null;
-            $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
+        $images = $product->image ? json_decode($product->image, true) : [];
+        $firstImage = !empty($images) ? $images[0] : null;
+        $hasDiscount = $product->discount_price && $product->discount_price < $product->price;
             $currentPrice = $hasDiscount ? $product->discount_price : $product->price;
             $oldPrice = $hasDiscount ? $product->price : null;
-        @endphp
-        <div class="solar-panels-group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
-            <div class="solar-panels-product-frame">
-                <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-img-wrapper" style="text-decoration: none;">
-                    <div class="solar-panels-product-img{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url('{{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }}')"></div>
-                </a>
-                <div class="solar-panels-prd">
-                    <div class="solar-panels-product-title{{ $index == 1 || $index == 3 || $index == 5 || $index == 8 ? '-wrapper' : '' }}">
-                        @if($index == 1 || $index == 3 || $index == 5 || $index == 8)
-                        <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
-                        @else
-                        <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+            @endphp
+            <div class="solar-panels-group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
+                <div class="solar-panels-product-frame">
+                    <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-img-wrapper" style="text-decoration: none;">
+                        <div class="solar-panels-product-img{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url('{{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }}')"></div>
+                    </a>
+                    <div class="solar-panels-prd">
+                        <div class="solar-panels-product-title{{ $index == 1 || $index == 3 || $index == 5 || $index == 8 ? '-wrapper' : '' }}">
+                            @if($index == 1 || $index == 3 || $index == 5 || $index == 8)
+                            <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+                            @else
+                            <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-title-text" style="text-decoration: none; color: inherit;">{{ $product->name }}</a>
+                            @endif
+                        </div>
+                        <div class="solar-panels-product-category">{{ $product->category->name ?? 'Product' }}</div>
+                    </div>
+                    <div class="solar-panels-product-price">
+                        <div class="solar-panels-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
+                        @if($oldPrice)
+                        <div class="solar-panels-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
                         @endif
                     </div>
-                    <div class="solar-panels-product-category">{{ $product->category->name ?? 'Product' }}</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦{{ number_format($currentPrice, 0) }}</div>
-                    @if($oldPrice)
-                    <div class="solar-panels-product-old-price">₦{{ number_format($oldPrice, 0) }}</div>
-                    @endif
-                </div>
-                <div class="solar-panels-product-status">
-                    @if($product->stock_quantity > 0)
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
-                    <div class="solar-panels-product-status-text">In stock</div>
-                    @else
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="solar-panels-product-status-text">Out of stock</div>
-                    @endif
-                </div>
-            </div>
-            <div class="solar-panels-product-action" data-product-id="{{ $product->id }}">
-                <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
-                    <div class="solar-panels-product-action-text">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-        @else
-        <div class="solar-panels-group">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper">
-                    <div class="solar-panels-product-img"></div>
-                </div>
-                <div class="solar-panels-prd">
-                    <div class="solar-panels-product-title">
-                        <div class="solar-panels-product-title-text">No Products Available</div>
+                    <div class="solar-panels-product-status">
+                        @if($product->stock_quantity > 0)
+                        <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/active.svg") }}' alt="active" /></div>
+                        <div class="solar-panels-product-status-text">In stock</div>
+                        @else
+                        <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                        <div class="solar-panels-product-status-text">Out of stock</div>
+                        @endif
                     </div>
-                    <div class="solar-panels-product-category">Product</div>
                 </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦0</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="solar-panels-product-status-text">Out of stock</div>
+                <div class="solar-panels-product-action" data-product-id="{{ $product->id }}">
+                    <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+                        <div class="solar-panels-product-action-text">ADD TO CART</div>
+                    </div>
                 </div>
             </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link">
-                    <div class="solar-panels-product-action-text">ADD TO CART</div>
+            @endforeach
+            @else
+            <div class="solar-panels-group">
+                <div class="solar-panels-product-frame">
+                    <div class="solar-panels-product-img-wrapper">
+                        <div class="solar-panels-product-img"></div>
+                    </div>
+                    <div class="solar-panels-prd">
+                        <div class="solar-panels-product-title">
+                            <div class="solar-panels-product-title-text">No Products Available</div>
+                        </div>
+                        <div class="solar-panels-product-category">Product</div>
+                    </div>
+                    <div class="solar-panels-product-price">
+                        <div class="solar-panels-product-current-price">₦0</div>
+                    </div>
+                    <div class="solar-panels-product-status">
+                        <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
+                        <div class="solar-panels-product-status-text">Out of stock</div>
+                    </div>
+                </div>
+                <div class="solar-panels-product-action">
+                    <div class="solar-panels-product-action-link">
+                        <div class="solar-panels-product-action-text">ADD TO CART</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        @endif
+            @endif
 
     </div>
 

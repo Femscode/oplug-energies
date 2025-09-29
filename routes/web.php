@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[FrontendController::class,'index'])->name('home');
 Route::get('/shop',[FrontendController::class,'shop'])->name('shop');
+Route::get('/search',[FrontendController::class,'search'])->name('search');
 Route::get('/shop/category/{slug}',[FrontendController::class,'shopByCategory'])->name('shop.category');
 Route::get('/prd/{id}',[FrontendController::class,'productDetails'])->name('prd');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart');
@@ -96,7 +97,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/change-password', [AdminController::class, 'changePassword'])->name('admin.change-password');
 });
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('user.dashboard');
+    // return route('user.dashboard');
+    // return view('user/dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

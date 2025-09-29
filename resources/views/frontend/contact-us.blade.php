@@ -5,14 +5,15 @@
 
 @section('content')
 <div class="solar-breadcrumb">
-    <button class="solar-breadcrumb-button"><div class="solar-breadcrumb-item">Home</div></button>
+    <button class="solar-breadcrumb-button">
+     <a href="/"> <div class="solar-breadcrumb-item">Home</div></a>
+    </button>
     <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">Shop</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><div class="solar-breadcrumb-item">All-in-one Solutions</div></div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper"><p class="solar-breadcrumb-current">Future-h All In One Solution</p></div>
+    <div class="solar-breadcrumb-wrapper">
+        <a href='/about'><div class="solar-breadcrumb-item">Contact Us</div></a>
+    </div>
 </div>
+
 
 <div class="main-section">
   <h1>Ready to Work With Us?</h1>
@@ -35,7 +36,7 @@
           </ul>
         </div>
       @endif
-      <form action="{{ route('contact.submit') }}" method="POST">
+      <form class="form-2" action="{{ route('contact.submit') }}" method="POST">
         @csrf
         <div class="form-row">
           <div class="form-group">
@@ -88,13 +89,13 @@
         <h3>Business Hours</h3>
         <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM<br>Sunday: Closed</p>
       </div>
-      <div class="social-links">
+      <!-- <div class="social-links">
         <a href="#" class="social-icon" title="Twitter">&#xf099;</a>
         <a href="#" class="social-icon" title="Facebook">&#xf39e;</a>
         <a href="#" class="social-icon" title="Instagram">&#xf16d;</a>
         <a href="#" class="social-icon" title="YouTube">&#xf167;</a>
         <a href="#" class="social-icon" title="Pinterest">&#xf0d2;</a>
-      </div>
+      </div> -->
     </div>
   </div>
   <script>

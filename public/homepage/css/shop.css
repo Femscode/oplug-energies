@@ -54,6 +54,85 @@ body {
     box-shadow: var(--box-shadow);
 }
 
+/* New category grid layout for shop page */
+.category-grid-shop {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 16px 0;
+}
+
+.category-card-shop {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #004ba0 100%);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    box-shadow: var(--box-shadow);
+}
+
+.category-card-shop:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 48, 135, 0.2);
+}
+
+.category-link-shop {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+}
+
+.category-content-shop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    min-height: 80px;
+}
+
+.category-title-shop {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.4;
+    flex: 1;
+}
+
+.category-arrow-shop {
+    font-size: 20px;
+    color: var(--accent-orange);
+    font-weight: bold;
+    transition: var(--transition);
+    margin-left: 12px;
+}
+
+.category-card-shop:hover .category-arrow-shop {
+    transform: translateX(4px);
+}
+
+/* Responsive design for category grid */
+@media (max-width: 768px) {
+    .category-grid-shop {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .category-content-shop {
+        padding: 16px;
+        min-height: 70px;
+    }
+    
+    .category-title-shop {
+        font-size: 14px;
+    }
+    
+    .category-arrow-shop {
+        font-size: 18px;
+    }
+}
+
 /* Category items */
 .solar-categories-inverters,
 .solar-categories-panels,
@@ -404,7 +483,7 @@ body {
     padding: 0 16px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
     border-radius: var(--border-radius);
-    height: 280px;
+    /* height: 280px; */
 }
 
 .solar-categories-info {
@@ -960,7 +1039,7 @@ body {
 
     .solar-categories-png {
         width: 100%;
-        height: 300px;
+        /* height: 300px; */
     }
 
     .solar-categories-best-seller {
