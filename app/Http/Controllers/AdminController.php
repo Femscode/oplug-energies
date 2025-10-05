@@ -6,7 +6,9 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -29,7 +31,8 @@ class AdminController extends Controller
         $totalOrders = Order::count();
         $totalProducts = Product::count();
         $totalUsers = User::where('role', '!=', 'admin')->count();
-        $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
+        // $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
+        $totalRevenue = Order::sum('total_amount');
         
         return view('admin.index', compact(
              'recentOrders', 
@@ -42,7 +45,63 @@ class AdminController extends Controller
      }
      
      public function orders() {
-        return view('admin.orders');
+        $orders = Order::with(['user', 'orderItems.product'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(15);
+        
+        return view('admin.orders', compact('orders'));
+    }
+    
+    public function orderDetails(Order $order) {
+        $order->load(['user', 'orderItems.product']);
+        return view('admin.order-details', compact('order'));
+    }
+    
+    public function exportOrders()
+    {
+        $orders = Order::with(['orderItems.product'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $csvData = [];
+        $csvData[] = ['Order Number', 'Customer Name', 'Email', 'Phone', 'Date', 'Status', 'Total Amount', 'Items Count', 'Products'];
+
+        foreach ($orders as $order) {
+            $products = $order->orderItems->map(function($item) {
+                return $item->product->name . ' (Qty: ' . $item->quantity . ')';
+            })->implode('; ');
+
+            $csvData[] = [
+                $order->order_number ?? 'ORD-' . $order->id,
+                $order->name,
+                $order->email,
+                $order->phone ?? 'N/A',
+                $order->created_at->format('Y-m-d H:i:s'),
+                ucfirst($order->status),
+                '₦' . number_format($order->total_amount, 2),
+                $order->orderItems->count(),
+                $products
+            ];
+        }
+
+        $filename = 'orders_export_' . date('Y-m-d_H-i-s') . '.csv';
+        
+        $handle = fopen('php://output', 'w');
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+        
+        // Add BOM for proper UTF-8 encoding in Excel
+        fwrite($handle, "\xEF\xBB\xBF");
+        
+        foreach ($csvData as $row) {
+            fputcsv($handle, $row);
+        }
+        
+        fclose($handle);
+        exit;
     }
     public function products() {
         $products = Product::with('category')->paginate(10);
@@ -196,9 +255,54 @@ class AdminController extends Controller
         
         return redirect()->route('admin.products')->with('success', 'Product created successfully!');
     }
-    public function settings() {
+    public function settings()
+    {
         return view('admin.settings');
     }
+
+    public function updateSettings(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
+        ]);
+
+        $user = Auth::user();
+        $user->update([
+            'name' => $request->first_name . ' ' . $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ]);
+
+        return redirect()->route('admin.settings')->with('success', 'Profile updated successfully!');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        // Check if current password is correct
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect.']);
+        }
+
+        // Update password
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('success', 'Password updated successfully!');
+    }
+
     public function changePassword() {
         return view('admin.change-password');
     }

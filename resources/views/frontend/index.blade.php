@@ -450,7 +450,7 @@
         <div class="link-view-all">View All</div>
     </div>
     <div class="tabpanel">
-        @if($featuredProducts && $featuredProducts->count() > 0)
+       
         @foreach($featuredProducts->take(6) as $index => $product)
         @php
         $images = $product->image ? json_decode($product->image, true) : [];
@@ -493,39 +493,19 @@
             </div>
             @endif
             <div class="link-wrapper">
+                @if($product->stock_quantity > 0)
                 <div class="shop-now-wrapper" data-product-id="{{ $product->id }}">
                     <div class="shop-now add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">ADD TO CART</div>
                 </div>
+                @else
+                <div class="shop-now-wrapper" data-product-id="{{ $product->id }}">
+                    <div class="shop-now disabled" style="cursor: pointer;">OUT OF STOCK</div>
+                </div>
+                @endif
             </div>
         </div>
         @endforeach
-        @else
-        <div class="group">
-            <div class="div">
-                <div class="link">
-                    <div class="png"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <div class="text-wrapper">No Products Available</div>
-                    </div>
-                    <div class="heading-link-xioma-2">Product</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦0</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="text-wrapper-2">Out of Stock</div>
-                </div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endif
+      
 
 
     </div>
@@ -677,7 +657,7 @@
         </div>
     </div>
     <div class="solar-inverters-tabpanel">
-        @if($popularProducts && $popularProducts->count() > 0)
+       
         @foreach($popularProducts->take(6) as $index => $product)
         @php
             $images = $product->image ? json_decode($product->image, true) : [];
@@ -714,39 +694,19 @@
                 </div>
             </div>
             <div class="solar-inverters-product-action" data-product-id="{{ $product->id }}">
+                @if($product->stock_quantity > 0)
                 <div class="solar-inverters-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
                     <div class="solar-inverters-product-action-text">ADD TO CART</div>
                 </div>
+                @else
+                <div class="solar-inverters-product-action-link" style="cursor: pointer;">
+                    <div class="solar-inverters-product-action-text disabled">OUT OF STOCK</div>
+                </div>
+                @endif
             </div>
         </div>
         @endforeach
-        @else
-        <div class="group">
-            <div class="div">
-                <div class="link">
-                    <div class="png"></div>
-                </div>
-                <div class="frame-2">
-                    <div class="heading-link-xioma">
-                        <div class="text-wrapper">No Products Available</div>
-                    </div>
-                    <div class="heading-link-xioma-2">Product</div>
-                </div>
-                <div class="frame-3">
-                    <div class="heading">₦0</div>
-                </div>
-                <div class="frame-4">
-                    <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="text-wrapper-2">Out of Stock</div>
-                </div>
-            </div>
-            <div class="link-wrapper">
-                <div class="shop-now-wrapper">
-                    <div class="shop-now">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endif
+      
     </div>
 
 </div>
@@ -805,7 +765,7 @@
         </div>
     </div>
     <div class="solar-panels-tabpanel">
-        @if($popularProducts && $popularProducts->count() > 0)
+       
         @foreach($popularProducts->take(9) as $index => $product)
         @php
             $images = $product->image ? json_decode($product->image, true) : [];
@@ -846,39 +806,20 @@
                 </div>
             </div>
             <div class="solar-panels-product-action" data-product-id="{{ $product->id }}">
-                <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
+            @if($product->stock_quantity > 0)   
+            <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
                     <div class="solar-panels-product-action-text">ADD TO CART</div>
                 </div>
             </div>
+            @else
+             <div class="solar-panels-product-action-link" style="cursor: pointer;">
+                    <div class="solar-panels-product-action-text disabled">OUT OF STOCK</div>
+                </div>
+            </div>
+            @endif 
         </div>
         @endforeach
-        @else
-        <div class="solar-panels-group">
-            <div class="solar-panels-product-frame">
-                <div class="solar-panels-product-img-wrapper">
-                    <div class="solar-panels-product-img"></div>
-                </div>
-                <div class="solar-panels-prd">
-                    <div class="solar-panels-product-title">
-                        <div class="solar-panels-product-title-text">No Products Available</div>
-                    </div>
-                    <div class="solar-panels-product-category">Product</div>
-                </div>
-                <div class="solar-panels-product-price">
-                    <div class="solar-panels-product-current-price">₦0</div>
-                </div>
-                <div class="solar-panels-product-status">
-                    <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                    <div class="solar-panels-product-status-text">Out of stock</div>
-                </div>
-            </div>
-            <div class="solar-panels-product-action">
-                <div class="solar-panels-product-action-link">
-                    <div class="solar-panels-product-action-text">ADD TO CART</div>
-                </div>
-            </div>
-        </div>
-        @endif
+     
 
     </div>
 

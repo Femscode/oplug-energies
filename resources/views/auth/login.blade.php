@@ -6,20 +6,13 @@
 
 @section('content')
 <div class="solar-breadcrumb">
-    <button class="solar-breadcrumb-button">
+    <a href="/" class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
-    </button>
+</a>
+    
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">Shop</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <p class="solar-breadcrumb-current">Register</p>
+        <p class="solar-breadcrumb-current">Login</p>
     </div>
 </div>
 

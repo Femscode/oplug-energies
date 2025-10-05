@@ -57,6 +57,7 @@
                     <span>Date</span>
                     <span>Amount</span>
                     <span>Status</span>
+                    <span>Action</span>
                 </div>
                 @forelse($recentOrders as $order)
                 <div class="table-row">
@@ -65,10 +66,13 @@
                     <span>{{ $order->created_at->format('d.m.Y') }}</span>
                     <span>₦{{ number_format($order->total_amount, 2) }}</span>
                     <span class="badge {{ $order->status === 'completed' ? 'paid' : 'pending' }}">{{ ucfirst($order->status) }}</span>
+                    <span>
+                        <a href="{{ route('admin.orders') }}" class="btn btn-primary btn-sm">View More</a>
+                    </span>
                 </div>
                 @empty
                 <div class="table-row">
-                    <span colspan="5" style="text-align: center;">No orders found</span>
+                    <span colspan="6" style="text-align: center;">No orders found</span>
                 </div>
                 @endforelse
             </div>

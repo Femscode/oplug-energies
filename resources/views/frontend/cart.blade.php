@@ -66,15 +66,15 @@
                         <div class="solar-cart-summary-label">Discount:</div>
                         <div class="solar-cart-summary-value">-₦0</div>
                     </div>
-                    <div class="solar-cart-summary-item">
+                    <!-- <div class="solar-cart-summary-item">
                         <div class="solar-cart-summary-label">Tax estimate:</div>
                         <div class="solar-cart-summary-value">₦{{ number_format($tax, 0) }}</div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="solar-cart-summary-total">
                 <div class="solar-cart-total-label">ORDER TOTAL:</div>
-                <div class="solar-cart-total-value">₦{{ number_format($total, 0) }}</div>
+                <div class="solar-cart-total-value">₦{{ number_format($subtotal, 0) }}</div>
             </div>
             <a href="{{ route('checkout') }}" class="solar-cart-checkout-button"><div class="solar-cart-checkout-text">CHECKOUT</div></a>
         </div>

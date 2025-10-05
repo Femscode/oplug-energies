@@ -91,10 +91,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     
     // Admin Order Management
     Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    Route::get('/orders/{order}', [AdminController::class, 'orderDetails'])->name('admin.orders.show');
+    Route::post('/orders/export', [AdminController::class, 'exportOrders'])->name('admin.orders.export');
     
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::put('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
     Route::get('/change-password', [AdminController::class, 'changePassword'])->name('admin.change-password');
+    Route::post('/change-password', [AdminController::class, 'updatePassword'])->name('admin.change-password.update');
 });
 Route::get('/dashboard', function () {
     return redirect()->route('user.dashboard');

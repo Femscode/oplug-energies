@@ -15,35 +15,35 @@
                             <div class="category-arrow">→</div>
                         </div>
                     </div>
-                    
+
                     <div class="category-box" onclick="window.location.href='/shop?category=solar-panels'">
                         <div class="category-content">
                             <div class="category-title">Solar Panels</div>
                             <div class="category-arrow">→</div>
                         </div>
                     </div>
-                    
+
                     <div class="category-box" onclick="window.location.href='/shop?category=lithium-batteries'">
                         <div class="category-content">
                             <div class="category-title">Lithium Batteries</div>
                             <div class="category-arrow">→</div>
                         </div>
                     </div>
-                    
+
                     <div class="category-box" onclick="window.location.href='/shop?category=accessories'">
                         <div class="category-content">
                             <div class="category-title">Accessories</div>
                             <div class="category-arrow">→</div>
                         </div>
                     </div>
-                    
+
                     <div class="category-box" onclick="window.location.href='/shop?category=all-in-one-solutions'">
                         <div class="category-content">
                             <div class="category-title">All-in-one Solutions</div>
                             <div class="category-arrow">→</div>
                         </div>
                     </div>
-                    
+
                     <div class="category-box" onclick="window.location.href='/shop?category=home-appliances'">
                         <div class="category-content">
                             <div class="category-title">Home Appliances</div>
@@ -532,7 +532,6 @@
         </div>
     </div>
     <div class="solar-inverters-tabpanel">
-        @if($popularProducts && $popularProducts->count() > 0)
         @foreach($popularProducts->take(6) as $index => $product)
         @php
         $images = $product->image ? json_decode($product->image, true) : [];
@@ -569,39 +568,19 @@
                     </div>
                 </div>
                 <div class="solar-inverters-product-action" data-product-id="{{ $product->id }}">
+                    @if($product->stock_quantity > 0)
                     <div class="solar-inverters-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
                         <div class="solar-inverters-product-action-text">ADD TO CART</div>
                     </div>
+                    @else 
+                     <div class="solar-inverters-product-action-link"  style="cursor: pointer; background:grey;color:#fff !important;border-color:white">
+                        <div style="color:white" class="solar-inverters-product-action-text disabled">OUT OF STOCK</div>
+                    </div>
+                    @endif
                 </div>
             </div>
             @endforeach
-            @else
-            <div class="group">
-                <div class="div">
-                    <div class="link">
-                        <div class="png"></div>
-                    </div>
-                    <div class="frame-2">
-                        <div class="heading-link-xioma">
-                            <div class="text-wrapper">No Products Available</div>
-                        </div>
-                        <div class="heading-link-xioma-2">Product</div>
-                    </div>
-                    <div class="frame-3">
-                        <div class="heading">₦0</div>
-                    </div>
-                    <div class="frame-4">
-                        <div class="symbol-2"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                        <div class="text-wrapper-2">Out of Stock</div>
-                    </div>
-                </div>
-                <div class="link-wrapper">
-                    <div class="shop-now-wrapper">
-                        <div class="shop-now">ADD TO CART</div>
-                    </div>
-                </div>
-            </div>
-            @endif
+        
     </div>
 
 </div>
@@ -660,7 +639,7 @@
         </div>
     </div>
     <div class="solar-panels-tabpanel">
-        @if($popularProducts && $popularProducts->count() > 0)
+
         @foreach($popularProducts->take(9) as $index => $product)
         @php
         $images = $product->image ? json_decode($product->image, true) : [];
@@ -701,39 +680,19 @@
                     </div>
                 </div>
                 <div class="solar-panels-product-action" data-product-id="{{ $product->id }}">
+                    @if($product->stock_quantity > 0)
                     <div class="solar-panels-product-action-link add-to-cart-btn" data-product-id="{{ $product->id }}" style="cursor: pointer;">
                         <div class="solar-panels-product-action-text">ADD TO CART</div>
                     </div>
+                    @else
+                    <div class="solar-panels-product-action-link" style="cursor: pointer;">
+                        <div class="solar-panels-product-action-text disabled">OUT OF STOCK</div>
+                    </div>
+                    @endif
                 </div>
             </div>
             @endforeach
-            @else
-            <div class="solar-panels-group">
-                <div class="solar-panels-product-frame">
-                    <div class="solar-panels-product-img-wrapper">
-                        <div class="solar-panels-product-img"></div>
-                    </div>
-                    <div class="solar-panels-prd">
-                        <div class="solar-panels-product-title">
-                            <div class="solar-panels-product-title-text">No Products Available</div>
-                        </div>
-                        <div class="solar-panels-product-category">Product</div>
-                    </div>
-                    <div class="solar-panels-product-price">
-                        <div class="solar-panels-product-current-price">₦0</div>
-                    </div>
-                    <div class="solar-panels-product-status">
-                        <div class="solar-panels-product-status-icon"><img src='{{ url("homepage/images/svgs/cancel.svg") }}' alt="cancel" /></div>
-                        <div class="solar-panels-product-status-text">Out of stock</div>
-                    </div>
-                </div>
-                <div class="solar-panels-product-action">
-                    <div class="solar-panels-product-action-link">
-                        <div class="solar-panels-product-action-text">ADD TO CART</div>
-                    </div>
-                </div>
-            </div>
-            @endif
+
 
     </div>
 

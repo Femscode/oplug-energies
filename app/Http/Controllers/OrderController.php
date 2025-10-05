@@ -76,8 +76,10 @@ class OrderController extends Controller
         $subtotal = $cartItems->sum(function ($item) {
             return $item->product->price * $item->quantity;
         });
-        $tax = $subtotal * 0.075; // 7.5% tax
-        $shippingCost = 5000; // Fixed shipping cost
+        $tax = 0; // 7.5% tax
+        $shippingCost = 0; // Fixed shipping cost
+        // $tax = $subtotal * 0.075; // 7.5% tax
+        // $shippingCost = 5000; // Fixed shipping cost
         $total = $subtotal + $tax + $shippingCost;
 
         // Create order

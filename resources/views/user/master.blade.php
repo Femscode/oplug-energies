@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url('homepage/css/global.css') }}" />
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="{{ url('homepage/css/user-master.css') }}" />
+    <link rel="stylesheet" href="{{ url('css/user-orders.css') }}" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,48 +44,66 @@
             </button>
 
             <nav class="nav-links">
-                <a href="#">Homes</a>
-                <a href="#">Shop</a>
-                <a href="#">Contact</a>
-                <a href="#">About Us</a>
+                <a href="/">Homes</a>
+                <a href="/user/dashboard">Dashboard</a>
+                <a href="/user/profile">Profile</a>
+                <a href="/user/orders">Orders</a>
+                <a href="/user/change-password">Change Password</a>
+               
             </nav>
 
             <div class="actions">
-                <div>
+                @if(Auth::check())
+                <form action="/logout" method="POST" style="display: inline;">
+                    @csrf
+                <a>
                     <div class="welcome">Welcome To Oplug</div>
-                    <div class="login">LOG IN / REGISTER</div>
-                </div>
-                <div class="cart">
+                    <button class="submit" style=" background-color: #dc3545; /* red */
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;">Logout</button>
+                </a>
+                </form>
+                <a href="/cart" class="cart">
                     <div class="cart-icon">
                         <img src="{{ url('homepage/images/cart.svg') }}" width="20" alt="cart" />
-                        <span>5</span>
+                        <!-- <span></span> -->
                     </div>
                     <div>
                         <div class="small-cart">Cart</div>
-                        <div class="price">₦400,000</div>
                     </div>
-                </div>
+                </a>
+                @else  
+                <a href="/login">
+                    <div class="welcome">Welcome To Oplug</div>
+                    <div class="login">LOG IN / REGISTER</div>
+                </a>
+                @endif
             </div>
         </div>
 
-        <div class="nav">
-            <div class="div-search-cat">
+      
+         <div class="nav">
+            <form action="{{ route('search') }}" method="GET" class="div-search-cat">
                 <div class="input">
-                    <input class="div-placeholder" placeholder="Search anything..." type="text" />
+                    <input class="div-placeholder" name="q" placeholder="Search anything..." type="text" value="{{ request('q') }}" />
                 </div>
                 <div class="options">
-                    <div class="frame">
+                    <button type="submit" class="frame" style="background: none; border: none; cursor: pointer;">
                         <div class="text-wrapper">Search</div>
-
-                    </div>
+                    </button>
                 </div>
-            </div>
+            </form>
 
             <div class="shipping-info">
                 <div class="link-free-shipping">FREE SHIPPING OVER ₦1,000,000</div>
                 <div class="link-days-money">30 DAYS MONEY BACK</div>
             </div>
-
+          
         </div>
     </header>
 
@@ -102,7 +121,7 @@
 
                 <div class="solar-account-user">
                     <div class="solar-account-user-avatar">
-                        <!-- <img src="{{ asset('homepage/images/user-avatar.png') }}" alt="User Avatar"> -->
+                        <img src="{{ asset('homepage/images/avatar.svg') }}" alt="User Avatar">
                     </div>
                     <div class="solar-account-user-info">
                         <h4>{{ Auth::user()->name }}</h4>

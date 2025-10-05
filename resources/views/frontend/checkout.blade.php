@@ -145,30 +145,30 @@
                             </div>
                         @endif
                     </div>
-                    <div class="solar-checkout-order-shipping">
+                    <!-- <div class="solar-checkout-order-shipping">
                         <div class="solar-checkout-shipping-text">Standard Shipping</div>
                         <div class="solar-checkout-shipping-cost">₦{{ number_format($shippingCost, 0) }}</div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="solar-checkout-order-total">
                     <div class="solar-checkout-total-label">Order Total</div>
-                    <div class="solar-checkout-total-amount">₦{{ number_format($total, 0) }}</div>
+                    <div class="solar-checkout-total-amount">₦{{ number_format($subtotal, 0) }}</div>
                 </div>
             </div>
             <div class="solar-checkout-payment">
                 <div class="solar-checkout-payment-options">
-                    <div class="solar-checkout-payment-option">
+                    <!-- <div class="solar-checkout-payment-option">
                         <input type="radio" id="debit-card" name="payment_method" value="debit_card" class="solar-checkout-radio" form="checkout-form" checked>
                         <label for="debit-card" class="solar-checkout-payment-label">Pay with Debit Card</label>
                     </div>
                     <div class="solar-checkout-payment-option">
                         <input type="radio" id="cash-on-delivery" name="payment_method" value="cash_on_delivery" class="solar-checkout-radio" form="checkout-form">
                         <label for="cash-on-delivery" class="solar-checkout-payment-label">Cash on Delivery</label>
-                    </div>
-                    <div class="solar-checkout-payment-option">
-                        <input type="radio" id="whatsapp" name="payment_method" value="whatsapp" class="solar-checkout-radio" form="checkout-form">
-                        <label for="whatsapp" class="solar-checkout-payment-label">Order via WhatsApp</label>
-                    </div>
+                    </div> -->
+                    <!-- <div class="solar-checkout-payment-option"> -->
+                        <input checked type="hidden" id="whatsapp" name="payment_method" value="whatsapp" class="solar-checkout-radio" form="checkout-form">
+                        <!-- <label for="whatsapp" class="solar-checkout-payment-label">Order via WhatsApp</label> -->
+                    <!-- </div> -->
                 </div>
                 <button type="submit" form="checkout-form" class="solar-checkout-place-order">
                     <span class="solar-checkout-place-order-text">PLACE ORDER</span>

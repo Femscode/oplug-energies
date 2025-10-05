@@ -56,12 +56,14 @@
                 <a href="/shop">Shop</a>
                 <a href="/contact-us">Contact</a>
                 <a href="/about-us">About Us</a>
+                <a href="/shop/category/lubricants">Lubricants</a>
             </nav>
 
             <div class="actions">
                 <div>
                     @if(auth()->check())
                         <div class="welcome">Welcome, {{ auth()->user()->name }}</div>
+                         <a href="/dashboard" class="login">Dashboard</a>
                     @else
                         <div class="welcome">Welcome To Oplug</div>
                         <a href="/login" class="login">LOG IN / REGISTER</a>

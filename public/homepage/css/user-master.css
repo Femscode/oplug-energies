@@ -690,8 +690,8 @@ main {
 .solar-account {
     display: flex;
     gap: 2rem;
-    margin:2rem !important;
-    padding: 2rem 0;
+    /* margin:2rem !important; */
+    /* padding: 2rem 0;  */
     max-width: 1400px;
     min-height: calc(100vh - 200px);
 }
@@ -924,10 +924,10 @@ main {
 /* Admin Dashboard Sections */
 section,
 .recent-orders {
-    background-color: var(--card-bg);
-    border-radius: 1rem;
+    /* background-color: var(--card-bg); */
+    /* border-radius: 1rem; */
     padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
     margin-bottom: 2rem;
 }
 
@@ -1047,11 +1047,11 @@ section h2,
 /* Admin Form Styling */
 .profile-section,
 .form-container {
-    background-color: var(--card-bg);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    /* background-color: var(--card-bg); */
+    /* border-radius: 1rem; */
+    /* padding: 1.5rem; */
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem; */
 }
 
 .admin-form {
@@ -1534,12 +1534,14 @@ section h2,
     
     .table-header,
     .table-row {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         font-size: 0.75rem;
     }
-    
-    .table-header div:nth-child(n+3),
-    .table-row div:nth-child(n+3) {
+
+    .table-header div:nth-child(2),
+    .table-row div:nth-child(2),
+    .table-header div:nth-child(4),
+    .table-row div:nth-child(4) {
         display: none;
     }
     
@@ -1562,6 +1564,14 @@ section h2,
     .order-actions {
         width: 100%;
         justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .order-actions .btn {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        min-width: auto;
     }
     
     .orders-table {
