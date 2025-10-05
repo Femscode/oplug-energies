@@ -183,15 +183,11 @@
               <p>No products found</p>
             @endif
         </div>
+        @if($products->hasPages())
         <div class="solar-categories-pagination">
-            <div class="solar-categories-page-nav-active"><div class="solar-categories-page-number">1</div></div>
-            <div class="solar-categories-page-nav"><div class="solar-categories-page-number">2</div></div>
-            <div class="solar-categories-page-nav"><div class="solar-categories-page-number">3</div></div>
-            <div class="solar-categories-page-nav"><div class="solar-categories-page-number">4</div></div>
-            <div class="solar-categories-page-nav"><div class="solar-categories-page-number">...</div></div>
-            <div class="solar-categories-page-nav"><div class="solar-categories-page-number">10</div></div>
-            <div class="solar-categories-page-next"><div class="solar-categories-page-next-text">Next</div></div>
+            {{ $products->appends(request()->query())->links('pagination::bootstrap-4') }}
         </div>
+        @endif
     </div>
 </div>
 

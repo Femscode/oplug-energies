@@ -73,6 +73,16 @@
         <h3>Adekunle Taiwo</h3>
         <p>Operations Manager</p>
       </div>
+      <div class="team-member">
+        <div class="member-image" style="background-image: url('homepage/images/about/adeoye.jpg');"></div>
+        <h3>Oluwatosin Adeoye</h3>
+        <p>Operations Manager</p>
+      </div>
+      <div class="team-member">
+        <div class="member-image" style="background-image: url('homepage/images/about/gbenga.png');"></div>
+        <h3>Ogungbemi Gbenga</h3>
+        <p>Sales Social Media Strategist</p>
+      </div>
     </div>
   </div>
  

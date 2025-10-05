@@ -694,6 +694,73 @@ body {
     justify-content: center;
 }
 
+/* Laravel pagination styling */
+.solar-categories-pagination .pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.solar-categories-pagination .page-item {
+    display: flex;
+}
+
+.solar-categories-pagination .page-link {
+    width: 40px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    transition: var(--transition);
+    background-color: var(--text-light);
+    border: 1px solid var(--background-light);
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    text-decoration: none;
+    text-align: center;
+}
+
+.solar-categories-pagination .page-item.active .page-link {
+    background-color: var(--accent-orange);
+    border: 1px solid var(--accent-orange);
+    color: var(--text-light);
+}
+
+.solar-categories-pagination .page-link:hover {
+    background-color: var(--background-light);
+    color: var(--text-dark);
+}
+
+.solar-categories-pagination .page-item.active .page-link:hover {
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+}
+
+.solar-categories-pagination .page-item.disabled .page-link {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.solar-categories-pagination .page-item.disabled .page-link:hover {
+    background-color: var(--text-light);
+    color: var(--text-muted);
+}
+
+/* Previous/Next buttons styling */
+.solar-categories-pagination .page-item:first-child .page-link,
+.solar-categories-pagination .page-item:last-child .page-link {
+    padding: 0 16px;
+    width: auto;
+    min-width: 60px;
+}
+
 .solar-categories-page-nav,
 .solar-categories-page-nav-active {
     width: 40px;
