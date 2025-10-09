@@ -47,6 +47,7 @@
             </div>
         </div>
     </header>
+    <br>
     <section class="transactions">
         <h2>Recent Orders</h2>
         <div class="table-wrapper">

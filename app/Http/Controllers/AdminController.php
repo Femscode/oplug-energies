@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
       public function index() {
+      
         // Get recent orders with user information
         $recentOrders = Order::with('user')
             ->orderBy('created_at', 'desc')
@@ -106,6 +107,25 @@ class AdminController extends Controller
     public function products() {
         $products = Product::with('category')->paginate(10);
         return view('admin.products', compact('products'));
+    }
+
+    public function users() {
+        $users = User::paginate(10);
+        return view('admin.users', compact('users'));
+    }
+
+    public function make_admin($id) {
+
+        $user = User::findOrFail($id);
+        if($user->role == 'admin') {
+            $user->role = 'user';
+        } else {
+            $user->role = 'admin';
+
+        }
+        $user->save();
+        
+        return redirect()->back()->with('success', 'User role updated successfully!');
     }
     
     public function editProduct($id) {

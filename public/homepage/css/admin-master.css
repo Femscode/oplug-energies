@@ -352,7 +352,7 @@ header {
     /* padding :15px; */
     /* background: #fff; */
     width: 100%;
-    display:flex;
+    /* display:flex; */
     justify-content: space-between;
     border-bottom: 1px solid #eee;
 }

@@ -69,6 +69,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     
     // Admin Product Management
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/make_admin/{user}', [AdminController::class, 'make_admin'])->name('admin.make_admin');
     Route::get('/products', [AdminController::class, 'products'])->name('admin.products');
     Route::get('/add-product', [AdminController::class, 'add_product'])->name('admin.add-product');
     Route::post('/products/store', [AdminController::class, 'storeProduct'])->name('admin.store_product');
@@ -100,11 +102,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/change-password', [AdminController::class, 'changePassword'])->name('admin.change-password');
     Route::post('/change-password', [AdminController::class, 'updatePassword'])->name('admin.change-password.update');
 });
-Route::get('/dashboard', function () {
-    return redirect()->route('user.dashboard');
-    // return route('user.dashboard');
-    // return view('user/dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

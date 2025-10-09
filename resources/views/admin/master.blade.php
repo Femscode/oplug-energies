@@ -122,6 +122,11 @@
                             <i class="fas fa-tags"></i> Categories
                         </div>
                     </a>
+                    <a href="{{ route('admin.users') }}" class="solar-account-tab {{ request()->routeIs('admin.users') ? 'solar-account-tab-active' : '' }}">
+                        <div class="solar-account-tab-text">
+                            <i class="fas fa-users"></i> All Users
+                        </div>
+                    </a>
 
                     <a href="{{ route('admin.settings') }}" class="solar-account-tab {{ request()->routeIs('admin.settings*') ? 'solar-account-tab-active' : '' }}">
                         <div class="solar-account-tab-text">
