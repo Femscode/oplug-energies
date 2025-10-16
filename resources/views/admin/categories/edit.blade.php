@@ -64,7 +64,7 @@
                 <div class="admin-file-upload">
                     @if($category->image)
                         <div class="admin-current-image">
-                            <img src="https://oplugenergies.com/oplug_files/public/uploads/categories/{{ $category->image }}" alt="Current Image" class="admin-current-img">
+                            <img src="https://oplugenergies.com/oplug_files/public/{{ $category->image }}" alt="Current Image" class="admin-current-img">
                             <div class="admin-current-image-overlay">
                                 <span class="admin-current-image-label">Current Image</span>
                                 <button type="button" class="admin-btn admin-btn-danger admin-btn-sm" id="removeCurrentImage">

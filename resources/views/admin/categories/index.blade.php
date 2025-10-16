@@ -42,7 +42,7 @@
                 <tr>
                     <td class="image-cell">
                         @if($category->image)
-                        <img src="https://oplugenergies.com/oplug_files/public/uploads/categories{{ $category->image}}" alt="{{ $category->name }}" class="admin-table-image">
+                        <img src="https://oplugenergies.com/oplug_files/public/{{ $category->image}}" alt="{{ $category->name }}" class="admin-table-image">
                         @else
                         <div class="admin-no-image">
                             <i class="fas fa-image"></i>

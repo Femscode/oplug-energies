@@ -193,7 +193,7 @@
         <div class="scrolling">
                 @foreach($categories as $index => $category)
                 @php
-                $categoryImageUrl = 'https://oplugenergies.com/oplug_files/public/uploads/categories/' . $category->image;
+                $categoryImageUrl = 'https://oplugenergies.com/oplug_files/public/' . $category->image;
                 @endphp
                 <div class="frame-{{ $index + 3 }}">
                     <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
@@ -638,7 +638,7 @@
                             <div class="solar-inverters-item-count">{{ $category->products_count }} Items</div>
                         </div>
                         @if($category->image)
-                            <div class="solar-inverters-item-img" style="background-image: url('https://oplugenergies.com/oplug_files/public/uploads/categories/{{ $category->image }}'); background-size: cover; background-position: center;"></div>
+                            <div class="solar-inverters-item-img" style="background-image: url('https://oplugenergies.com/oplug_files/public/{{ $category->image }}'); background-size: cover; background-position: center;"></div>
                         @else
                             <div class="img-prod"></div>
                         @endif
