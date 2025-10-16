@@ -9,17 +9,9 @@
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
     </button>
-    <div class="solar-breadcrumb-divider">/</div>
+   
     <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">Shop</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
+        <p class="solar-breadcrumb-current">Categories</p>  
     </div>
 </div>
 @endsection
@@ -50,7 +42,7 @@
                 <tr>
                     <td class="image-cell">
                         @if($category->image)
-                        <img src="{{ url( $category->image) }}" alt="{{ $category->name }}" class="admin-table-image">
+                        <img src="https://oplugenergies.com/oplug_files/public/uploads/categories{{ $category->image}}" alt="{{ $category->name }}" class="admin-table-image">
                         @else
                         <div class="admin-no-image">
                             <i class="fas fa-image"></i>

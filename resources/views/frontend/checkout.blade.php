@@ -128,7 +128,7 @@
                                 @php
                             $images = $item->product->image ? json_decode($item->product->image, true) : [];
                             $firstImage = !empty($images) ? $images[0] : null;
-                            $imageUrl = $firstImage ? url('uploads/products/' . $firstImage) : url('homepage/images/home/solar1.png');
+                            $imageUrl = $firstImage ? url('https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $firstImage) : url('homepage/images/home/solar1.png');
                         @endphp
                         <div class="solar-checkout-product-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>
                                 <div class="solar-checkout-product-info">
@@ -157,18 +157,18 @@
             </div>
             <div class="solar-checkout-payment">
                 <div class="solar-checkout-payment-options">
-                    <!-- <div class="solar-checkout-payment-option">
-                        <input type="radio" id="debit-card" name="payment_method" value="debit_card" class="solar-checkout-radio" form="checkout-form" checked>
+                    <div class="solar-checkout-payment-option">
+                        <input disabled type="radio" id="debit-card" name="payment_method" value="debit_card" class="solar-checkout-radio" form="checkout-form" checked>
                         <label for="debit-card" class="solar-checkout-payment-label">Pay with Debit Card</label>
                     </div>
                     <div class="solar-checkout-payment-option">
-                        <input type="radio" id="cash-on-delivery" name="payment_method" value="cash_on_delivery" class="solar-checkout-radio" form="checkout-form">
+                        <input disabled type="radio" id="cash-on-delivery" name="payment_method" value="cash_on_delivery" class="solar-checkout-radio" form="checkout-form">
                         <label for="cash-on-delivery" class="solar-checkout-payment-label">Cash on Delivery</label>
-                    </div> -->
-                    <!-- <div class="solar-checkout-payment-option"> -->
-                        <input checked type="hidden" id="whatsapp" name="payment_method" value="whatsapp" class="solar-checkout-radio" form="checkout-form">
-                        <!-- <label for="whatsapp" class="solar-checkout-payment-label">Order via WhatsApp</label> -->
-                    <!-- </div> -->
+                    </div>
+                    <div class="solar-checkout-payment-option">
+                        <input checked type="radio" id="whatsapp" name="payment_method" value="whatsapp" class="solar-checkout-radio" form="checkout-form">
+                        <label for="whatsapp" class="solar-checkout-payment-label">Order via WhatsApp</label>
+                    </div>
                 </div>
                 <button type="submit" form="checkout-form" class="solar-checkout-place-order">
                     <span class="solar-checkout-place-order-text">PLACE ORDER</span>

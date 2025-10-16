@@ -77,10 +77,13 @@
             </button>
 
             <nav class="nav-links">
-                <a href="#">Homes</a>
-                <a href="#">Shop</a>
-                <a href="#">Contact</a>
-                <a href="#">About Us</a>
+                <a href="admin/dashboard">Dashboard</a>
+                <a href="/admin/orders">Orders</a>
+                <a href="/admin/categories">Product Categories</a>
+                <a href="/admin/users">Users</a>
+                <a href="/admin/settings">Settings</a>
+                <a href="/admin/change-password">Change Password</a>
+               
             </nav>
 
 

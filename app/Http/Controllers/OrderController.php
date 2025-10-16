@@ -118,7 +118,7 @@ class OrderController extends Controller
             $message = $this->formatOrderForWhatsApp($order, $cartItems);
             
             // WhatsApp number
-            $whatsappNumber = '2349058744473'; // Format: country code + number without +
+            $whatsappNumber = '2347056741171'; // Format: country code + number without +
             
             // Create WhatsApp URL
             $whatsappUrl = "https://wa.me/{$whatsappNumber}?text=" . urlencode($message);

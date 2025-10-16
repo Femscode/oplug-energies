@@ -15,17 +15,10 @@
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
     </button>
+   
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">Shop</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
+        <p class="solar-breadcrumb-current">Products</p>
     </div>
 </div>
 @endsection
@@ -59,7 +52,7 @@
                                         $images = json_decode($product->image, true);
                                         $firstImage = is_array($images) ? $images[0] : $product->image;
                                     @endphp
-                                    <img src="{{ url('/uploads/products/'.$firstImage) }}" alt="{{ $product->name }}" class="admin-table-image">
+                                    <img src="https://www.oplugenergies.com/oplug_files/public/uploads/products/{{ $firstImage }}" alt="{{ $product->name }}" class="admin-table-image">
                                 @else
                                 <div class="admin-no-image">
                                     <i class="fas fa-box"></i>

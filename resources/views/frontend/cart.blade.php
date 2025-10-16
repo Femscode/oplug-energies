@@ -22,7 +22,7 @@
                 @php
                     $images = $item->product->image ? json_decode($item->product->image, true) : [];
                     $firstImage = !empty($images) ? $images[0] : null;
-                    $imageUrl = $firstImage ? url('uploads/products/' . $firstImage) : url('homepage/images/home/solar1.png');
+                    $imageUrl = $firstImage ? url('https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $firstImage) : url('homepage/images/home/solar1.png');
                 @endphp
                 <div class="solar-cart-product-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>
                 <div class="solar-cart-product-info">

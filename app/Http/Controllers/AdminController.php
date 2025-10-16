@@ -32,8 +32,8 @@ class AdminController extends Controller
         $totalOrders = Order::count();
         $totalProducts = Product::count();
         $totalUsers = User::where('role', '!=', 'admin')->count();
-        // $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
-        $totalRevenue = Order::sum('total_amount');
+        $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
+        // $totalRevenue = Order::sum('total_amount');
         
         return view('admin.index', compact(
              'recentOrders', 
@@ -126,6 +126,44 @@ class AdminController extends Controller
         $user->save();
         
         return redirect()->back()->with('success', 'User role updated successfully!');
+    }
+    
+    public function exportUsers()
+    {
+        $users = User::orderBy('created_at', 'desc')->get();
+
+        $csvData = [];
+        $csvData[] = ['ID', 'Name', 'Email', 'Phone', 'Role', 'Registration Date'];
+
+        foreach ($users as $user) {
+            $csvData[] = [
+                $user->id,
+                $user->name,
+                $user->email,
+                $user->phone ?? 'N/A',
+                ucfirst($user->role),
+                $user->created_at->format('Y-m-d H:i:s')
+            ];
+        }
+
+        $filename = 'users_export_' . date('Y-m-d_H-i-s') . '.csv';
+        
+        $handle = fopen('php://output', 'w');
+        
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+        
+        // Add BOM for proper UTF-8 encoding in Excel
+        fwrite($handle, "\xEF\xBB\xBF");
+        
+        foreach ($csvData as $row) {
+            fputcsv($handle, $row);
+        }
+        
+        fclose($handle);
+        exit;
     }
     
     public function editProduct($id) {

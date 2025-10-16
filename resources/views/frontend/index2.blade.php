@@ -137,7 +137,7 @@
         <div class="scrolling">
             @foreach($categories as $index => $category)
             @php
-            $categoryImageUrl = asset($category->image);
+            $categoryImageUrl = 'https://oplugenergies.com/oplug_files/public/uploads/categories/' . $category->image;
             @endphp
             <div class="frame-{{ $index + 3 }}">
                 <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
@@ -179,7 +179,7 @@
                         <div class="thumbnail-gallery" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;">
                             @foreach($images as $index => $image)
                             @php
-                            $thumbImageUrl = asset('uploads/products/' . $image);
+                            $thumbImageUrl = asset('https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $image);
                             $borderColor = $index === 0 ? '#007bff' : 'transparent';
                             @endphp
                             <div class="group-prod-png thumbnail-image {{ $index === 0 ? 'active' : '' }}"
@@ -191,7 +191,7 @@
 
                         <!-- Main Preview Image -->
                         @php
-                        $mainImageUrl = asset('uploads/products/' . $images[0]);
+                        $mainImageUrl = asset('https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $images[0]);
                         @endphp
                         <div class="main-image-container" style="flex: 1; height: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                             <div class="group-png main-product-image" id="mainProductImage"
@@ -513,7 +513,7 @@
                         <div class="solar-inverters-item-count">{{ $category->products_count }} Items</div>
                     </div>
                     @if($category->image)
-                    <div class="solar-inverters-item-img" style="background-image: url('{{ asset($category->image) }}'); background-size: cover; background-position: center;"></div>
+                    <div class="solar-inverters-item-img" style="background-image: url('https://oplugenergies.com/oplug_files/public/uploads/categories/{{ $category->image }}'); background-size: cover; background-position: center;"></div>
                     @else
                     <div class="img-prod"></div>
                     @endif
@@ -543,7 +543,7 @@
             <div class="solar-inverters-group">
                 <div class="solar-inverters-product-frame">
                     <a href="{{ route('prd', $product->slug) }}" class="solar-inverters-product-img-wrapper" style="text-decoration: none;">
-                        <div class="solar-inverters-product-img" style="background-image: url('{{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }}')"></div>
+                        <div class="solar-inverters-product-img" style="background-image: url('{{ $firstImage ? 'https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $firstImage : asset('homepage/images/default-product.png') }}')"></div>
                     </a>
                     <div class="solar-inverters-prd">
                         <div class="solar-inverters-product-title">
@@ -651,7 +651,7 @@
             <div class="solar-panels-group{{ $index > 0 ? '-' . ($index + 1) : '' }}">
                 <div class="solar-panels-product-frame">
                     <a href="{{ route('prd', $product->slug) }}" class="solar-panels-product-img-wrapper" style="text-decoration: none;">
-                        <div class="solar-panels-product-img{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url('{{ $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png') }}')"></div>
+                        <div class="solar-panels-product-img{{ $index > 0 ? '-' . ($index + 1) : '' }}" style="background-image: url('{{ $firstImage ? 'https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $firstImage : asset('homepage/images/default-product.png') }}')"></div>
                     </a>
                     <div class="solar-panels-prd">
                         <div class="solar-panels-product-title{{ $index == 1 || $index == 3 || $index == 5 || $index == 8 ? '-wrapper' : '' }}">
@@ -736,7 +736,7 @@
             @php
             $images = json_decode($product->image, true);
             $firstImage = is_array($images) && !empty($images) ? $images[0] : null;
-            $imageUrl = $firstImage ? asset('uploads/products/' . $firstImage) : asset('homepage/images/default-product.png');
+            $imageUrl = $firstImage ? 'https://www.oplugenergies.com/oplug_files/public/uploads/products/' . $firstImage : asset('homepage/images/default-product.png');
             @endphp
             <a href="{{ route('prd', $product->slug) }}" class="solar-footer-product" style="text-decoration: none; color: inherit;">
                 <div class="solar-footer-product-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>

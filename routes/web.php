@@ -30,6 +30,8 @@ Route::get('/about-us',[FrontendController::class,'about'])->name('about');
 Route::get('/contact-us',[FrontendController::class,'contact'])->name('contact');
 Route::post('/contact-us',[FrontendController::class,'contactSubmit'])->name('contact.submit');
 
+ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
+
 // Cart routes
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
@@ -96,6 +98,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/orders/{order}', [AdminController::class, 'orderDetails'])->name('admin.orders.show');
     Route::post('/orders/export', [AdminController::class, 'exportOrders'])->name('admin.orders.export');
     
+    // Admin Users Export
+    Route::post('/users/export', [AdminController::class, 'exportUsers'])->name('admin.users.export');
+    
     // Admin Settings
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::put('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
@@ -103,7 +108,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('/change-password', [AdminController::class, 'updatePassword'])->name('admin.change-password.update');
 });
 
- Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

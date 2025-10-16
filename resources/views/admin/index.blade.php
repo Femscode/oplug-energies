@@ -8,17 +8,10 @@
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
     </button>
+    
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">Shop</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
+        <p class="solar-breadcrumb-current">Admin</p>
     </div>
 </div>
 @endsection

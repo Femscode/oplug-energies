@@ -146,7 +146,7 @@
                                     $images = json_decode($product->image, true);
                                     $firstImage = $images[0] ?? $product->image;
                                 @endphp
-                                @php $imageUrl = url("uploads/products/".$firstImage); @endphp
+                                @php $imageUrl = url("https://www.oplugenergies.com/oplug_files/public/uploads/products/".$firstImage); @endphp
                                 <div class="solar-categories-best-img" style="background-image: url('{{ $imageUrl }}'); background-size: cover; background-position: center;"></div>
                             </div>
                         </a>
@@ -208,7 +208,7 @@
                                 $firstImage = $images[0] ?? $product->image;
                             @endphp
                             @if($product->image)
-                                @php $recentImageUrl = url("uploads/products/" . $firstImage); @endphp
+                                @php $recentImageUrl = url("https://www.oplugenergies.com/oplug_files/public/uploads/products/" . $firstImage); @endphp
                                 <div class="solar-recently-viewed-product-img" style="background-image: url('{{ $recentImageUrl }}'); background-size: cover; background-position: center;"></div>
                             @else
                                 @php $defaultImageUrl = asset("homepage/images/default-product.png"); @endphp

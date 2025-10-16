@@ -1,8 +1,10 @@
 @extends('admin.master')
 @section('header')
+<link rel="stylesheet" href="{{ url('homepage/css/admin-master.css') }}" />
+<link rel="stylesheet" href="{{ url('homepage/css/admin-dashboard.css') }}" />
+<link rel="stylesheet" href="{{ url('css/admin-products.css') }}">
 @endsection
 
-<link rel="stylesheet" href="{{ url('css/admin-products.css') }}">
 @if(session('success'))
 <meta name="success-message" content="{{ session('success') }}">
 @endif
@@ -15,17 +17,10 @@
     <button class="solar-breadcrumb-button">
         <div class="solar-breadcrumb-item">Home</div>
     </button>
+   
     <div class="solar-breadcrumb-divider">/</div>
     <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">Shop</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <div class="solar-breadcrumb-item">All-in-one Solutions</div>
-    </div>
-    <div class="solar-breadcrumb-divider">/</div>
-    <div class="solar-breadcrumb-wrapper">
-        <p class="solar-breadcrumb-current">Future-h All In One Solution</p>
+        <p class="solar-breadcrumb-current">Users</p>
     </div>
 </div>
 @endsection
@@ -34,64 +29,90 @@
 
     <div class="dashboard">
         <header class="dashboard-header">
-            <h1>All Users</h1>
-            <a href="{{ route('admin.add-product') }}" class="btn btn-primary" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin-bottom: 20px;">Add New Product</a>
+            <h1>Users Management</h1>
+            <div class="header-actions">
+                <form method="POST" action="{{ route('admin.users.export') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-success">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2"/>
+                            <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        Export to Excel
+                    </button>
+                </form>
+            </div>
         </header>
-        <!-- <section class="transactions"> -->
-            <div class="admin-table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Details</th>
-                            <th>Total Orders</th>
-                            <th>Role</th>
-        
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($users as $user)
-                        <tr>
-                            
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}<br>{{ $user->phone }}</td>
-                            <td>{{ $user->orders_count }}</td>
-                            <td>{{ $user->role }}</td>
-                            
-                           
-                            <td class="actions-cell">
-                                @if($user->role == 'user')
-                                <a href="{{ route('admin.make_admin', $user->id) }}" class="admin-btn admin-btn-sm admin-btn-outline">
-                                    <i class="fas fa-edit"></i> Make Admin
-                                </a>
-                                @else 
-                                <a href="{{ route('admin.make_admin', $user->id) }}" class="admin-btn admin-btn-sm admin-btn-outline">
-                                    <i class="fas fa-edit"></i> Remove From Admin
-                                </a>
-                                @endif
-                                <button data-user-id="{{ $user->id }}" class="admin-btn admin-btn-sm admin-btn-danger delete-product-btn">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="7" class="empty-message">
-                                <i class="fas fa-box-open"></i>
-                                <p>No users found</p>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+        <section class="transactions">
+            <div class="orders-filter">
+                <div class="filter-group">
+                    <label for="role-filter">Filter by Role:</label>
+                    <select id="role-filter" onchange="filterUsers()">
+                        <option value="">All Users</option>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="search-users">Search Users:</label>
+                    <input type="text" id="search-users" placeholder="Search by name, email..." onkeyup="searchUsers()">
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <div class="table" id="users-table">
+                    <div class="table-header">
+                        <span>Name</span>
+                        <span>Contact Info</span>
+                        <span>Total Orders</span>
+                        <span>Role</span>
+                         @if(Auth::user()->email == 'fasanyafemi@gmail.com' || Auth::user()->email == 'sales@oplugenergies.com')
+                       
+                        <span>Actions</span>
+                        @endif
+                    </div>
+                    @forelse($users as $user)
+                    <div class="table-row" data-role="{{ strtolower($user->role) }}" data-search="{{ strtolower($user->name) }} {{ strtolower($user->email) }} {{ strtolower($user->phone ?? '') }}">
+                        <span class="user-name">
+                            <strong>{{ $user->name }}</strong>
+                        </span>
+                        <span class="user-info">
+                            <strong>{{ $user->email }}</strong>
+                            <small>{{ $user->phone }}</small>
+                        </span>
+                        <span>{{ $user->totalOrders() }}</span>
+                        <span>
+                            <span class="badge {{ strtolower($user->role) === 'admin' ? 'paid' : 'pending' }}">
+                                {{ ucfirst($user->role) }}
+                            </span>
+                        </span>
+                        @if(Auth::user()->email == 'fasanyafemi@gmail.com' || Auth::user()->email == 'sales@oplugenergies.com')
+                        <span class="actions">
+                            @if($user->role == 'user')
+                            <a href="{{ route('admin.make_admin', $user->id) }}" class="btn btn-sm btn-primary">Make Admin</a>
+                            @else 
+                            <a href="{{ route('admin.make_admin', $user->id) }}" class="btn btn-sm btn-warning">Remove Admin</a>
+                            @endif
+                            <button data-user-id="{{ $user->id }}" class="btn btn-sm btn-danger delete-user-btn">Delete</button>
+                        </span>
+                        @endif
+                    </div>
+                    @empty
+                    <div class="no-users">
+                        <p>No users found.</p>
+                    </div>
+                    @endforelse
+                </div>
             </div>
             
             <!-- Pagination -->
-            <div style="margin-top: 20px;">
+            @if($users->hasPages())
+            <div class="pagination-wrapper">
                 {{ $users->links() }}
             </div>
-        <!-- </section> -->
+            @endif
+        </section>
       
     </div>
 @endsection
@@ -124,83 +145,58 @@
         }
 
         // Add event listeners to delete buttons
-        var deleteButtons = document.querySelectorAll('.delete-product-btn');
+        var deleteButtons = document.querySelectorAll('.delete-user-btn');
         deleteButtons.forEach(function(button) {
             button.addEventListener('click', function() {
-                var productId = this.getAttribute('data-product-id');
-                deleteProduct(productId);
+                var userId = this.getAttribute('data-user-id');
+                deleteUser(userId);
             });
         });
         
-        // Tab switching functionality
-        var tabs = document.querySelectorAll('.solar-account-tab');
-        var contents = document.querySelectorAll('.solar-account-details-content');
-        var sidebar = document.querySelector('.solar-account-sidebar');
-        var toggleButton = document.querySelector('.solar-account-sidebar-toggle');
-
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                tabs.forEach(function(t) { t.classList.remove('solar-account-tab-active'); });
-                tab.classList.add('solar-account-tab-active');
-
-                contents.forEach(function(content) {
-                    content.style.opacity = '0';
-                    content.style.display = 'none';
-                });
-
-                var targetContent = document.getElementById(tab.dataset.tab);
-                if (targetContent) {
-                    setTimeout(function() {
-                        targetContent.style.display = 'block';
-                        targetContent.style.opacity = '1';
-                    }, 200);
-                }
-
-                // Collapse sidebar on mobile after tab selection
-                if (window.innerWidth <= 767) {
-                    sidebar.classList.remove('solar-account-sidebar-open');
-                }
+        // Add data labels for mobile responsive
+        const headers = ['Name', 'Contact Info', 'Total Orders', 'Role', 'Actions'];
+        const rows = document.querySelectorAll('.table-row');
+        
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('span');
+            cells.forEach((cell, index) => {
+                cell.setAttribute('data-label', headers[index]);
             });
         });
-
-        // Sidebar toggle for mobile
-        if (toggleButton) {
-            toggleButton.addEventListener('click', function() {
-                sidebar.classList.toggle('solar-account-sidebar-open');
-            });
-        }
-
-        // Form submission handling
-        var accountForm = document.getElementById('account-form');
-        var passwordForm = document.getElementById('password-form');
-
-        if (accountForm) {
-            accountForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(accountForm);
-                var data = Object.fromEntries(formData);
-                console.log('Account Info Submitted:', data);
-                alert('Account information saved! (Demo submission)');
-            });
-        }
-
-        if (passwordForm) {
-            passwordForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var formData = new FormData(passwordForm);
-                var data = Object.fromEntries(formData);
-                if (data.new_password !== data.confirm_password) {
-                    alert('New password and confirmation do not match!');
-                    return;
-                }
-                console.log('Password Change Submitted:', data);
-                alert('Password changed successfully! (Demo submission)');
-            });
-        }
     });
 
-    // Delete product function
-    function deleteProduct(productId) {
+    // Filter users by role
+    function filterUsers() {
+        const roleFilter = document.getElementById('role-filter').value.toLowerCase();
+        const rows = document.querySelectorAll('.table-row');
+        
+        rows.forEach(row => {
+            const role = row.getAttribute('data-role');
+            if (roleFilter === '' || role === roleFilter) {
+                row.style.display = 'grid';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Search users
+    function searchUsers() {
+        const searchTerm = document.getElementById('search-users').value.toLowerCase();
+        const rows = document.querySelectorAll('.table-row');
+        
+        rows.forEach(row => {
+            const searchData = row.getAttribute('data-search');
+            if (searchData.includes(searchTerm)) {
+                row.style.display = 'grid';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Delete user function
+    function deleteUser(userId) {
         Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -214,7 +210,7 @@
                 // Create a form and submit it
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '/admin/products/' + productId;
+                form.action = '/admin/users/' + userId;
                 
                 var csrfToken = document.createElement('input');
                 csrfToken.type = 'hidden';
@@ -234,4 +230,207 @@
         });
     }
 </script>
+
+<style>
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-success {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-success:hover {
+        background: #218838;
+    }
+
+    .orders-filter {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .filter-group label {
+        font-weight: 500;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        min-width: 200px;
+    }
+
+    .table-header {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+        gap: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        font-weight: bold;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .table-row {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr;
+        gap: 15px;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        align-items: center;
+        transition: background-color 0.2s;
+    }
+
+    .table-row:hover {
+        background-color: #f8f9fa;
+    }
+
+    .user-name strong {
+        display: block;
+        color: #003177;
+    }
+
+    .user-info strong {
+        display: block;
+        color: #333;
+    }
+
+    .user-info small {
+        color: #6c757d;
+        font-size: 12px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .badge.paid {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .badge.pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .actions {
+        display: flex;
+        gap: 5px;
+    }
+
+    .btn-sm {
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .no-users {
+        text-align: center;
+        padding: 40px;
+        color: #6c757d;
+    }
+
+    .pagination-wrapper {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .dashboard-header {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .orders-filter {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            min-width: 100%;
+        }
+
+        .table-header,
+        .table-row {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .table-header span,
+        .table-row span {
+            padding: 5px 0;
+        }
+
+        .table-header span:not(:first-child),
+        .table-row span:not(:first-child) {
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .table-header span::before {
+            content: attr(data-label) ": ";
+            font-weight: bold;
+            color: #003177;
+        }
+    }
+</style>
 @endsection
