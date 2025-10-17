@@ -34,8 +34,9 @@
 
         <!-- Mid Nav -->
         <div class="mid-nav">
+            <a href="/">
             <img src="{{ url('homepage/images/ologo.png') }}" alt="Logo" class="logo" />
-
+</a>
             <!-- Hamburger toggle (mobile only) -->
             <button class="menu-toggle" aria-label="Toggle Menu">
                 <span class="hamburger-line top"></span>
@@ -44,7 +45,7 @@
             </button>
 
             <nav class="nav-links">
-                <a href="/">Homes</a>
+                <a href="/">Home</a>
                 <a href="/user/dashboard">Dashboard</a>
                 <a href="/user/profile">Profile</a>
                 <a href="/user/orders">Orders</a>
@@ -59,13 +60,14 @@
                 <a>
                     <div class="welcome">Welcome To Oplug</div>
                     <button class="submit" style=" background-color: #dc3545; /* red */
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;">Logout</button>
+                            color: #fff;
+                            border: none;
+                            padding: 10px 18px;
+                            border-radius: 6px;
+                            font-size: 15px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease, transform 0.1s ease;">
+                            Logout</button>
                 </a>
                 </form>
                 <a href="/cart" class="cart">

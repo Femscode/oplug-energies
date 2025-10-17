@@ -125,9 +125,7 @@
         <div class="frame">
             <div class="frame-2">
                 <div class="heading-top">TOP CATEGORIES</div>
-                <!-- <div class="link-view-all">
-                    <div class="text-wrapper">View All</div>
-                </div> -->
+             
             </div>
             <div class="div-arrows">
                 <div class="vector-wrapper">←</div>
@@ -139,11 +137,11 @@
             @php
             $categoryImageUrl = 'https://oplugenergies.com/oplug_files/public/' . $category->image;
             @endphp
-            <div class="frame-{{ $index + 3 }}">
+            <div class="category-frame-{{ $index + 3 }}">
                 <a href="{{ route('shop.category', $category->slug) }}" style="text-decoration: none; color: inherit;">
-                    <div class="group-link{{ $index === 1 ? '-prod' : ($index > 1 ? '-' . $index : '') }}" style="background-image: url('{{ $categoryImageUrl }}'); background-size: cover; background-position: center;"></div>
+                    <div class="category-image-{{ $index }}" style="background-image: url('{{ $categoryImageUrl }}'); background-size: cover; background-position: center;"></div>
 
-                    <div class="{{ $index < 2 ? 'text-wrapper-2' : 'group-link-' . ($index + 2) }}">{{ $category->name }}</div>
+                    <div class="category-text-{{ $index }}">{{ $category->name }}</div>
                 </a>
             </div>
             @endforeach

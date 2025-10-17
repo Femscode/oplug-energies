@@ -164,12 +164,12 @@ class OrderController extends Controller
         foreach ($cartItems as $item) {
             $message .= "• {$item->product->name}\n";
             $message .= "  Qty: {$item->quantity} × ₦" . number_format($item->product->price, 2) . "\n";
-            $message .= "  Subtotal: ₦" . number_format($item->total, 2) . "\n\n";
+            $message .= "  Subtotal: ₦" . number_format($item->total_amount, 2) . "\n\n";
         }
         
         $message .= "💰 *Order Summary:*\n";
-        $message .= "Subtotal: ₦" . number_format($order->subtotal, 2) . "\n";
-        $message .= "Tax (7.5%): ₦" . number_format($order->tax_amount, 2) . "\n";
+        $message .= "Subtotal: ₦" . number_format($order->total_amount, 2) . "\n";
+        // $message .= "Tax (7.5%): ₦" . number_format($order->tax_amount, 2) . "\n";
         $message .= "Shipping: ₦" . number_format($order->shipping_cost, 2) . "\n";
         $message .= "━━━━━━━━━━━━━━━━━━━━\n";
         $message .= "*Total: ₦" . number_format($order->total_amount, 2) . "*\n\n";
@@ -179,7 +179,7 @@ class OrderController extends Controller
             $message .= $order->order_notes . "\n\n";
         }
         
-        $message .= "Please confirm this order and provide delivery timeline. Thank you! 🙏";
+        // $message .= "Please confirm this order and provide delivery timeline. Thank you! 🙏";
         
         return $message;
     }

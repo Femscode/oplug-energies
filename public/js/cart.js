@@ -168,14 +168,32 @@ class CartManager {
 
     async updateCartCount() {
         try {
-            const response = await fetch('/cart/count');
-            const count = await response.text();
-            const cartCountElements = document.querySelectorAll('.cart-count');
-            cartCountElements.forEach(element => {
-                element.textContent = count;
-            });
+            // Use the enhanced updateCartCount function if available
+            if (typeof window.updateCartCount === 'function') {
+                // Try to get cart count from server
+                const response = await fetch('/cart/count');
+                if (response.ok) {
+                    const count = await response.text();
+                    window.updateCartCount(parseInt(count) || 0);
+                } else {
+                    // If route doesn't exist, just update with a default count
+                    window.updateCartCount(0);
+                }
+            } else {
+                // Fallback to original method
+                const response = await fetch('/cart/count');
+                const count = await response.text();
+                const cartCountElements = document.querySelectorAll('.cart-count');
+                cartCountElements.forEach(element => {
+                    element.textContent = count;
+                });
+            }
         } catch (error) {
             console.error('Error updating cart count:', error);
+            // If there's an error and we have the enhanced function, just set count to 0
+            if (typeof window.updateCartCount === 'function') {
+                window.updateCartCount(0);
+            }
         }
     }
 
@@ -313,50 +331,59 @@ class CartManager {
     }
 
     showNotification(message, type = 'info') {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `cart-notification cart-notification-${type}`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            z-index: 10000;
-            max-width: 300px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-        `;
-        
-        // Set background color based on type
-        const colors = {
-            success: '#f7982a',
-            error: '#dc3545',
-            info: '#17a2b8'
-        };
-        notification.style.backgroundColor = colors[type] || colors.info;
-        
-        notification.textContent = message;
-        
-        document.body.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.style.transform = 'translateX(0)';
-        }, 100);
-        
-        // Remove after 3 seconds
-        setTimeout(() => {
-            notification.style.transform = 'translateX(100%)';
+        // Use the enhanced cart notification if available, otherwise fallback to basic notification
+        if (typeof window.showCartNotification === 'function' && type === 'success') {
+            // Extract product name from message if possible
+            const productName = message.includes('added to cart') ? 
+                message.replace(' added to cart successfully', '').replace('Product added to cart successfully', '') : 
+                '';
+            window.showCartNotification(productName);
+        } else {
+            // Fallback to basic notification for error messages
+            const notification = document.createElement('div');
+            notification.className = `cart-notification cart-notification-${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            // Set background color based on type
+            const colors = {
+                success: '#f7982a',
+                error: '#dc3545',
+                info: '#17a2b8'
+            };
+            notification.style.backgroundColor = colors[type] || colors.info;
+            
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 300);
-        }, 3000);
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
     }
 }
 

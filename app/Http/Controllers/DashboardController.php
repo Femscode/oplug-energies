@@ -46,8 +46,8 @@ class DashboardController extends Controller
             $totalOrders = $user->orders()->count();
         $pendingOrders = $user->orders()->where('status', 'pending')->count();
         $completedOrders = $user->orders()->where('status', 'completed')->count();
-        // $totalSpent = $user->orders()->where('status', 'completed')->sum('total_amount');
-        $totalSpent = $user->orders()->sum('total_amount');
+        $totalSpent = $user->orders()->where('status', 'completed')->sum('total_amount');
+        // $totalSpent = $user->orders()->sum('total_amount');
         
         // Get recent orders
         $recentOrders = $user->orders()

@@ -121,6 +121,12 @@
   .main-section {
     flex-direction: column;
     text-align: center;
+    padding: 20px 15px;
+  }
+
+  /* Hide the illustration image on mobile for better mobile-friendliness */
+  .sign-up-bro {
+    display: none;
   }
 
   .form-container {

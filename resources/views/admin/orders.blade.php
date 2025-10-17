@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{ url('homepage/css/admin-master.css') }}" />
 <link rel="stylesheet" href="{{ url('homepage/css/admin-dashboard.css') }}" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url('css/admin-mobile.css') }}">
 
 @endsection
 
@@ -86,6 +87,49 @@
                         <span class="actions">
                             <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-primary">View</a>
                         </span>
+                    </div>
+                    @empty
+                    <div class="no-orders">
+                        <p>No orders found.</p>
+                    </div>
+                    @endforelse
+                </div>
+                
+                <!-- Mobile Cards Layout -->
+                <div class="mobile-cards">
+                    @forelse($orders as $order)
+                    <div class="mobile-card order-mobile-card" data-status="{{ strtolower($order->status) }}" data-search="{{ strtolower($order->order_number ?? 'ORD-' . $order->id) }} {{ strtolower($order->name) }} {{ strtolower($order->email) }}">
+                        <div class="card-header">
+                            <div>
+                                <h4 class="card-title order-number">#{{ $order->order_number ?? 'ORD-' . $order->id }}</h4>
+                                <p class="card-subtitle order-items-count">{{ $order->orderItems->count() }} item(s)</p>
+                            </div>
+                            <span class="badge {{ strtolower($order->status) === 'completed' || strtolower($order->status) === 'delivered' ? 'paid' : 'pending' }}">
+                                {{ ucfirst($order->status) }}
+                            </span>
+                        </div>
+                        
+                        <div class="card-row">
+                            <span class="card-label">Customer:</span>
+                            <span class="card-value">
+                                <strong>{{ $order->name }}</strong><br>
+                                <small>{{ $order->email }}</small>
+                            </span>
+                        </div>
+                        
+                        <div class="card-row">
+                            <span class="card-label">Date:</span>
+                            <span class="card-value">{{ $order->created_at->format('M d, Y') }}</span>
+                        </div>
+                        
+                        <div class="card-row">
+                            <span class="card-label">Amount:</span>
+                            <span class="card-value order-amount">₦{{ number_format($order->total_amount, 2) }}</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-primary">View Details</a>
+                        </div>
                     </div>
                     @empty
                     <div class="no-orders">
@@ -275,7 +319,9 @@
     function filterOrders() {
         const statusFilter = document.getElementById('status-filter').value.toLowerCase();
         const rows = document.querySelectorAll('.table-row');
+        const cards = document.querySelectorAll('.mobile-card');
         
+        // Filter table rows
         rows.forEach(row => {
             const status = row.getAttribute('data-status');
             if (statusFilter === '' || status === statusFilter) {
@@ -284,18 +330,40 @@
                 row.style.display = 'none';
             }
         });
+        
+        // Filter mobile cards
+        cards.forEach(card => {
+            const status = card.getAttribute('data-status');
+            if (statusFilter === '' || status === statusFilter) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 
     function searchOrders() {
         const searchTerm = document.getElementById('search-orders').value.toLowerCase();
         const rows = document.querySelectorAll('.table-row');
+        const cards = document.querySelectorAll('.mobile-card');
         
+        // Search table rows
         rows.forEach(row => {
             const searchData = row.getAttribute('data-search');
             if (searchData.includes(searchTerm)) {
                 row.style.display = 'grid';
             } else {
                 row.style.display = 'none';
+            }
+        });
+        
+        // Search mobile cards
+        cards.forEach(card => {
+            const searchData = card.getAttribute('data-search');
+            if (searchData.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
     }

@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{{ url('homepage/css/admin-master.css') }}" />
 <link rel="stylesheet" href="{{ url('homepage/css/admin-dashboard.css') }}" />
 <link rel="stylesheet" href="{{ url('css/admin-products.css') }}">
+<link rel="stylesheet" href="{{ url('css/admin-mobile.css') }}">
 @endsection
 
 @if(session('success'))
@@ -104,6 +105,46 @@
                     </div>
                     @endforelse
                 </div>
+                
+                <!-- Mobile Cards Layout -->
+                <div class="mobile-cards">
+                    @forelse($users as $user)
+                    <div class="mobile-card user-mobile-card" data-role="{{ strtolower($user->role) }}" data-search="{{ strtolower($user->name) }} {{ strtolower($user->email) }} {{ strtolower($user->phone ?? '') }}">
+                        <div class="card-header">
+                            <div class="user-info-mobile">
+                                <h4 class="card-title">{{ $user->name }}</h4>
+                                <p class="user-email">{{ $user->email }}</p>
+                                @if($user->phone)
+                                <p class="user-phone">{{ $user->phone }}</p>
+                                @endif
+                            </div>
+                            <span class="badge {{ strtolower($user->role) === 'admin' ? 'paid' : 'pending' }}">
+                                {{ ucfirst($user->role) }}
+                            </span>
+                        </div>
+                        
+                        <div class="card-row">
+                            <span class="card-label">Total Orders:</span>
+                            <span class="card-value">{{ $user->totalOrders() }}</span>
+                        </div>
+                        
+                        @if(Auth::user()->email == 'fasanyafemi@gmail.com' || Auth::user()->email == 'sales@oplugenergies.com')
+                        <div class="card-actions">
+                            @if($user->role == 'user')
+                            <a href="{{ route('admin.make_admin', $user->id) }}" class="btn btn-sm btn-primary">Make Admin</a>
+                            @else 
+                            <a href="{{ route('admin.make_admin', $user->id) }}" class="btn btn-sm btn-warning">Remove Admin</a>
+                            @endif
+                            <button data-user-id="{{ $user->id }}" class="btn btn-sm btn-danger delete-user-btn">Delete</button>
+                        </div>
+                        @endif
+                    </div>
+                    @empty
+                    <div class="no-users">
+                        <p>No users found.</p>
+                    </div>
+                    @endforelse
+                </div>
             </div>
             
             <!-- Pagination -->
@@ -168,9 +209,11 @@
     // Filter users by role
     function filterUsers() {
         const roleFilter = document.getElementById('role-filter').value.toLowerCase();
-        const rows = document.querySelectorAll('.table-row');
+        const tableRows = document.querySelectorAll('.table-row');
+        const mobileCards = document.querySelectorAll('.mobile-card');
         
-        rows.forEach(row => {
+        // Filter table rows
+        tableRows.forEach(row => {
             const role = row.getAttribute('data-role');
             if (roleFilter === '' || role === roleFilter) {
                 row.style.display = 'grid';
@@ -178,19 +221,41 @@
                 row.style.display = 'none';
             }
         });
+        
+        // Filter mobile cards
+        mobileCards.forEach(card => {
+            const role = card.getAttribute('data-role');
+            if (roleFilter === '' || role === roleFilter) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 
     // Search users
     function searchUsers() {
         const searchTerm = document.getElementById('search-users').value.toLowerCase();
-        const rows = document.querySelectorAll('.table-row');
+        const tableRows = document.querySelectorAll('.table-row');
+        const mobileCards = document.querySelectorAll('.mobile-card');
         
-        rows.forEach(row => {
+        // Search table rows
+        tableRows.forEach(row => {
             const searchData = row.getAttribute('data-search');
             if (searchData.includes(searchTerm)) {
                 row.style.display = 'grid';
             } else {
                 row.style.display = 'none';
+            }
+        });
+        
+        // Search mobile cards
+        mobileCards.forEach(card => {
+            const searchData = card.getAttribute('data-search');
+            if (searchData.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
     }

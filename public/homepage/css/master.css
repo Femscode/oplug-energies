@@ -714,3 +714,139 @@ main {
         grid-column: auto / span 1;
     }
 }
+
+/* --- CART NOTIFICATION TOAST --- */
+.cart-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    min-width: 320px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e7eb;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.cart-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.cart-notification.hidden {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cart-notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+.cart-notification-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: #10b981;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-notification-icon img {
+    filter: brightness(0) invert(1);
+}
+
+.cart-notification-text {
+    flex: 1;
+}
+
+.cart-notification-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 2px;
+}
+
+.cart-notification-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.cart-notification-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cart-notification-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.cart-notification-close:hover {
+    color: #6b7280;
+}
+
+.cart-notification-view-cart {
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.cart-notification-view-cart:hover {
+    background: #2563eb;
+}
+
+/* Mobile responsiveness for cart notification */
+@media (max-width: 768px) {
+    .cart-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        min-width: auto;
+    }
+    
+    .cart-notification-content {
+        padding: 12px;
+        gap: 10px;
+    }
+    
+    .cart-notification-icon {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .cart-notification-title {
+        font-size: 13px;
+    }
+    
+    .cart-notification-subtitle {
+        font-size: 11px;
+    }
+    
+    .cart-notification-view-cart {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+}

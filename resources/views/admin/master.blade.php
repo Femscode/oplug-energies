@@ -67,7 +67,9 @@
 
         <!-- Mid Nav -->
         <div class="mid-nav">
+            <a href="/">
             <img src="{{ url('homepage/images/ologo.png') }}" alt="Logo" class="logo" />
+            </a>
 
             <!-- Hamburger toggle (mobile only) -->
             <button class="menu-toggle" aria-label="Toggle Menu">
@@ -77,9 +79,10 @@
             </button>
 
             <nav class="nav-links">
-                <a href="admin/dashboard">Dashboard</a>
+                <a href="/admin/dashboard">Dashboard</a>
                 <a href="/admin/orders">Orders</a>
                 <a href="/admin/categories">Product Categories</a>
+                <a href="/admin/products">Products</a>
                 <a href="/admin/users">Users</a>
                 <a href="/admin/settings">Settings</a>
                 <a href="/admin/change-password">Change Password</a>

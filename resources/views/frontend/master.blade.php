@@ -52,11 +52,15 @@
             </div>
 
             <nav class="nav-links">
-                <a href="/">Homes</a>
+                <a href="/">Home</a>
                 <a href="/shop">Shop</a>
                 <a href="/contact-us">Contact</a>
                 <a href="/about-us">About Us</a>
                 <a href="/shop/category/lubricants">Lubricants</a>
+                  @if(auth()->check())
+                    <a href="/dashboard">Dashboard</a>
+                    <a href="/user/orders">Orders</a>
+                @endif
             </nav>
 
             <div class="actions">
@@ -190,6 +194,23 @@
     </footer>
 
 
+    <!-- Cart Notification Toast -->
+    <div id="cart-notification" class="cart-notification hidden">
+        <div class="cart-notification-content">
+            <div class="cart-notification-icon">
+                <img src="{{ url('homepage/images/cart.svg') }}" width="24" alt="cart" />
+            </div>
+            <div class="cart-notification-text">
+                <div class="cart-notification-title">Product added to cart!</div>
+                <div class="cart-notification-subtitle">Item successfully added to your cart</div>
+            </div>
+            <div class="cart-notification-actions">
+                <button class="cart-notification-close" onclick="hideCartNotification()">&times;</button>
+                <a href="{{ route('cart') }}" class="cart-notification-view-cart">View Cart</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Toggle menu for mobile
         document.querySelector(".menu-toggle").addEventListener("click", function() {
@@ -197,6 +218,44 @@
             document.querySelector(".nav-links").classList.toggle("active");
             document.querySelector(".actions").classList.toggle("active");
         });
+
+        // Cart notification functions
+        function showCartNotification(productName = '') {
+            const notification = document.getElementById('cart-notification');
+            const titleElement = notification.querySelector('.cart-notification-title');
+            
+            if (productName) {
+                titleElement.textContent = `${productName} added to cart!`;
+            } else {
+                titleElement.textContent = 'Product added to cart!';
+            }
+            
+            notification.classList.remove('hidden');
+            notification.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                hideCartNotification();
+            }, 5000);
+        }
+
+        function hideCartNotification() {
+            const notification = document.getElementById('cart-notification');
+            notification.classList.remove('show');
+            notification.classList.add('hidden');
+        }
+
+        // Update cart count
+        function updateCartCount(count) {
+            const cartCounts = document.querySelectorAll('.cart-count');
+            cartCounts.forEach(element => {
+                element.textContent = count;
+            });
+        }
+
+        // Cart notification functions (used by cart.js)
+        window.showCartNotification = showCartNotification;
+        window.updateCartCount = updateCartCount;
     </script>
     @yield('script')
 </body>
