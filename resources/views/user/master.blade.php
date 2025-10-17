@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styleguide.css" />
     <link rel="stylesheet" href="{{ url('homepage/css/user-master.css') }}" />
     <link rel="stylesheet" href="{{ url('css/user-orders.css') }}" />
+    <link rel="stylesheet" href="{{ url('css/user-dashboard.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
