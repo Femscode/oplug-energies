@@ -21,8 +21,8 @@
 
     <div class="form-container">
         <div class="form-header">
-            <h2 class="heading-register">Register</h2>
-            <p class="join-to-us">JOIN TO US</p>
+            <h2 class="heading-register">Login</h2>
+            <p class="join-to-us">LOGIN TO YOUR DASHBOARD</p>
         </div>
 
         <form class="register-form" method="POST" action="{{ route('login') }}">@csrf

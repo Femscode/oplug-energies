@@ -22,7 +22,7 @@
     <div class="form-container">
         <div class="form-header">
             <h2 class="heading-register">Register</h2>
-            <p class="join-to-us">JOIN TO US</p>
+            <p class="join-to-us">CREATE AN ACCOUNT</p>
         </div>
 
         <form class="register-form" method="POST" action="{{ route('register') }}" id="registerForm">@csrf
