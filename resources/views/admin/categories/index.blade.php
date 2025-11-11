@@ -52,6 +52,9 @@
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->products()->count() }}</td>
                     <td class="actions-cell">
+                        <a href="{{ route('admin.products', ['category' => $category->id]) }}" class="admin-btn admin-btn-sm admin-btn-outline">
+                            <i class="fas fa-box"></i> View Products
+                        </a>
                         <a href="{{ route('admin.categories.edit', $category->id) }}" class="admin-btn admin-btn-sm admin-btn-outline">
                             <i class="fas fa-edit"></i> Edit
                         </a>

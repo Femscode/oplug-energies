@@ -243,11 +243,11 @@
                         </div>
                         <div class="frame-6">
                             <div class="link-free-shipping-wrapper">
-                                <div class="link-free-shipping">FREE SHIPPING</div>
+                                <div class="link-free-shipping">AMAZING DEAL OF THE DAY</div>
                             </div>
-                            <div class="div-wrapper">
+                            <!-- <div class="div-wrapper">
                                 <div class="link-free-shipping-2">50% INSTALLATION</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="frame-7" data-product-id="{{ $dealOfTheDay->id }}">
@@ -319,11 +319,11 @@
                         </div>
                         <div class="frame-6">
                             <div class="link-free-shipping-wrapper">
-                                <div class="link-free-shipping">FREE SHIPPING</div>
+                                <div class="link-free-shipping">AMAZING DEAL OF THE DAY</div>
                             </div>
-                            <div class="div-wrapper">
+                            <!-- <div class="div-wrapper">
                                 <div class="link-free-shipping-2">50% INSTALLATION</div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="frame-7">

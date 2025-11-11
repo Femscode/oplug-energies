@@ -104,8 +104,15 @@ class AdminController extends Controller
         fclose($handle);
         exit;
     }
-    public function products() {
-        $products = Product::with('category')->paginate(10);
+    public function products(\Illuminate\Http\Request $request) {
+        $query = Product::with('category');
+
+        // Optional filter by category ID
+        if ($request->filled('category')) {
+            $query->where('product_category_id', $request->input('category'));
+        }
+
+        $products = $query->paginate(10)->appends($request->query());
         return view('admin.products', compact('products'));
     }
 

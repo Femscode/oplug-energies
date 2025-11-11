@@ -1,5 +1,6 @@
 @extends('admin.master')
 @section('header')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 @endsection
 
 <link rel="stylesheet" href="{{ url('css/admin-products.css') }}">
@@ -32,7 +33,7 @@
         </header>
         <!-- <section class="transactions"> -->
             <div class="admin-table-container">
-                <table class="admin-table">
+                <table id="admin-products-table" class="admin-table">
                     <thead>
                         <tr>
                             <th>Image</th>
@@ -98,6 +99,47 @@
 @section('script')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Load DataTables
+        // Ensure jQuery and DataTables are available
+        const loadScript = (src) => new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+
+        const initDataTable = () => {
+            if (window.jQuery && jQuery.fn.dataTable) {
+                const tableEl = jQuery('#admin-products-table');
+                if (tableEl.length) {
+                    tableEl.DataTable({
+                        order: [[1, 'asc']], // Sort by Name column
+                        columnDefs: [
+                            { targets: [0, 3], orderable: false } // Image and Actions not sortable
+                        ],
+                        pageLength: 10
+                    });
+                    // Hide Laravel pagination below the table (optional)
+                    const nextEl = document.querySelector('.admin-table-container')?.nextElementSibling;
+                    if (nextEl) nextEl.style.display = 'none';
+                }
+            }
+        };
+
+        // Load jQuery then DataTables, then init
+        (async () => {
+            try {
+                if (!window.jQuery) {
+                    await loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+                }
+                await loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js');
+                initDataTable();
+            } catch (e) {
+                console.error('Failed to load DataTables:', e);
+            }
+        })();
+
         // Show success/error messages
         var successMessage = document.querySelector('meta[name="success-message"]');
         var errorMessage = document.querySelector('meta[name="error-message"]');
