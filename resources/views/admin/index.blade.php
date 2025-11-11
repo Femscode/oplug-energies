@@ -78,7 +78,7 @@
         <!-- Recent Orders Section -->
         <section class="dashboard-section recent-orders-section">
             <div class="section-header">
-                <h2><i class="fas fa-shopping-cart"></i> Recent Orders</h2>
+                <h2 style="color:white"><i class="fas fa-shopping-cart"></i> Recent Orders</h2>
                 <a href="{{ route('admin.orders') }}" class="view-all-btn">
                     <span>View All</span>
                     <i class="fas fa-arrow-right"></i>
