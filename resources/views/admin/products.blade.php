@@ -87,10 +87,7 @@
                 </table>
             </div>
             
-            <!-- Pagination -->
-            <div style="margin-top: 20px;">
-                {{ $products->links() }}
-            </div>
+            <!-- Pagination removed; DataTables handles client-side pagination -->
         <!-- </section> -->
       
     </div>

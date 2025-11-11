@@ -111,8 +111,8 @@ class AdminController extends Controller
         if ($request->filled('category')) {
             $query->where('product_category_id', $request->input('category'));
         }
-
-        $products = $query->paginate(10)->appends($request->query());
+        // Return full collection; DataTables will handle client-side pagination/sorting
+        $products = $query->get();
         return view('admin.products', compact('products'));
     }
 
