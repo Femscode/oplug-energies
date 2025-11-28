@@ -135,11 +135,11 @@
                     <span class="opd-qty-value">1</span>
                     <button class="opd-qty-btn increment">+</button>
                 </div>
-
-                <a href='/cart' style="text-align:center" class="opd-btn opd-btn-checkout">PROCEED TO CHECKOUT</a>
-                <button class="opd-btn opd-btn-cart add-to-cart-btn" data-product-id="{{ $product->id }}">
+ <button class="opd-btn opd-btn-cart add-to-cart-btn" data-product-id="{{ $product->id }}">
                     ADD TO CART
                 </button>
+                <a href='/cart' style="text-align:center" class="opd-btn opd-btn-checkout">PROCEED TO CHECKOUT</a>
+               
             </div>
 
             <div class="opd-payment">
