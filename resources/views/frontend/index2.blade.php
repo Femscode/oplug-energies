@@ -252,7 +252,7 @@
                     </div>
                     <div class="frame-7" data-product-id="{{ $dealOfTheDay->id }}">
                         <div class="link">
-                            <div class="shop-now">BUY NOW</div>
+                            <a href="{{ route('prd', $dealOfTheDay->slug) }}" class="shop-now">BUY NOW</a>
                         </div>
                         <div class="shop-now-wrapper">
                             <div class="shop-now-2 add-to-cart-btn" data-product-id="{{ $dealOfTheDay->id }}" style="cursor: pointer;">ADD TO CART</div>
